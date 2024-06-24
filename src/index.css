@@ -7,3 +7,11 @@
     @apply flex items-center justify-center
   }
 }
+@font-face {
+  font-family: Cav;
+  src: url(./assets/fonts/CAVOLINI.TTF);
+}
+@font-face {
+  font-family: CavBold;
+  src: url(./assets//fonts/CAVOLINIBOLD.TTF);
+}

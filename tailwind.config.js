@@ -3,6 +3,11 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      fontFamily: {
+        cav : ['Cav'],
+        cavo : ['CavBold'],
+
+      },
       colors: {
         orange: "#FFB84D",
         brown : "#533030",
