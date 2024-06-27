@@ -3,7 +3,7 @@ const catalogue = [
         id: 1,
         name: "Alt Co Oat Milk",
         seller: "Alt Co",
-        stars: 4.5,
+        stars: 3.5,
         details : {
             price: "159",
             price2: "259",
