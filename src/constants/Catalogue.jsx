@@ -14,7 +14,7 @@ const catalogue = [
 
         },
         images : [
-            "https://vegandukan.com/cdn/shop/files/33.png?v=1714388165&width=493","https://vegandukan.com/cdn/shop/files/5_b804b381-dae3-4fa0-bac2-eac4f54a6421.png?v=1714389295&width=493","https://vegandukan.com/cdn/shop/files/22_5053c412-5d2a-4ad4-a0d5-1303a333f51f.png?v=1714389295&width=493","https://vegandukan.com/cdn/shop/files/0_-_01_1.jpg?v=1714389295&width=1100","https://vegandukan.com/cdn/shop/files/0_-_04.jpg?v=1714389295&width=1100",
+            "https://vegandukan.com/cdn/shop/products/minitetrafrontwithoutstrawpng_e1815c24-ea58-41b7-9f00-3c4f70aa6711.png?v=1712060206&width=493","https://vegandukan.com/cdn/shop/files/5_b804b381-dae3-4fa0-bac2-eac4f54a6421.png?v=1714389295&width=493","https://vegandukan.com/cdn/shop/files/22_5053c412-5d2a-4ad4-a0d5-1303a333f51f.png?v=1714389295&width=493","https://vegandukan.com/cdn/shop/files/0_-_01_1.jpg?v=1714389295&width=1100","https://vegandukan.com/cdn/shop/files/0_-_04.jpg?v=1714389295&width=1100",
         ]
     },
     {

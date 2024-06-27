@@ -4,6 +4,7 @@ import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Dynamic from './components/Dynamic.jsx'
 import LandingPage from './components/LandingPage.jsx'
+import Product from './components/Product.jsx'
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
       {
         path: ":id",
         element: <Dynamic />
+      },
+      {
+        path: "product/:id",
+        element: <Product/>
       }
     ]
   }
