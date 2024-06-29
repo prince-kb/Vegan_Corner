@@ -5,6 +5,8 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Dynamic from './components/Dynamic.jsx'
 import LandingPage from './components/LandingPage.jsx'
 import Product from './components/Product.jsx'
+import CheckOut from './components/CheckOut.jsx'
+import Cart from './components/Cart.jsx'
 
 const router = createBrowserRouter([
   {
@@ -22,6 +24,14 @@ const router = createBrowserRouter([
       {
         path: "product/:id",
         element: <Product/>
+      },
+      {
+        path : "checkout",
+        element : <CheckOut />
+      },
+      {
+        path: "cart",
+        element : <Cart />
       }
     ]
   }

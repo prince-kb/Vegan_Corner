@@ -1,5 +1,4 @@
-import { Link } from "react-router-dom"
-import catalogue from "../constants/Catalogue"
+import Category from "./Category"
 
 const LandingPage = () => {
 
@@ -17,34 +16,8 @@ const LandingPage = () => {
             </div>
         </div>
 
-        <div className="flex justify-center m-8">
-            <div className="flex gap-4 overflow-auto">
-              {catalogue.map((item,i) => (
-                <div key={i} className="h-[400px] max-w-[300px] aspect-video border-2 rounded-3xl shadow-md">
-                  <h2 className="text-center font-bold text-[1.2em]">{item.name}</h2>
-                  <Link to={`/product/${item.id}`}>
-                    <img src={item.images[0]} alt={item.name} className="w-full h-[200px] object-cover" />
-                  </Link>
-                  <hr />
-                  <div className="flex mx-2 mt-2 gap-2 justify-around">
-                    <div className="text-center">
-                      <span><h3 className="text-green-500 font-bold text-3xl">&#8377; {item.details.price} </h3><p className="text-lg font-brown font-bold line-through">{item.details.price2}</p></span>
-                    </div>
-                    <div className="font-bold text-[1.1em] text-center flex-col justify-center">
-                      <h2>Quantity <br /> {item.details.weight}</h2>
-                      {/* <h2>By : {item.seller}</h2> */}
-                    </div>
-                    
-                  </div>
-                  <h2 className="text-2xl text-center font-bold mt-4">{item.stars} ⭐</h2>
-
-                  
-                </div>
-              ))
-              }
-            </div>
-            </div>
-
+        <Category type="milk"/>
+        <Category type="snacks"/>
 
 
     </div>
