@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom"
 import catalogue from "../constants/Catalogue"
+import pp from './pp.json'
 
 const Category = (props) => {
     const { type } = props;
+    // console.log(pp.total)
     return (
         <div className="m-8">
             <h1 className="font-bold text-3xl text-brown my-4 ml-8">{type.toUpperCase()}</h1>
@@ -33,3 +35,6 @@ const Category = (props) => {
 }
 
 export default Category
+
+
+
