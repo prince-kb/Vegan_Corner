@@ -11,12 +11,15 @@ import halfstar from "../assets/svgs/halfstar.svg";
 import forward from "../assets/svgs/forward.svg";
 import cartadd from "../assets/svgs/cartadd.svg";
 import tick from "../assets/svgs/tick.svg";
+import bolt from "../assets/svgs/bolt.svg";
+import transport from "../assets/svgs/transport.svg";
 
 const Product = () => {
     const { id } = useParams();
+    localStorage.setItem('pincode', '110001');
 
     const product = catalogue.find((item) => item.id === parseInt(id));
-    const { name, details, images, stars, seller, ratings, reviews, rrlink,description,info,instructions } = product;
+    const { name, details, images, stars, seller, ratings, reviews, rrlink, description, info, instructions } = product;
     const [n, setN] = useState(0);
     const starrs = () => {
         return <div className="flex items-center">
@@ -33,8 +36,8 @@ const Product = () => {
     return (
         <div className="flex flex-col items-center mt-6 mb-4 w-[90%] mx-auto">
 
+            {/* IMAGE PART */}
             <div className="xl:flex flex flex-col border-2 p-8 rounded-3xl mb-4 min-w-3/4 w-fit items-center">
-
                 <div className="flex h-auto xl:w-[50vw] w-[70vw] mx-auto justify-around">
                     <div className=" min-w-[20%] max-w-[20%] h-[700px] flex-col overflow-y-auto rounded-2xl">
                         {images.map((image, i) => (
@@ -58,27 +61,27 @@ const Product = () => {
                         <div className="flex justify-center mt-4 mb-4">
                             <span>{starrs()}</span>
                         </div>
-
                     </div>
                 </div>
-
-
-
             </div>
 
+
+            {/* BUY NOW PART */}
             <div className="border-2 flex-center rounded-3xl py-4 m-2 mb-4 px-20 gap-4">
                 <Link to="/checkout" className="flex-center p-8 py-6 bg-green-500 text-gray-50 rounded-3xl">
                     <h1 className="text-2xl mr-4">Buy Now! </h1>
-                    <img src={tick} alt="BUY" className="h-8 w-8"/>
+                    <img src={tick} alt="BUY" className="h-8 w-8" />
                 </Link>
                 <Link to="/cart" className="flex-center p-8 py-6 bg-yellow-500 rounded-3xl">
                     <h1 className="text-2xl mr-4">Add to Cart </h1>
-                    <img src={cartadd} alt="BUY" className="h-8 w-8"/>
+                    <img src={cartadd} alt="BUY" className="h-8 w-8" />
                 </Link>
                 <Link to="/" ><button className="bg-green-600 py-6 text-white p-2 rounded-2xl">Go Back</button></Link>
 
             </div>
 
+
+            {/* PRODUCT DETAILS PART */}
             <div className=" border-2 w-[80vw] mx-auto rounded-2xl p-2">
                 <div className="flex-col items-center ml-4">
                     <h1 className="text-3xl font-bold text-brown mb-4">{name} <span className=" text-xl">(by {seller})</span></h1>
@@ -90,7 +93,7 @@ const Product = () => {
 
                 </div>
                 <div className="ml-4">
-                    <p className="">{starrs()}</p>
+                    <span className="">{starrs()}</span>
                     <Link to={rrlink} className="mb-4 mt-1 flex items-center hover:translate-x-2 hover:scale-105">
                         <span className="text-gray-100  bg-green-600 font-bold p-1 rounded-xl">View {ratings} Ratings and {reviews} Reviews</span>
                         <img src={forward} alt="" className="h-6 w-6 m-2  hover:scale-150" />
@@ -113,10 +116,30 @@ const Product = () => {
                         </div>
                     </div>
                     {instructions && <div className="p-2 rounded-2xl mt-4">
-                        <h2 className="text-2xl font-bold text-brown">Instructions to prepare</h2>
+                        <h2 className="text-2xl font-bold text-brown">Instructions</h2>
                         <h4 className="text-gray-600">{instructions}</h4>
                     </div>}
                 </div>
+            </div>
+
+
+            {/* DELIVERY PART */}
+            <div className="w-[80vw] rounded-2xl m-8 p-4 border-2 ">
+                <div className="flex items-center ml-4">
+                <h1 className="text-3xl font-bold ml-2">Delivery</h1>
+                <img src={transport} alt="transport" className="h-12 w-12 ml-6" />
+                </div>
+                    <div className="ml-4 my-2">
+                        <h2 className="text-xl font-bold m-2">Enter Pincode to check delivery</h2>
+                        <input type="text" className="border-2 p-1 m-2 rounded-lg " value={localStorage.getItem('pincode')}/>
+                        <button className="text-xl bg-green-700 text-white p-2 rounded-2xl" onClick={()=>{localStorage.setItem('pincode','888888')}}>SUBMIT</button>
+                        <button className="text-2xl bg-gray-200 text-black px-4 p-2 ml-4 rounded-2xl font-bold" onClick={()=>{localStorage.removeItem('pincode')}}>X</button>
+                    </div>
+
+                <div className={`${localStorage.getItem('pincode') ? 'flex' : 'hidden' } justify-around items-center`}>
+                    <img src={bolt} alt="bolt" className="h-12 w-12" />
+                    </div>
+
             </div>
 
         </div>

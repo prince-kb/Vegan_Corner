@@ -1,23 +1,43 @@
+import { useEffect, useState } from "react";
 import Category from "./Category"
 
 const LandingPage = () => {
 
+  const banners = ["https://img.freepik.com/free-vector/green-sale-banner_1017-7937.jpg", "https://www.shutterstock.com/image-vector/mega-sale-special-offer-neon-260nw-2175745107.jpg", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTNagSLVyW8PtNv_hPkH8KAoice3KwjVSkVQ&s", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHisXpd0L1vyKCFgg4guL8NA4UZLuFgb639A&s"];
+
+  const [n, setN] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if(n===banners.length-1){
+        setN(0);
+      }else setN(n+1);
+      console.log("HII")
+    }, 3000)
+    return () => clearInterval(interval);
+  }, [n])
+
+
   return (
     <div className="">
       <h2 className="text-center mt-4 font-bold text-2xl font-cav">Only Plant based Products. Real and Pure.</h2>
-        <div className={`mx-auto bg-[url('https://img.freepik.com/free-vector/green-sale-banner_1017-7937.jpg')] mt-12 h-[40vh] w-[70vw] rounded-3xl flex justify-center items-end`}>
-            <div className="flex">
-                <div className="flex mb-6 gap-6">
-                <div className="rounded-full w-[10px] h-[10px] bg-white"></div>
-                <div className="rounded-full w-[10px] h-[10px] bg-white"></div>
-                <div className="rounded-full w-[10px] h-[10px] bg-white"></div>
-                </div>
 
-            </div>
+      {/* Banner */}
+      <div className={`mx-auto mt-12 h-[40vh] xl:w-[50vw] w-[80vw] rounded-3xl bg-red-200 relative flex justify-center items-end `}>
+        <img src={banners[n]} alt="Banner" className="h-full rounded-2xl w-[100%] absolute ease-in duration-1000" />
+        {/* <img src={banners[(n+1)%banners.length]} alt="Banner" className="h-full rounded-2xl w-[100%] absolute"  /> */}
+        <div className="flex z-[2] ">
+          <div className="flex mb-6 gap-6 items-center">
+            {banners.map((banner, index) => (
+              <div key={index} className={`${n===index? "h-6 w-6" : "h-4 w-4"} rounded-full ${n==index?"bg-red-100":"bg-gray-100"} cursor-pointer transition-all`} onClick={()=>setN(index)}></div>
+            ))}
+          </div>
+
         </div>
+      </div>
 
-        <Category type="milk"/>
-        <Category type="snacks"/>
+      <Category type="milk" />
+      <Category type="snacks" />
 
 
     </div>
