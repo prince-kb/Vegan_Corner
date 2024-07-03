@@ -20,7 +20,7 @@ const LandingPage = () => {
 
   return (
     <div className="">
-      <h2 className="text-center mt-4 font-bold text-2xl font-cav">Only Plant based Products. Real and Pure.</h2>
+      <h2 className="text-center font-bold text-2xl font-cav">Only Plant based Products. Real and Pure.</h2>
 
       {/* Banner */}
       <div className={`mx-auto mt-12 h-[40vh] xl:w-[50vw] w-[80vw] rounded-3xl bg-red-200 relative flex justify-center items-end `}>

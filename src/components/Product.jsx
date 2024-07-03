@@ -19,61 +19,58 @@ import loaderSpinner from "../assets/svgs/loader.svg";
 
 
 const Product = () => {
-    const ref = useRef(null);
+    const ref = useRef(null); // Ref for pincode input to set pincode after every input change
     const { id } = useParams();
     const [pincode, setPincode] = useState(localStorage.getItem('pincode') || '');
-    const [pinc, setPinc] = useState(pincode);
-    const [visible, setVisible] = useState(pincode !== '' ? 1 : 0);
-    const [loader, setLoader] = useState(false);
-    const [address, setAddress] = useState({pincode : "",office : "",city : "",district : "",state : ""});
-    const [deliverable, setDeliverable] = useState(false);
+    const [pinc, setPinc] = useState(pincode); // extra variable to handle onchange event of pincode input
+    const [visible, setVisible] = useState(pincode !== '' ? 1 : 0); // Visibility of the delivery status
+    const [loader, setLoader] = useState(false);  // Loader for fetching data
+    const [address, setAddress] = useState({ pincode: "", office: "", city: "", district: "", state: "" }); // Address of the pincode
+    const [deliverable, setDeliverable] = useState(false); // Delivery status of the pincode to show if it is deliverable or not at the pincode
+
 
     useEffect(() => {
         localStorage.setItem('pincode', pincode);
         setPinc(pincode);
     }, [pincode])
 
-    const valid = () => {
-        
-        // console.log(!isNaN(Number(n)));
-        // if (!isNaN(Number(n))) console.log(0);
-        // console.log(1);
-        // if(n.length === 0) return 1;
-        // if (n.length === 6) return 2;
-        // return 2;
+    useEffect(()=>{
+        if(pincode.length === 6) submitPincode();
+    
+    },[])
 
-        if (!isNaN(Number(pincode)) && pincode.length===6) return true;
-        else return false; 
+    // Checking Valid Pincode
+    const valid = () => {
+        if (!isNaN(Number(pincode)) && pincode.length === 6) return true;
+        else return false;
     }
 
     const submitPincode = async () => {
 
-        const url=`https://api.data.gov.in/resource/6176ee09-3d56-4a3b-8115-21841576b2f6?api-key=${import.meta.env.VITE_REACT_APP_API}&format=json&limit=1&filters%5Bpincode%5D=${pincode}`
+        const url = `https://api.data.gov.in/resource/6176ee09-3d56-4a3b-8115-21841576b2f6?api-key=${import.meta.env.VITE_REACT_APP_API}&format=json&limit=1&filters%5Bpincode%5D=${pincode}`
         console.log(url);
         try {
+            setVisible(false);
             setLoader(true);
             const response = await fetch(url);
-            const result = await response.text();
+            const result = await response.json();
 
-            console.log(result);
-
-            try{
-                console.log(result.total)
-            if(result.total) {
-                setDeliverable(false);
+            if (result.total === 0) {
                 setTimeout(() => {
+                    setAddress({ pincode: pincode, office: "", city: "", district: "", state: "" })
+                    setDeliverable(false);
                     setLoader(false);
                     setVisible(true);
-                },500);                                                                 q
+                }, 500);
             }
-            else{ setAddress({...address, pincode : pincode,office : result.records[0].officename,city : result?.records[0]?.taluk ,district : result?.records[0]?.taluk,state : result?.records[0]?.taluk});}
-            setDeliverable(true);
+            else {
+                setAddress({ ...address, pincode: pincode, office: result.records[0].officename, city: result.records[0].taluk, district: result.records[0].districtname, state: result.records[0].statename });
+            
             setTimeout(() => {
-            setLoader(false);
-            setVisible(true);
-            },500);
-        } catch (error) {
-            console.log(error);
+                setDeliverable(true);
+                setLoader(false);
+                setVisible(true);
+            }, 500);
         }
         } catch (error) {
             setLoader(false);
@@ -131,16 +128,15 @@ const Product = () => {
 
 
             {/* BUY NOW PART */}
-            <div className="border-2 flex-center rounded-3xl py-4 m-2 mb-4 px-20 gap-4">
-                <Link to="/checkout" className="flex-center p-8 py-6 bg-green-500 hover:scale-105 transition-all text-gray-50 rounded-3xl">
+            <div className="flex-center rounded-3xl py-4 m-2 mb-4 px-8 gap-4 w-[80vw] overflow-x-auto">
+                <Link to="/checkout" className="flex-center px-6 py-4 bg-green-500 hover:scale-105 transition-all text-gray-50 rounded-2xl">
                     <h1 className="text-2xl mr-4">Buy Now! </h1>
                     <img src={tick} alt="BUY" className="h-8 w-8" />
                 </Link>
-                <Link to="/cart" className="flex-center p-8 py-6 bg-yellow-500 rounded-3xl hover:scale-105 transition-all">
+                <Link to="/cart" className="flex-center px-6 py-4 bg-yellow-500 rounded-2xl hover:scale-105 transition-all">
                     <h1 className="text-2xl mr-4">Add to Cart </h1>
                     <img src={cartadd} alt="BUY" className="h-8 w-8" />
                 </Link>
-                <Link to="/" ><button className="bg-green-600 py-6 text-white p-2 rounded-2xl hover:scale-90 transition-all">Go Back</button></Link>
 
             </div>
 
@@ -160,21 +156,21 @@ const Product = () => {
                     <span className="">{starrs()}</span>
                     <Link to={rrlink} className="mb-4 mt-1 flex items-center">
                         <span className="block text-gray-100  bg-green-600 font-bold p-1 rounded-xl hover:scale-105 transition-all">View {ratings} Ratings and {reviews} Reviews</span>
-                        <img src={forward} alt="" className="h-6 w-6 m-2  hover:scale-150 transition-all" />
+                        <img src={forward} alt="" className="h-8 w-8 m-2  hover:scale-150 transition-all" />
                     </Link>
 
                 </div>
                 <div className="border-t-2 p-2">
                     <h2 className="text-gray-700 text-2xl font-bold ml-2">Product Description</h2>
                     <h2 className="text-gray-700 text-xl p-2">{description}</h2>
-                    <h1 className="text-3xl font-bold mb-4 ml-2">Product Details</h1>
+                    <h1 className="text-3xl font-bold mb-4 ml-2 mt-4">Product Details</h1>
                     <div className="md:flex justify-around gap-4 ml-2">
                         <div className="flex-col">
                             <h2 className=" text-gray-700 text-xl font-bold ">Quantity : <span className="text-brown text-xl">{details.weight}</span></h2>
                             <h2 className=" text-gray-700 text-xl font-bold ">Packaging: <span className="text-brown text-xl">{details.packaging}</span></h2>
                             <h2 className=" text-gray-700 text-xl font-bold ">Life: <span className="text-brown text-xl">{details.life}</span></h2>
                         </div>
-                        <div className="flex-col mx-8">
+                        <div className="md:mx-8 mx-0">
                             <h2 className="text-xl font-bold ">Ingredients: </h2>
                             <p className="text-gray-600 mr-4">{details.ingredients}</p>
                         </div>
@@ -197,33 +193,37 @@ const Product = () => {
                     <h2 className="text-xl font-bold m-2">Enter Pincode to check delivery</h2>
                     <div className="flex flex-col xl:flex-row">
                         <div>
-                            <input type="text" className="border-2 p-1 m-2 rounded-lg " ref={ref} value={pinc} onChange={() => { setPincode(ref.current.value) }} />
+                            <input type="text" className="border-2 p-1 m-2 rounded-lg " ref={ref} value={pinc} onChange={() => { setPincode(ref.current.value); setVisible(false) }} />
                             <button className={`text-xl bg-green-700 text-white px-2 py-1 rounded-2xl  ${valid() ? '' : 'hidden'}`} onClick={submitPincode}>SUBMIT</button>
                             <button className="text-2xl bg-gray-200 text-black px-4 py-1 ml-4 rounded-2xl font-bold" onClick={() => { setPincode(''); setVisible(false) }}>X</button>
                         </div>
 
 
-                        <div className={`${!valid() ? 'flex' : 'hidden'} items-center ml-4`}>
-                            <h2 className="font-bold mr-4 text-red-600">{pincode.length!==6 ? 'Length of Pincode should must be 6 ' : "Pincode should contain only numeric values"}</h2>
+                        <div className={`${!valid() && pincode!=='' ? 'flex' : 'hidden'} items-center ml-4`}>
+                            <h2 className="font-bold mr-4 text-red-600">{pincode.length !== 6 ? 'Length of Pincode should must be 6 ' : "Pincode should contain only numeric values"}</h2>
                             <img src={error} alt="error" className="rounded-full h-4 w-4 animate-ping" />
                         </div>
                     </div>
                 </div>
 
                 <div className={`${!loader && 'hidden'} flex justify-center`}>
-                    <img src={loaderSpinner} alt="WAIT..." className="h-16 w-16"/>
+                    <img src={loaderSpinner} alt="WAIT..." className="h-16 w-16" />
                 </div>
 
-                <div className={`${visible ? 'flex flex-col' : 'hidden'} ml-8 items-center`}>
+                <div className={`${visible ? '' : 'hidden'} ml-6 items-center border-4 shadow-lg shadow-blue-600 p-4 rounded-2xl`}>
                     <div className={`${!deliverable && 'hidden'}`}>
-                    <div className="flex">
-                    <img src={bolt} alt="bolt" className="h-8 w-8" />
-                    <h2 className="font-bold ml-2 flex items-center">Faster Delivery by 10 PM, within <span className="text-blue-600 text-xl mx-1">{Math.floor(Math.random()*4)+2}</span> days</h2>
-                    </div>
-                    <h2>Deliver to {address.city}, {address.district}, {address.state}</h2>
+                        <div className="flex items-center">
+                            <img src={bolt} alt="bolt" className="h-8 w-8" />
+                            <h2 className="font-bold ml-2 flex items-center text-xl">Faster Delivery by 10 PM, within <p className="text-gray-50 bg-blue-700 px-2 py-1 rounded-2xl text-xl mx-1">{Math.floor(Math.random() * 3) + 1}</p> days</h2>
+                        </div>
+                        <h2 className="ml-12 font-bold">Deliver to {address.district}, {address.state}</h2>
                     </div>
                     <div className={`${deliverable && 'hidden'}`}>
-                        <h2 className="font-bold text-red-600">Sorry! We don't deliver to this location at this moment.</h2>
+                        <div className="flex items-center">
+                        <h2 className="font-bold text-red-600 mr-4 text-xl">Delivery Unavailable </h2>
+                        <img src={error} alt="error" className="rounded-full h-4 w-4 animate-ping" />
+                        </div>
+                        <h2 className="font-bold">Sorry! We don't deliver to this location at this moment !</h2>
                     </div>
                 </div>
 
