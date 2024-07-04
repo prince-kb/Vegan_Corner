@@ -21,12 +21,18 @@ import loaderSpinner from "../assets/svgs/loader.svg";
 const Product = () => {
     const ref = useRef(null); // Ref for pincode input to set pincode after every input change
     const { id } = useParams();
+
+    const product = catalogue.find((item) => item.id === id);
+    const { name, details, images, stars, seller, ratings, reviews, rrlink, description, info, instructions } = product;
+
+
     const [pincode, setPincode] = useState(localStorage.getItem('pincode') || '');
     const [pinc, setPinc] = useState(pincode); // extra variable to handle onchange event of pincode input
     const [visible, setVisible] = useState(pincode !== '' ? 1 : 0); // Visibility of the delivery status
     const [loader, setLoader] = useState(false);  // Loader for fetching data
     const [address, setAddress] = useState({ pincode: "", office: "", city: "", district: "", state: "" }); // Address of the pincode
     const [deliverable, setDeliverable] = useState(false); // Delivery status of the pincode to show if it is deliverable or not at the pincode
+    const [n, setN] = useState(0); // Image index for the product images
 
 
     useEffect(() => {
@@ -34,10 +40,11 @@ const Product = () => {
         setPinc(pincode);
     }, [pincode])
 
-    useEffect(()=>{
-        if(pincode.length === 6) submitPincode();
-    
-    },[])
+    useEffect(() => {
+        if (pincode.length === 6) submitPincode();
+
+    }, [])
+
 
     // Checking Valid Pincode
     const valid = () => {
@@ -45,10 +52,9 @@ const Product = () => {
         else return false;
     }
 
+    // Submitting Pincode to check delivery
     const submitPincode = async () => {
-
         const url = `https://api.data.gov.in/resource/6176ee09-3d56-4a3b-8115-21841576b2f6?api-key=${import.meta.env.VITE_REACT_APP_API}&format=json&limit=1&filters%5Bpincode%5D=${pincode}`
-        console.log(url);
         try {
             setVisible(false);
             setLoader(true);
@@ -65,13 +71,13 @@ const Product = () => {
             }
             else {
                 setAddress({ ...address, pincode: pincode, office: result.records[0].officename, city: result.records[0].taluk, district: result.records[0].districtname, state: result.records[0].statename });
-            
-            setTimeout(() => {
-                setDeliverable(true);
-                setLoader(false);
-                setVisible(true);
-            }, 500);
-        }
+
+                setTimeout(() => {
+                    setDeliverable(true);
+                    setLoader(false);
+                    setVisible(true);
+                }, 500);
+            }
         } catch (error) {
             setLoader(false);
             setVisible(true);
@@ -79,9 +85,7 @@ const Product = () => {
         }
     }
 
-    const product = catalogue.find((item) => item.id === parseInt(id));
-    const { name, details, images, stars, seller, ratings, reviews, rrlink, description, info, instructions } = product;
-    const [n, setN] = useState(0);
+    // Stars for the product
     const starrs = () => {
         return <div className="flex items-center">
             <h2 className="font-bold text-2xl mr-4">Rating: </h2>
@@ -99,30 +103,35 @@ const Product = () => {
 
             {/* IMAGE PART */}
             <div className="xl:flex flex flex-col border-2 p-8 rounded-3xl mb-4 min-w-3/4 w-fit items-center">
-                <div className="flex h-auto xl:w-[50vw] w-[70vw] mx-auto justify-around">
-                    <div className=" min-w-[20%] max-w-[20%] h-[700px] flex-col overflow-y-auto rounded-2xl">
-                        {images.map((image, i) => (
-                            <div className="mt-[10%] w-[100%] cursor-pointer" key={i} onMouseOver={() => { setN(i) }}>
-                                <img src={image} alt={name} className="rounded-xl p-1 shadow-lg border" />
-                            </div>
-                        ))}
-                    </div>
-                    <div className="border-2 rounded-3xl min-h-[400px]  shadow-orange/80 shadow-lg">
-                        <div className="border-b-2 rounded-2xl">
-                            <div className="max-w-[100%]">
-                                <img src={images[`${n}`]} alt={name} className="rounded-t-2xl h-[50vh] w-[50vh]" />
-                            </div>
-                            <h1 className="text-center font-bold text-3xl mt-4 mb-4">{name}</h1>
-                        </div>
-                        <div className="flex mt-4 items-center justify-center ">
-                            <h3 className="text-green-600 font-bold text-3xl"> &#8377;{details.price} <span className="text-2xl">only</span></h3>
-                            <p className="mx-2 text-gray-600">( {Math.floor((details.price2 - details.price) * 100 / details.price2)}% OFF )</p>
+                <div className="flex flex-col xl:w-[50vw] w-[70vw] mx-auto justify-around items-center">
 
+                    <div className="border-2 rounded-3xl ">
+
+                        <div className="border-b-2 rounded-2xl flex flex-col items-center shadow-orange/80 shadow-lg">
+                            <div className="mb-1 mt-4">
+                                <img src={images[`${n}`]} alt={name} className="rounded-t-2xl min-h-[50vh] min-w-[50vh]" />
+                            </div>
+                            <div className={`flex rounded-2xl max-w-[70vh] gap-2 ${images.length>2 && 'overflow-x-scroll'}`}>
+                                {images.map((image, i) => (
+                                    <div className="cursor-pointer min-w-[200px] min-h-[200px] w-[250px]" key={i} onMouseOver={() => { setN(i) }}>
+                                        <img src={image} alt={name} className="rounded-xl px-1 shadow-lg border object-cover" />
+                                    </div>
+                                ))}
+                            </div>
+                            <h1 className="text-center font-bold text-3xl my-6">{name}</h1>
+                        </div>
+
+
+
+                    </div>
+                    
+                        <div className="flex mt-6 items-center justify-center">
+                            <h3 className="text-green-600 font-bold text-3xl"> &#8377;{details.price} <span className="text-2xl">only</span></h3>
+                            <p className="mx-2 text-lg font-semibold text-gray-600">( {Math.floor((details.price2 - details.price) * 100 / details.price2)}% OFF )</p>
                         </div>
                         <div className="flex justify-center mt-4 mb-4">
                             <span>{starrs()}</span>
                         </div>
-                    </div>
                 </div>
             </div>
 
@@ -172,12 +181,12 @@ const Product = () => {
                         </div>
                         <div className="md:mx-8 mx-0">
                             <h2 className="text-xl font-bold ">Ingredients: </h2>
-                            <p className="text-gray-600 mr-4">{details.ingredients}</p>
+                            <p className="text-gray-600 mr-4 text-lg">{details.ingredients}</p>
                         </div>
                     </div>
                     {instructions && <div className="p-2 rounded-2xl mt-4">
                         <h2 className="text-2xl font-bold text-brown">Instructions</h2>
-                        <h4 className="text-gray-600">{instructions}</h4>
+                        <h4 className="text-gray-800 text-lg">{instructions}</h4>
                     </div>}
                 </div>
             </div>
@@ -199,7 +208,7 @@ const Product = () => {
                         </div>
 
 
-                        <div className={`${!valid() && pincode!=='' ? 'flex' : 'hidden'} items-center ml-4`}>
+                        <div className={`${!valid() && pincode !== '' ? 'flex' : 'hidden'} items-center ml-4`}>
                             <h2 className="font-bold mr-4 text-red-600">{pincode.length !== 6 ? 'Length of Pincode should must be 6 ' : "Pincode should contain only numeric values"}</h2>
                             <img src={error} alt="error" className="rounded-full h-4 w-4 animate-ping" />
                         </div>
@@ -220,8 +229,8 @@ const Product = () => {
                     </div>
                     <div className={`${deliverable && 'hidden'}`}>
                         <div className="flex items-center">
-                        <h2 className="font-bold text-red-600 mr-4 text-xl">Delivery Unavailable </h2>
-                        <img src={error} alt="error" className="rounded-full h-4 w-4 animate-ping" />
+                            <h2 className="font-bold text-red-600 mr-4 text-xl">Delivery Unavailable </h2>
+                            <img src={error} alt="error" className="rounded-full h-4 w-4 animate-ping" />
                         </div>
                         <h2 className="font-bold">Sorry! We don't deliver to this location at this moment !</h2>
                     </div>
