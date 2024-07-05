@@ -8,10 +8,10 @@ const Category = (props) => {
             <h1 className="font-bold text-3xl text-brown my-4 ml-8">{type.toUpperCase()}</h1>
             <div className="flex gap-4 overflow-auto ">
                 {catalogue.filter(item => item.type === type).map((item, i) => (
-                    <div key={i} className="mb-4 min-h-[300px] h-[380px] max-w-[300px] aspect-video border-2 rounded-3xl shadow-md flex flex-col items-center">
+                    <div key={i} className=" mb-4 lg:min-w-[260px] min-w-[220px] aspect-video border-2 rounded-3xl shadow-md flex flex-col items-center">
                         <h2 className="text-center font-bold text-[1.2em] my-2">{item.name}</h2>
-                        <Link to={`/product/${item.id}`}>
-                            <img src={item.images[0]} alt={item.name} className="w-[200px] h-[200px] object-cover mb-2 rounded-2xl" />
+                        <Link to={`/product/${item.id}`} className="flex-center">
+                            <img src={item.images[0]} alt={item.name} className="w-[90%] h-[180px] mb-2 rounded-2xl" />
                         </Link>
                         <hr/>
                         <div className="flex mx-2 mt-2 gap-2 justify-around">

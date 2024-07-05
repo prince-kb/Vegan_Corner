@@ -421,7 +421,7 @@ const catalogue = [
     {
         id: "00000019",
         type: "grocery",
-        name:"Vegan's Corner Special Veg Meat",
+        name:"Vegan's Meat",
         seller: "Vegan's Corner",
         stars: 4.8,
         tag: ["grocery","meat"],

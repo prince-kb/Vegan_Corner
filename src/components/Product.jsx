@@ -23,7 +23,7 @@ const Product = () => {
     const { id } = useParams();
 
     const product = catalogue.find((item) => item.id === id);
-    const { name, details, images, stars, seller, ratings, reviews, rrlink, description, info, instructions } = product;
+    const { name, details, images, stars, seller, ratings, reviews, rrlink, description, instructions } = product;
 
 
     const [pincode, setPincode] = useState(localStorage.getItem('pincode') || '');
@@ -105,13 +105,13 @@ const Product = () => {
             <div className="xl:flex flex flex-col border-2 p-8 rounded-3xl mb-4 min-w-3/4 w-fit items-center">
                 <div className="flex flex-col xl:w-[50vw] w-[70vw] mx-auto justify-around items-center">
 
-                    <div className="border-2 rounded-3xl ">
+                    <div className="border-2 w-[70vw] rounded-3xl">
 
                         <div className="border-b-2 rounded-2xl flex flex-col items-center shadow-orange/80 shadow-lg">
                             <div className="mb-1 mt-4">
-                                <img src={images[`${n}`]} alt={name} className="rounded-t-2xl min-h-[50vh] min-w-[50vh]" />
+                                <img src={images[`${n}`]} alt={name} className="rounded-t-2xl md:min-h-[50vh] min-h-[30vh]" />
                             </div>
-                            <div className={`flex rounded-2xl max-w-[70vh] gap-2 ${images.length>2 && 'overflow-x-scroll'}`}>
+                            <div className={`flex rounded-2xl max-w-[70vw] gap-2 ${images.length>2 && 'overflow-x-scroll'}`}>
                                 {images.map((image, i) => (
                                     <div className="cursor-pointer min-w-[200px] min-h-[200px] w-[250px]" key={i} onMouseOver={() => { setN(i) }}>
                                         <img src={image} alt={name} className="rounded-xl px-1 shadow-lg border object-cover" />
@@ -202,9 +202,9 @@ const Product = () => {
                     <h2 className="text-xl font-bold m-2">Enter Pincode to check delivery</h2>
                     <div className="flex flex-col xl:flex-row">
                         <div>
-                            <input type="text" className="border-2 p-1 m-2 rounded-lg " ref={ref} value={pinc} onChange={() => { setPincode(ref.current.value); setVisible(false) }} />
-                            <button className={`text-xl bg-green-700 text-white px-2 py-1 rounded-2xl  ${valid() ? '' : 'hidden'}`} onClick={submitPincode}>SUBMIT</button>
-                            <button className="text-2xl bg-gray-200 text-black px-4 py-1 ml-4 rounded-2xl font-bold" onClick={() => { setPincode(''); setVisible(false) }}>X</button>
+                            <input type="text" className="border-2 p-1 m-2 rounded-lg " ref={ref} value={pinc} onChange={() => {setPincode(ref.current.value); setVisible(false) }} onKeyDown={(e)=>{valid() && e.key=="Enter" && submitPincode()}}/>
+                            <button className={`bg-violet-500 hover:bg-violet-600 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300 text-xl text-white px-2 py-1 rounded-2xl  ${valid() ? '' : 'hidden'}`} onClick={submitPincode}>SUBMIT</button>
+                            <button className="text-2xl bg-gray-200 hover:bg-gray-300 active:bg-gray-400 focus:outline-none focus:ring focus:ring-violet-300 text-black px-4 pb-2 ml-4 rounded-2xl font-bold" onClick={() => { setPincode(''); setVisible(false) }}>x</button>
                         </div>
 
 
