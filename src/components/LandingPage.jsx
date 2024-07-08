@@ -8,7 +8,7 @@ const LandingPage = () => {
   const [n, setN] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() => n===banners.length-1 ? setN(0) : setN(n+1), 3000)
+    const interval = setInterval(() => n === banners.length - 1 ? setN(0) : setN(n + 1), 3000)
     return () => clearInterval(interval);
   }, [n])
 
@@ -19,11 +19,13 @@ const LandingPage = () => {
 
       {/* Banner */}
       <div className={`mx-auto mt-12 h-[40vh] xl:w-[50vw] w-[80vw] rounded-3xl bg-red-200 relative flex justify-center items-end`}>
-        <img src={banners[n]} alt="Banner" className="h-full rounded-2xl w-[100%] absolute ease-in duration-1000" />
+        {banners.map((banner, index) => (
+          <img src={banners[index]} alt="Banner" className={`h-full w-[100%] absolute transition-all duration-1000 neu2 ${index===n ? 'z-[1]' : n===1 || n===2 ? 'translate-x-4 translate-y-2 z-[-1]' : 'translate-x-8 translate-y-4 z-[-1]'} `} />
+        ))}
         <div className="flex z-[2] ">
           <div className="flex mb-6 gap-6 items-center">
             {banners.map((banner, index) => (
-              <div key={index} className={`${n===index? "h-6 w-6" : "h-4 w-4"} rounded-full ${n==index?"bg-red-100":"bg-gray-100"} cursor-pointer transition-all`} onClick={()=>setN(index)}></div>
+              <div key={index} className={`${n === index ? "h-6 w-6" : "h-4 w-4"} rounded-full ${n == index ? "bg-red-100" : "bg-gray-100"} cursor-pointer transition-all`} onClick={() => setN(index)}></div>
             ))}
           </div>
 

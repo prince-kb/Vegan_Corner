@@ -6,9 +6,9 @@ const Category = (props) => {
     return (
         <div className="m-8">
             <h1 className="font-bold text-3xl text-brown my-4 ml-8">{type.toUpperCase()}</h1>
-            <div className={`flex gap-4 snap-x overflow-auto`}>
+            <div className={`flex gap-4 overflow-auto pl-6`}>
                 {catalogue.filter(item => item.type === type).map((item, i) => (
-                    <div key={i} className="snap-proximity snap-start mb-4 lg:min-w-[260px] min-w-[220px] aspect-video border-2 border-orange hover:border-brown rounded-3xl transition-all shadow-md hover:shadow-md flex flex-col items-center">
+                    <div key={i} className="mb-4 lg:min-w-[260px] min-w-[220px] hover:neu2 rounded-2xl transition-all shadow-lg flex flex-col items-center">
                         <h2 className="text-center font-bold text-[1.2em] my-2">{item.name}</h2>
                         <Link to={`/product/${item.id}`} className="flex-center">
                             <img src={item.images[0]} alt={item.name} className="max-w-[90%] h-[180px] mb-2 rounded-2xl" />

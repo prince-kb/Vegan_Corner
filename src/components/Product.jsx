@@ -54,7 +54,7 @@ const Product = () => {
 
     // Submitting Pincode to check delivery
     const submitPincode = async () => {
-        const url = `https://api.data.gov.in/resource/6176ee09-3d56-4a3b-8115-21841576b2f6?api-key=${import.meta.env.VITE_REACT_APP_API}&format=json&limit=1&filters%5Bpincode%5D=${pincode}`
+        const url = `https://api.data.gov.in/resource/6176ee09-3d56-4a3b-8115-21841576b2f6?api-key=${import.meta.env.VITE_REACT_APP_DELIVERY_API}&format=json&limit=1&filters%5Bpincode%5D=${pincode}`
         try {
             setVisible(false);
             setLoader(true);
@@ -102,12 +102,12 @@ const Product = () => {
         <div className="flex flex-col items-center mt-6 mb-4 w-[90%] mx-auto">
 
             {/* IMAGE PART */}
-            <div className="xl:flex flex flex-col border-2 p-8 rounded-3xl mb-4 min-w-3/4 w-fit items-center">
+            <div className="xl:flex flex flex-col p-8 mb-4 min-w-3/4 w-fit items-center neu1">
                 <div className="flex flex-col xl:w-[50vw] w-[70vw] mx-auto justify-around items-center">
 
-                    <div className="border-2 w-[70vw] rounded-3xl">
+                    <div className="w-[70vw]">
 
-                        <div className="border-b-2 rounded-2xl flex flex-col items-center shadow-orange/80 shadow-lg">
+                        <div className="border-b-2 rounded-2xl flex flex-col items-center shadow-orange/80">
                             <div className="mb-1 mt-4">
                                 <img src={images[`${n}`]} alt={name} className="rounded-t-2xl md:min-h-[50vh] min-h-[30vh] h-[50vh]" />
                             </div>
@@ -118,7 +118,7 @@ const Product = () => {
                                     </div>
                                 ))}
                             </div>
-                            <h1 className="text-center font-bold text-3xl my-6">{name}</h1>
+                            <h1 className="text-center font-bold text-3xl my-4">{name}</h1>
                         </div>
 
 
@@ -152,7 +152,7 @@ const Product = () => {
 
             {/* PRODUCT DETAILS PART */}
             <div className=" border-2 w-[80vw] mx-auto rounded-2xl p-2">
-                <div className="flex-col items-center ml-4">
+                <div className="flex-col items-center ml-4 mt-2">
                     <h1 className="text-3xl font-bold text-brown mb-4">{name} <span className=" text-xl">(by {seller})</span></h1>
                 </div>
                 <div className="flex m-4 items-center">
