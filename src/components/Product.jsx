@@ -109,11 +109,11 @@ const Product = () => {
 
                         <div className="border-b-2 rounded-2xl flex flex-col items-center shadow-orange/80 shadow-lg">
                             <div className="mb-1 mt-4">
-                                <img src={images[`${n}`]} alt={name} className="rounded-t-2xl md:min-h-[50vh] min-h-[30vh]" />
+                                <img src={images[`${n}`]} alt={name} className="rounded-t-2xl md:min-h-[50vh] min-h-[30vh] h-[50vh]" />
                             </div>
-                            <div className={`flex rounded-2xl max-w-[70vw] gap-2 ${images.length>2 && 'overflow-x-scroll'}`}>
+                            <div className={`flex rounded-2xl max-w-[70vw] ${images.length>2 && 'overflow-x-scroll'}`}>
                                 {images.map((image, i) => (
-                                    <div className="cursor-pointer min-w-[200px] min-h-[200px] w-[250px]" key={i} onMouseOver={() => { setN(i) }}>
+                                    <div className="cursor-pointer mx-1 min-w-[120px] min-h-[150px] w-[200px]" key={i} onMouseOver={() => { setN(i) }}>
                                         <img src={image} alt={name} className="rounded-xl px-1 shadow-lg border object-cover" />
                                     </div>
                                 ))}
@@ -137,13 +137,13 @@ const Product = () => {
 
 
             {/* BUY NOW PART */}
-            <div className="flex-center rounded-3xl py-4 m-2 mb-4 px-8 gap-4 w-[80vw] overflow-x-auto">
+            <div className="flex-center rounded-3xl py-4 m-2 mb-4 px-6 gap-4 w-[80vw]">
                 <Link to="/checkout" className="flex-center px-6 py-4 bg-green-500 hover:scale-105 transition-all text-gray-50 rounded-2xl">
-                    <h1 className="text-2xl mr-4">Buy Now! </h1>
+                    <h1 className="text-xl mr-4">Buy Now! </h1>
                     <img src={tick} alt="BUY" className="h-8 w-8" />
                 </Link>
                 <Link to="/cart" className="flex-center px-6 py-4 bg-yellow-500 rounded-2xl hover:scale-105 transition-all">
-                    <h1 className="text-2xl mr-4">Add to Cart </h1>
+                    <h1 className="text-xl mr-4">Add to Cart </h1>
                     <img src={cartadd} alt="BUY" className="h-8 w-8" />
                 </Link>
 

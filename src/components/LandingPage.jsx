@@ -8,12 +8,7 @@ const LandingPage = () => {
   const [n, setN] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      if(n===banners.length-1){
-        setN(0);
-      }else setN(n+1);
-      console.log("HII")
-    }, 3000)
+    const interval = setInterval(() => n===banners.length-1 ? setN(0) : setN(n+1), 3000)
     return () => clearInterval(interval);
   }, [n])
 
@@ -23,9 +18,8 @@ const LandingPage = () => {
       <h2 className="text-center font-bold text-3xl my-6 font-cav">Only Plant based Products. Real and Pure.</h2>
 
       {/* Banner */}
-      <div className={`mx-auto mt-12 h-[40vh] xl:w-[50vw] w-[80vw] rounded-3xl bg-red-200 relative flex justify-center items-end `}>
+      <div className={`mx-auto mt-12 h-[40vh] xl:w-[50vw] w-[80vw] rounded-3xl bg-red-200 relative flex justify-center items-end`}>
         <img src={banners[n]} alt="Banner" className="h-full rounded-2xl w-[100%] absolute ease-in duration-1000" />
-        {/* <img src={banners[(n+1)%banners.length]} alt="Banner" className="h-full rounded-2xl w-[100%] absolute"  /> */}
         <div className="flex z-[2] ">
           <div className="flex mb-6 gap-6 items-center">
             {banners.map((banner, index) => (
