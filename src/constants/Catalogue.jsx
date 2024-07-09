@@ -22,7 +22,13 @@ const catalogue = [
         ratings: 100,
         reviews: 13,
         rrlink: link,
-        related:["00000004","00000002","00000003"]
+        related:["00000004","00000002","00000003"],
+        priority:1,
+        offer:true,
+        others1:"",
+        others2:"",
+        others3:[],
+        others4:{}
     },
     {
         id: "00000002",
@@ -45,7 +51,13 @@ const catalogue = [
         ratings: 102,
         reviews: 14,
         rrlink: link,
-        related:["00000001","00000004","00000003"]
+        related:["00000001","00000004","00000003"],
+        priority:2,
+        offer:false,
+        others1:"",
+        others2:"",
+        others3:[],
+        others4:{}
     },
     {
         id: "00000003",
@@ -68,7 +80,13 @@ const catalogue = [
         ratings: 170,
         reviews: 15,
         rrlink: link,
-        related:["00000001","00000002","00000004"]
+        related:["00000001","00000002","00000004"],
+        priority:1,
+        offer:false,
+        others1:"",
+        others2:"",
+        others3:[],
+        others4:{}
     },
     {
         id: "00000004",
@@ -91,7 +109,13 @@ const catalogue = [
         ratings: 70,
         reviews: 5,
         rrlink: link,
-        related:["00000001","00000002","00000003"]
+        related:["00000001","00000002","00000003"],
+        priority:2,
+        offer:false,
+        others1:"",
+        others2:"",
+        others3:[],
+        others4:{}
     },
     {
         id: "00000005",
@@ -114,7 +138,13 @@ const catalogue = [
         ratings: 80,
         reviews: 15,
         rrlink: link,
-        related:["00000006","00000007","00000008","00000009"]
+        related:["00000006","00000007","00000008","00000009"],
+        priority:1,
+        offer:false,
+        others1:"",
+        others2:"",
+        others3:[],
+        others4:{}
     },
     {
         id: "00000006",
@@ -137,7 +167,13 @@ const catalogue = [
         ratings: 100,
         reviews: 6,
         rrlink: link,
-        related:["00000005","00000007","00000008","00000009"]
+        related:["00000005","00000007","00000008","00000009"],
+        priority:2,
+        offer:false,
+        others1:"",
+        others2:"",
+        others3:[],
+        others4:{}
         
     },
     {
@@ -161,7 +197,13 @@ const catalogue = [
         ratings: 109,
         reviews: 11,
         rrlink: link,
-        related:["00000006","00000005","00000008","00000009"]
+        related:["00000006","00000005","00000008","00000009"],
+        priority:0,
+        offer:false,
+        others1:"",
+        others2:"",
+        others3:[],
+        others4:{}
     },
     {
         id: "00000008",
@@ -184,7 +226,13 @@ const catalogue = [
         ratings: 100,
         reviews: 12,
         rrlink: link,
-        related:["00000006","00000007","00000005","00000009"]
+        related:["00000006","00000007","00000005","00000009"],
+        priority:1,
+        offer:false,
+        others1:"",
+        others2:"",
+        others3:[],
+        others4:{}
     },
     {
         id: "00000009",
@@ -207,7 +255,13 @@ const catalogue = [
         ratings: 100,
         reviews: 15,
         rrlink: link,
-        related:["00000006","00000007","00000008","00000005"]
+        related:["00000006","00000007","00000008","00000005"],
+        priority:0,
+        offer:false,
+        others1:"",
+        others2:"",
+        others3:[],
+        others4:{}
         
     },
     {
@@ -231,7 +285,13 @@ const catalogue = [
         ratings: 100,
         reviews: 50,
         rrlink: link,
-        related:[""]
+        related:[""],
+        priority:1,
+        offer:false,
+        others1:"",
+        others2:"",
+        others3:[],
+        others4:{}
     },
     {
         id: "00000011",
@@ -254,7 +314,13 @@ const catalogue = [
         ratings: 100,
         reviews: 15,
         rrlink: link,
-        related:["00000012","00000013"]
+        related:["00000012","00000013"],
+        priority:0,
+        offer:false,
+        others1:"",
+        others2:"",
+        others3:[],
+        others4:{}
 
     },
     {
@@ -278,7 +344,13 @@ const catalogue = [
         ratings: 120,
         reviews: 15,
         rrlink: link,
-        related:["00000011","00000013"]
+        related:["00000011","00000013"],
+        priority:1,
+        offer:false,
+        others1:"",
+        others2:"",
+        others3:[],
+        others4:{}
     },
     {
         id: "00000013",
@@ -301,7 +373,13 @@ const catalogue = [
         ratings: 90,
         reviews: 12,
         rrlink: link,
-        related:["00000012","00000011"]
+        related:["00000012","00000011"],
+        priority:2,
+        offer:false,
+        others1:"",
+        others2:"",
+        others3:[],
+        others4:{}
     },
     {
         id: "00000014",
@@ -324,7 +402,13 @@ const catalogue = [
         ratings: 100,
         reviews: 15,
         rrlink: link,
-        related:["00000015"]
+        related:["00000015"],
+        priority:2,
+        offer:false,
+        others1:"",
+        others2:"",
+        others3:[],
+        others4:{}
     },
     {
         id: "00000015",
@@ -347,7 +431,13 @@ const catalogue = [
         ratings: 100,
         reviews: 15,
         rrlink: link,
-        related:["00000014"]
+        related:["00000014"],
+        priority:2,
+        offer:false,
+        others1:"",
+        others2:"",
+        others3:[],
+        others4:{}
     },
     {
         id: "00000016",
@@ -370,7 +460,13 @@ const catalogue = [
         ratings: 100,
         reviews: 10,
         rrlink: link,
-        related:["00000017","00000018"]
+        related:["00000017","00000018"],
+        priority:1,
+        offer:false,
+        others1:"",
+        others2:"",
+        others3:[],
+        others4:{}
     },
     {
         id: "00000017",
@@ -393,7 +489,13 @@ const catalogue = [
         ratings: 100,
         reviews: 10,
         rrlink: link,
-        related:["00000016","00000018"]
+        related:["00000016","00000018"],
+        priority:1,
+        offer:false,
+        others1:"",
+        others2:"",
+        others3:[],
+        others4:{}
     },
     {
         id: "00000018",
@@ -416,7 +518,13 @@ const catalogue = [
         ratings: 100,
         reviews: 10,
         rrlink: link,
-        related:["00000017","00000016"]
+        related:["00000017","00000016"],
+        priority:2,
+        offer:false,
+        others1:"",
+        others2:"",
+        others3:[],
+        others4:{}
     },
     {
         id: "00000019",
@@ -439,7 +547,13 @@ const catalogue = [
         ratings: 8000,
         reviews: 40,
         rrlink: link,
-        related:[]
+        related:[],
+        priority:2,
+        offer:false,
+        others1:"",
+        others2:"",
+        others3:[],
+        others4:{}
 
 
     },

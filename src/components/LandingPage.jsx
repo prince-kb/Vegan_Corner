@@ -20,7 +20,7 @@ const LandingPage = () => {
       {/* Banner */}
       <div className={`mx-auto mt-12 h-[40vh] xl:w-[50vw] w-[80vw] rounded-3xl bg-red-200 relative flex justify-center items-end`}>
         {banners.map((banner, index) => (
-          <img src={banners[index]} alt="Banner" className={`h-full w-[100%] absolute transition-all duration-1000 neu2 ${index===n ? 'z-[1]' : n===1 || n===2 ? 'translate-x-4 translate-y-2 z-[-1]' : 'translate-x-8 translate-y-4 z-[-1]'} `} />
+          <img src={banners[index]} key={index} alt="Banner" className={`h-full w-[100%] absolute transition-all duration-1000 neu2 ${index===n ? 'z-[2]' :index===(n+1)%banners.length ?  'translate-x-2 translate-y-2 z-[1]' : 'translate-x-4 translate-y-4 z-[0]'} `} />
         ))}
         <div className="flex z-[2] ">
           <div className="flex mb-6 gap-6 items-center">

@@ -111,7 +111,7 @@ const Product = () => {
                             <div className="mb-1 mt-4">
                                 <img src={images[`${n}`]} alt={name} className="rounded-t-2xl md:min-h-[50vh] min-h-[30vh] h-[50vh]" />
                             </div>
-                            <div className={`flex rounded-2xl max-w-[70vw] ${images.length>2 && 'overflow-x-scroll'}`}>
+                            <div className={`flex rounded-2xl max-w-[70vw] ${images.length > 2 && 'overflow-x-scroll'}`}>
                                 {images.map((image, i) => (
                                     <div className="cursor-pointer mx-1 min-w-[120px] min-h-[150px] w-[200px]" key={i} onMouseOver={() => { setN(i) }}>
                                         <img src={image} alt={name} className="rounded-xl px-1 shadow-lg border object-cover" />
@@ -124,27 +124,27 @@ const Product = () => {
 
 
                     </div>
-                    
-                        <div className="flex mt-6 items-center justify-center">
-                            <h3 className="text-green-600 font-bold text-3xl"> &#8377;{details.price} <span className="text-2xl">only</span></h3>
-                            <p className="mx-2 text-lg font-semibold text-gray-600">( {Math.floor((details.price2 - details.price) * 100 / details.price2)}% OFF )</p>
-                        </div>
-                        <div className="flex justify-center mt-4 mb-4">
-                            <span>{starrs()}</span>
-                        </div>
+
+                    <div className="flex mt-6 items-center justify-center">
+                        <h3 className="text-green-600 font-bold text-3xl"> &#8377;{details.price} <span className="text-2xl">only</span></h3>
+                        <p className="mx-2 text-lg font-semibold text-gray-600">( {Math.floor((details.price2 - details.price) * 100 / details.price2)}% OFF )</p>
+                    </div>
+                    <div className="flex justify-center mt-4 mb-4">
+                        <span>{starrs()}</span>
+                    </div>
                 </div>
             </div>
 
 
             {/* BUY NOW PART */}
             <div className="flex-center rounded-3xl py-4 m-2 mb-4 px-6 gap-4 w-[80vw]">
-                <Link to="/checkout" className="flex-center px-6 py-4 bg-green-500 hover:scale-105 transition-all text-gray-50 rounded-2xl">
+                <Link to="/checkout" className="flex-center px-6 py-4 group/1 bg-green-500 shadow-md shadow-green-300 hover:scale-105 transition-all text-gray-50 rounded-2xl">
                     <h1 className="text-xl mr-4">Buy Now! </h1>
-                    <img src={tick} alt="BUY" className="h-8 w-8" />
+                    <img src={tick} alt="BUY" className="h-8 w-8 group-hover/1:scale-[118%] group-hover/1:translate-x-2 transition-all" />
                 </Link>
-                <Link to="/cart" className="flex-center px-6 py-4 bg-yellow-500 rounded-2xl hover:scale-105 transition-all">
+                <Link to="/cart" className="flex-center px-6 py-4 bg-yellow-500 shadow-md shadow-yellow-300 rounded-2xl hover:scale-105 transition-all group/2">
                     <h1 className="text-xl mr-4">Add to Cart </h1>
-                    <img src={cartadd} alt="BUY" className="h-8 w-8" />
+                    <img src={cartadd} alt="BUY" className="h-8 w-8 group-hover/2:scale-[118%] transition-all" />
                 </Link>
 
             </div>
@@ -202,8 +202,8 @@ const Product = () => {
                     <h2 className="text-xl font-bold m-2">Enter Pincode to check delivery</h2>
                     <div className="flex flex-col xl:flex-row">
                         <div>
-                            <input type="text" className="border-2 p-1 m-2 rounded-lg " ref={ref} value={pinc} onChange={() => {setPincode(ref.current.value); setVisible(false) }} onKeyDown={(e)=>{valid() && e.key=="Enter" && submitPincode()}}/>
-                            <button className={`bg-violet-500 hover:bg-violet-600 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300 text-xl text-white px-2 py-1 rounded-2xl  ${valid() ? '' : 'hidden'}`} onClick={submitPincode}>SUBMIT</button>
+                            <input type="text" className="border-2 p-1 m-2 rounded-lg " ref={ref} value={pinc} onChange={() => { setPincode(ref.current.value); setVisible(false) }} onKeyDown={(e) => { valid() && e.key == "Enter" && submitPincode() }} />
+                            <button className={`bg-blue-500 hover:bg-violet-600 hover:shadow-md hover:shadow-purple-500 transition-all active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300 text-xl text-white px-4 py-1 rounded-2xl  ${valid() ? '' : 'hidden'}`} onClick={submitPincode}>SUBMIT</button>
                             <button className="text-2xl bg-gray-200 hover:bg-gray-300 active:bg-gray-400 focus:outline-none focus:ring focus:ring-violet-300 text-black px-4 pb-2 ml-4 rounded-2xl font-bold" onClick={() => { setPincode(''); setVisible(false) }}>x</button>
                         </div>
 
@@ -219,13 +219,15 @@ const Product = () => {
                     <img src={loaderSpinner} alt="WAIT..." className="h-16 w-16" />
                 </div>
 
-                <div className={`${visible ? '' : 'hidden'} ml-6 items-center border-4 shadow-lg shadow-blue-600 p-4 rounded-2xl`}>
+                <div className={`${visible ? '' : 'hidden'} ml-6 items-center shadow-md shadow-blue-600 p-4 rounded-2xl`}>
                     <div className={`${!deliverable && 'hidden'}`}>
                         <div className="flex items-center">
-                            <img src={bolt} alt="bolt" className="h-8 w-8" />
-                            <h2 className="font-bold ml-2 flex items-center text-xl">Faster Delivery by 10 PM, within <p className="text-gray-50 bg-blue-700 px-2 py-1 rounded-2xl text-xl mx-1">{Math.floor(Math.random() * 3) + 1}</p> days</h2>
+                        <img src={bolt} alt="bolt" className="h-12 w-12" />
+                        <div className="ml-4">
+                            <h2 className="font-bold ml-2 text-xl">Faster Delivery by 10 PM, within <p className="inline text-gray-50 bg-blue-700 px-2 py-1 rounded-2xl text-xl mx-1">{Math.floor(Math.random() * 3) + 1}</p> days</h2>
+                            <h2 className=" font-bold mt-2">Deliver to {address.city}, {address.district}, {address.state}</h2>
                         </div>
-                        <h2 className="ml-12 font-bold">Deliver to {address.district}, {address.state}</h2>
+                        </div>
                     </div>
                     <div className={`${deliverable && 'hidden'}`}>
                         <div className="flex items-center">

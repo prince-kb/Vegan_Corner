@@ -19,7 +19,7 @@ function App() {
   }, false);
 
   return (
-    <div className="overflow-hidden">
+    <div className="">
     <Navbar />
     <Outlet />
     </div>

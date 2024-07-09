@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
 import catalogue from "../constants/Catalogue"
+import bolt1 from '../assets/svgs/bolt1.svg'
 
 const Category = (props) => {
     const { type } = props;
@@ -8,8 +9,18 @@ const Category = (props) => {
             <h1 className="font-bold text-3xl text-brown my-4 ml-8">{type.toUpperCase()}</h1>
             <div className={`flex gap-4 overflow-auto pl-6`}>
                 {catalogue.filter(item => item.type === type).map((item, i) => (
-                    <div key={i} className="mb-4 lg:min-w-[260px] min-w-[220px] hover:neu2 rounded-2xl transition-all shadow-lg flex flex-col items-center">
-                        <h2 className="text-center font-bold text-[1.2em] my-2">{item.name}</h2>
+                    <div key={i} className="relative mb-4 lg:min-w-[260px] min-w-[220px] hover:neu2 border rounded-2xl transition-all shadow-lg flex flex-col items-center">
+
+                        <div className="w-full flex justify-end absolute right-2 top-2">
+                            {item.offer ? <div className="flex items-center gap-1 bg-green-500 text-white px-2 py-1 animate-bounce rounded-full text-sm"><img src={bolt1} alt="S" className="h-4 w-4" />SALE </div>
+                                : item.priority >= 3 ? <div className=" bg-green-500 text-white p-2 rounded-full"></div>
+                                    : item.priority === 2 ? <div className=" bg-orange text-white p-2 rounded-full"></div>
+                                        : item.priority === 1 ? <div className=" bg-blue-500 text-white p-2 rounded-full"></div>
+                                            : item.priority === 0 && <div className=" bg-red-500 text-white p-2 rounded-full"></div>
+                            }
+
+                        </div>
+                        <h2 className="px-2 text-center font-bold text-[1.2em] mt-6 mb-2">{item.name}</h2>
                         <Link to={`/product/${item.id}`} className="flex-center">
                             <img src={item.images[0]} alt={item.name} className="max-w-[90%] h-[180px] mb-2 rounded-2xl" />
                         </Link>
