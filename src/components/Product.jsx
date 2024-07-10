@@ -81,20 +81,21 @@ const Product = () => {
         } catch (error) {
             setLoader(false);
             setVisible(true);
-            console.error(error);
+            console.error("Cannot get your location right now!");
+            console.error("Retry after sometime!");
         }
     }
 
     // Stars for the product
     const starrs = () => {
         return <div className="flex items-center">
-            <h2 className="font-bold text-2xl mr-4">Rating: </h2>
+            <h2 className="font-bold text-lg md:text:xl lg:text-2xl mr-4">Rating: </h2>
             <img src={stars - 1 <= 0 ? stars - 1 > (-1) ? halfstar : nostar : fullstar} alt="star" className="h-6 w-6" />
             <img src={stars - 2 <= 0 ? stars - 2 > (-1) ? halfstar : nostar : fullstar} alt="star" className="h-6 w-6" />
             <img src={stars - 3 <= 0 ? stars - 3 > (-1) ? halfstar : nostar : fullstar} alt="star" className="h-6 w-6" />
             <img src={stars - 4 <= 0 ? stars - 4 > (-1) ? halfstar : nostar : fullstar} alt="star" className="h-6 w-6" />
             <img src={stars - 5 <= 0 ? stars - 5 > (-1) ? halfstar : nostar : fullstar} alt="star" className="h-6 w-6" />
-            <h2 className="ml-2 font-bold text-[1.1em]"> ({stars})</h2>
+            <h2 className="ml-2 font-bold"> ({stars})</h2>
         </div>
     }
 
@@ -103,90 +104,91 @@ const Product = () => {
 
             {/* IMAGE PART */}
             <div className="xl:flex flex flex-col p-8 mb-4 min-w-3/4 w-fit items-center neu1">
-                <div className="flex flex-col xl:w-[50vw] w-[70vw] mx-auto justify-around items-center">
+                <div className="flex flex-col w-[80vw] xl:w-[80vw] mx-auto justify-around items-center">
 
-                    <div className="w-[70vw]">
+                    <div className="w-[80vw] md:w-[70vw]">
 
-                        <div className="border-b-2 rounded-2xl flex flex-col items-center shadow-orange/80">
-                            <div className="mb-1 mt-4">
-                                <img src={images[`${n}`]} alt={name} className="rounded-t-2xl md:min-h-[50vh] min-h-[30vh] h-[50vh]" />
+                        <div className="border-b-2 border-gray-300 flex flex-col items-center shadow-orange/80">
+                            <div className="mb-1 mt-2">
+                                <img src={images[`${n}`]} alt={name} className="rounded-t-2xl min-h-[35vh] sm:h-[40vh] md:h-[50vh]" />
                             </div>
-                            <div className={`flex rounded-2xl max-w-[70vw] ${images.length > 2 && 'overflow-x-scroll'}`}>
+                            <div className={` flex rounded-2xl max-w-[70vw] ${images.length > 2 && 'overflow-x-scroll'}`}>
                                 {images.map((image, i) => (
-                                    <div className="cursor-pointer mx-1 min-w-[120px] min-h-[120px] max-w-[160px] max-h-[160px] " key={i} onMouseOver={() => { setN(i) }}>
-                                        <img src={image} alt={name} className="rounded-xl px-1 shadow-lg border object-contain max-w-[150px] max-h-[150px] min-w-[120px] min-w-[120px]" />
+                                    <div className="cursor-pointer mx-1 min-h-[80px] max-h-[160px] " key={i} onMouseOver={() => { setN(i) }}>
+                                        <img src={image} alt={name} className="rounded-xl px-1 shadow-lg border object-contain w-[80px] md:min-w-[120px] max-w-[150px] aspect-square" />
                                     </div>
                                 ))}
                             </div>
-                            <h1 className="text-center font-bold text-3xl my-4">{name}</h1>
+                            <h1 className="text-center font-bold text-xl md:text-2xl lg:text-3xl my-4">{name}</h1>
                         </div>
-
-
-
                     </div>
 
-                    <div className="flex mt-6 items-center justify-center">
-                        <h3 className="text-green-600 font-bold text-3xl"> &#8377;{details.price} <span className="text-2xl">only</span></h3>
-                        <p className="mx-2 text-lg font-semibold text-gray-600">( {Math.floor((details.price2 - details.price) * 100 / details.price2)}% OFF )</p>
-                    </div>
-                    <div className="flex justify-center mt-4 mb-4">
-                        <span>{starrs()}</span>
+                    <div className="flex flex-col md:flex-row mt-6 items-center justify-center text-center">
+                        <div className="flex items-center justify-center mb-2">
+                            <h3 className="text-green-600 font-bold text-xl md:text-2xl lg:text:3xl lg:text-3xl"> &#8377;{details.price} <span className="text-[0.9em]">only</span></h3>
+                            <p className="mx-2 text-md md:text:xl lg:text-2xl font-semibold text-gray-600">( {Math.floor((details.price2 - details.price) * 100 / details.price2)}% OFF )</p>
+                        </div>
+                        <div className="md:ml-4 xl:ml-6">{starrs()}</div>
                     </div>
                 </div>
             </div>
 
 
             {/* BUY NOW PART */}
-            <div className="flex-center rounded-3xl py-4 m-2 mb-4 px-6 gap-4 w-[80vw]">
-                <Link to="/checkout" className="flex-center px-6 py-4 group/1 bg-green-500 shadow-md shadow-green-300 hover:scale-105 transition-all text-gray-50 rounded-2xl">
-                    <h1 className="text-xl mr-4">Buy Now! </h1>
-                    <img src={tick} alt="BUY" className="h-8 w-8 group-hover/1:scale-[118%] group-hover/1:translate-x-2 transition-all" />
+            <div className=" flex justify-around rounded-3xl py-2 lg:py-4 m-2 mb-4 px-2 md:px-6 gap-4 w-[95vw] md:w-[80vw] font-semibold">
+                <Link to="/checkout" className="min-w-[30vw] flex-center px-4 lg:px-6 py-4 lg:py-4 group/1 bg-green-500 shadow-sm shadow-green-300 hover:scale-105 transition-all text-gray-50 rounded-2xl">
+                    <h1 className="text-xl md:text-2xllg:text-3xl mr-2">Buy Now! </h1>
+                    <img src={tick} alt="BUY" className="h-6 w-6 md:h-8 md:w-8 md:ml-2 lg:h-12 lg:w-12 group-hover/1:scale-[118%] group-hover/1:translate-x-2 transition-all" />
                 </Link>
-                <Link to="/cart" className="flex-center px-6 py-4 bg-yellow-500 shadow-md shadow-yellow-300 rounded-2xl hover:scale-105 transition-all group/2">
-                    <h1 className="text-xl mr-4">Add to Cart </h1>
-                    <img src={cartadd} alt="BUY" className="h-8 w-8 group-hover/2:scale-[118%] transition-all" />
+                <Link to="/cart" className="min-w-[30vw] flex-center px-4 lg:px-6 py-4 lg:py-4 bg-yellow-500 shadow-sm shadow-yellow-300 rounded-2xl hover:scale-105 transition-all group/2">
+                    <h1 className="text-xl md:text-2xllg:text-3xl mr-2">Add to Cart </h1>
+                    <img src={cartadd} alt="BUY" className="h-6 w-6 md:h-8 md:w-8 md:ml-2 lg:h-12 lg:w-12 group-hover/2:scale-[118%] transition-all" />
                 </Link>
 
             </div>
 
 
             {/* PRODUCT DETAILS PART */}
-            <div className=" border-2 w-[80vw] mx-auto rounded-2xl p-2">
-                <div className="flex-col items-center ml-4 mt-2">
-                    <h1 className="text-3xl font-bold text-brown mb-4">{name} <span className=" text-xl">(by {seller})</span></h1>
-                </div>
-                <div className="flex m-4 items-center">
-                    <h3 className="text-green-600 font-bold text-3xl"> &#8377;{details.price} </h3>
-                    <p className="mx-2 text-gray-600">MRP: <span className="line-through">{details.price2}</span></p>
-                    <p className="mx-2 text-xl text-gray-600 font-bold">{Math.floor((details.price2 - details.price) * 100 / details.price2)}% (&#8377;{details.price2 - details.price}) OFF</p>
+            <div className=" border-2 w-[90vw] mx-auto rounded-2xl p-2 text-xl md:text:2xl lg:text-3xl text-balance">
 
-                </div>
-                <div className="ml-4">
-                    <span className="">{starrs()}</span>
-                    <Link to={rrlink} className="mb-4 mt-1 flex items-center">
-                        <span className="block text-gray-100  bg-green-600 font-bold p-1 rounded-xl hover:scale-105 transition-all">View {ratings} Ratings and {reviews} Reviews</span>
-                        <img src={forward} alt="" className="h-8 w-8 m-2  hover:scale-150 transition-all" />
-                    </Link>
+                <div className="ml-2">
+                    <h1 className="text-2xl md:text-3xl font-bold text-brown mb-2 md:mb-4 ml-4">{name} <span className=" text-xl">(by {seller})</span></h1>
+                    <div className="flex m-4 my-2 items-center text-xl md:text:2xl lg:text-3xl">
+                        <h3 className="text-green-600 font-bold"> &#8377;{details.price} </h3>
+                        <p className="ml-2 text-sm md:text-md lg:text-xl text-gray-600 ">MRP: <span className="line-through">{details.price2}</span></p>
+                        <p className="ml-6 text-gray-900 font-bold text-sm md:text-md lg:text-xl">{Math.floor((details.price2 - details.price) * 100 / details.price2)}% (&#8377;{details.price2 - details.price}) OFF</p>
+                    </div>
 
+                    <div className="ml-4">
+                        <span className="">{starrs()}</span>
+                        <Link to={rrlink} className="cursor-pointer mb-4 flex items-center text-sm md:text-md lg:text-lg">
+                            <span className="px-2 text-gray-100 bg-green-600 font-bold p-1 rounded-xl hover:scale-105 transition-all">View {ratings} Ratings and {reviews} Reviews</span>
+                            <img src={forward} alt="" className="h-8 w-8 m-2 hover:scale-150 transition-all" />
+                        </Link>
+                    </div>
                 </div>
-                <div className="border-t-2 p-2">
-                    <h2 className="text-gray-700 text-2xl font-bold ml-2">Product Description</h2>
-                    <h2 className="text-gray-700 text-xl p-2">{description}</h2>
-                    <h1 className="text-3xl font-bold mb-4 ml-2 mt-4">Product Details</h1>
-                    <div className="md:flex justify-around gap-4 ml-2">
-                        <div className="flex-col">
-                            <h2 className=" text-gray-700 text-xl font-bold ">Quantity : <span className="text-brown text-xl">{details.weight}</span></h2>
-                            <h2 className=" text-gray-700 text-xl font-bold ">Packaging: <span className="text-brown text-xl">{details.packaging}</span></h2>
-                            <h2 className=" text-gray-700 text-xl font-bold ">Life: <span className="text-brown text-xl">{details.life}</span></h2>
+
+
+                <div className="border-t-2 p-2 text-gray-800 ml-2 lg:ml-6">
+                    <h2 className="text-xl md:text-2xl lg:text-3xl font-bold ">Product Description</h2>
+                    <h2 className="text-sm md:text-lg my-2">{description}</h2>
+
+                    <h1 className="text-xl md:text-2xl lg:text-3xl font-bold mt-2 md:mt-4">Product Details</h1>
+                    <div className="md:flex">
+                        <div className="flex-col text-sm md:text-lg mt-1">
+                            <h2 className="font-bold ">Quantity : <span className="text-brown">{details.weight}</span></h2>
+                            <h2 className="font-bold ">Packaging: <span className="text-brown">{details.packaging}</span></h2>
+                            <h2 className="font-bold ">Life: <span className="text-brown">{details.life}</span></h2>
                         </div>
-                        <div className="md:mx-8 mx-0">
-                            <h2 className="text-xl font-bold ">Ingredients: </h2>
-                            <p className="text-gray-600 mr-4 text-lg">{details.ingredients}</p>
+                        <div className="md:ml-8 lg:ml-12 mx-0">
+                            <h2 className="mt-2 md:mt-0 text-xl font-bold ">Ingredients: </h2>
+                            <p className="text-gray-600 mr-4 text-sm md:text-lg">{details.ingredients}</p>
                         </div>
                     </div>
-                    {instructions && <div className="p-2 rounded-2xl mt-4">
-                        <h2 className="text-2xl font-bold text-brown">Instructions</h2>
-                        <h4 className="text-gray-800 text-lg">{instructions}</h4>
+
+                    {instructions && <div className="mt-2 md:mt-4">
+                        <h2 className="text-xl md:text-2xl lg:text-3xl font-bold">Instructions</h2>
+                        <h4 className="text-gray-800 text-sm md:text-lg">{instructions}</h4>
                     </div>}
                 </div>
             </div>
@@ -195,17 +197,21 @@ const Product = () => {
             {/* DELIVERY PART */}
             <div className="w-[80vw] rounded-2xl m-8 p-4 border-2 ">
                 <div className="flex items-center ml-4">
-                    <h1 className="text-3xl font-bold ml-2">Delivery</h1>
-                    <img src={transport} alt="transport" className="h-12 w-12 ml-6" />
+                    <h1 className="text-xl md:text-2xl lg:text-3xl font-bold ml-2">Delivery</h1>
+                    <img src={transport} alt="transport" className="h-8 w-8 lg:h-12 lg:w-12 ml-6" />
                 </div>
                 <div className="ml-4 my-2">
-                    <h2 className="text-xl font-bold m-2">Enter Pincode to check delivery</h2>
+                    <h2 className="text-md xl:text-xl font-bold m-2">Enter Pincode to check delivery</h2>
                     <div className="flex flex-col xl:flex-row">
-                        <div>
-                            <input type="text" className="border-2 p-1 m-2 rounded-lg " ref={ref} value={pinc} onChange={() => { setPincode(ref.current.value); setVisible(false) }} onKeyDown={(e) => { valid() && e.key == "Enter" && submitPincode() }} />
-                            <button className={`bg-blue-500 hover:bg-violet-600 hover:shadow-md hover:shadow-purple-500 transition-all active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300 text-xl text-white px-4 py-1 rounded-2xl  ${valid() ? '' : 'hidden'}`} onClick={submitPincode}>SUBMIT</button>
-                            <button className="text-2xl bg-gray-200 hover:bg-gray-300 active:bg-gray-400 focus:outline-none focus:ring focus:ring-violet-300 text-black px-4 pb-2 ml-4 rounded-2xl font-bold" onClick={() => { setPincode(''); setVisible(false) }}>x</button>
+                        <div className="flex flex-col md:flex-row md:items-center">
+                            <input type="text" id="1" className="border-2 p-1 m-2 rounded-xl border-black font-bold text-center" ref={ref} value={pinc} onChange={() => { setPincode(ref.current.value); setVisible(false) }} onKeyDown={(e) => { valid() && e.key == "Enter" && submitPincode() }} />
+                            <div className="flex justify-center">
+                                <button className={`ml-2 bg-blue-700 hover:bg-violet-600 hover:shadow-md hover:shadow-purple-500 transition-all active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300 text-lg lg:text-xl text-white px-4 py-1 rounded-2xl  ${valid() ? '' : 'hidden'}`} onClick={submitPincode}>SUBMIT</button>
+                                <button className="text-2xl bg-gray-200 hover:bg-gray-300 active:bg-gray-400 focus:outline-none focus:ring focus:ring-violet-300 text-black px-2 pb-1 lg:px-4 ml-4 rounded-2xl font-bold" onClick={() => { setPincode(''); setVisible(false) }}>x</button>
+                            </div>
                         </div>
+
+                        <h2 className="text-xl font-bold text-center mt-4 md:text-2xl">{details.price>=99 ? 'Free Delivery with this item' : 'Delivery charge ₹ 49'}</h2>
 
 
                         <div className={`${!valid() && pincode !== '' ? 'flex' : 'hidden'} items-center ml-4`}>
@@ -219,14 +225,14 @@ const Product = () => {
                     <img src={loaderSpinner} alt="WAIT..." className="h-16 w-16" />
                 </div>
 
-                <div className={`${visible ? '' : 'hidden'} ml-6 items-center shadow-md shadow-blue-600 p-4 rounded-2xl`}>
+                <div className={`${visible ? '' : 'hidden'} ml-6 items-center shadow-md ${deliverable ? 'shadow-blue-600' : 'shadow-red-600'} p-4 rounded-2xl`}>
                     <div className={`${!deliverable && 'hidden'}`}>
                         <div className="flex items-center">
-                        <img src={bolt} alt="bolt" className="h-12 w-12" />
-                        <div className="ml-4">
-                            <h2 className="font-bold ml-2 text-xl">Faster Delivery by 10 PM, within <p className="inline text-gray-50 bg-blue-700 px-2 py-1 rounded-2xl text-xl mx-1">{Math.floor(Math.random() * 3) + 1}</p> days</h2>
-                            <h2 className=" font-bold mt-2">Deliver to {address.city}, {address.district}, {address.state}</h2>
-                        </div>
+                            <img src={bolt} alt="bolt" className="h-8 w-8 lg:h-12 lg:w-12" />
+                            <div className="ml-4">
+                                <h2 className="font-bold text-md md:text-xl">Faster Delivery by 10 PM, within <p className="inline text-gray-50 bg-blue-700 px-2 py-1 rounded-2xl mx-1">{Math.floor(Math.random() * 3) + 1}</p> days</h2>
+                                <h2 className="font-bold mt-2">Deliver to {address.city}, {address.district}, {address.state} ✔️</h2>
+                            </div>
                         </div>
                     </div>
                     <div className={`${deliverable && 'hidden'}`}>

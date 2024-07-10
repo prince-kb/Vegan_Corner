@@ -21,11 +21,11 @@ const Navbar = () => {
         <div className="flex select-none">
 
             <div className="w-[60vw] h-[64px] lg:h-[92px] bg-orange rounded-br-full flex items-center relative">
-                <img src={logo} alt="Vegan" className='h-16 cursor-pointer' onClick={goToHomePage} />
-                <h1 className="font-bold text-2xl lg:text-3xl">Vegans Corner</h1>
+                <img src={logo} alt="Vegan" className='h-8 md:h-12 lg:h-16 cursor-pointer' onClick={goToHomePage} />
+                <h1 className="font-bold text-xl md:text-2xl lg:text-3xl ml-2 lg:ml-4">Vegan's Corner</h1>
             </div>
 
-            <div className='fixed w-[100vw] h-[256px] flex justify-end overflow-hidden'>
+            <div className='fixed w-[100vw] h-[256px] flex justify-end overflow-hidden z-[5]'>
             <div className='flex absolute transition-all translate-x-1/2 -translate-y-1/2 scale-50 md:scale-75 lg:scale-100 xl:scale-110'>
                 <div className='group flex transition-all ' onClick={rotate}>
                     <div className=" w-[256px] h-[256px] bg-yellow-200 relative rounded-full md:group-hover:rotate-[-90deg] transition-all duration-300 flex justify-center items-center " ref={ref}>
