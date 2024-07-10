@@ -36,6 +36,7 @@ const LandingPage = () => {
       <Category type="snacks" />
       <Category type="instant foods" />
       <Category type="grocery" />
+      <Category type="munchies" />
 
 
     </div>

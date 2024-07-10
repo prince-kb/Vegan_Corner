@@ -554,13 +554,71 @@ const catalogue = [
         others2:"",
         others3:[],
         others4:{}
-
-
     },
+    {
+        id: "00000020",
+        type: "munchies",
+        name:"Lay's Classic Chips",
+        seller: "Lay's India",
+        stars: 4.8,
+        tag: ["snacks","chips"],
+        details: {
+            price: "39",
+            price2: "40",
+            weight: "20g",
+            packaging: "Plastic Packet",
+            ingredients: "Potatoes, Salt, Sugar, Spices, Citric Acid",
+            life: "120 days",
+        },
+        description: "Vegan's Special Chips is a pure vegan and extremely delicious chips. It's perfect for snacks. Enjoy Vegan Products for a healthy lifestyle",
+        instructions: "Store in a dry place. Once opened, consume within 2 days. Do not freeze.",
+        images:["https://www.urbangroc.com/wp-content/uploads/2021/05/salted-chips-01.jpg","https://m.media-amazon.com/images/I/71HofFavxML.jpg","https://m.media-amazon.com/images/I/71uN3Nd43UL._AC_UF1000,1000_QL80_.jpg"],
+        ratings: 100,
+        reviews: 15,
+        rrlink: link,
+        related:["00000021"],
+        priority:1,
+        offer:false,
+        others1:"",
+        others2:"",
+        others3:[],
+        others4:{}
+    },
+    {
+        id: "00000021",
+        type: "munchies",
+        name:"Lay's Tomato Chips",
+        seller: "Lay's India",
+        stars: 4.8,
+        tag: ["snacks","chips"],
+        details: {
+            price: "39",
+            price2: "40",
+            weight: "20g",
+            packaging: "Plastic Packet",
+            ingredients: "Potatoes, Salt, Sugar, Spices, Citric Acid",
+            life: "120 days",
+        },
+        description: "Vegan's Special Chips is a pure vegan and extremely delicious chips. It's perfect for snacks. Enjoy Vegan Products for a healthy lifestyle",
+        instructions: "Store in a dry place. Once opened, consume within 2 days. Do not freeze.",
+        images:["https://m.media-amazon.com/images/I/71YgoSM0ioL._AC_UF1000,1000_QL80_.jpg","https://m.media-amazon.com/images/I/71FMaRg8H2L._AC_UF1000,1000_QL80_.jpg","https://m.media-amazon.com/images/I/61gmZr2S-WL.jpg"],
+        ratings: 80,
+        reviews: 15,
+        rrlink: link,
+        related:["00000020"],
+        priority:1,
+        offer:false,
+        others1:"",
+        others2:"",
+        others3:[],
+        others4:{}
+    }
     
 
 
 ]
 
 export default catalogue;
+
+
 

@@ -113,8 +113,8 @@ const Product = () => {
                             </div>
                             <div className={`flex rounded-2xl max-w-[70vw] ${images.length > 2 && 'overflow-x-scroll'}`}>
                                 {images.map((image, i) => (
-                                    <div className="cursor-pointer mx-1 min-w-[120px] min-h-[150px] w-[200px]" key={i} onMouseOver={() => { setN(i) }}>
-                                        <img src={image} alt={name} className="rounded-xl px-1 shadow-lg border object-cover" />
+                                    <div className="cursor-pointer mx-1 min-w-[120px] min-h-[120px] max-w-[160px] max-h-[160px] " key={i} onMouseOver={() => { setN(i) }}>
+                                        <img src={image} alt={name} className="rounded-xl px-1 shadow-lg border object-contain max-w-[150px] max-h-[150px] min-w-[120px] min-w-[120px]" />
                                     </div>
                                 ))}
                             </div>
