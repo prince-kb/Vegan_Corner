@@ -1,8 +1,8 @@
 import { Link, useParams } from "react-router-dom"
 import { useEffect, useState, useRef } from "react";
 
-import Cart from "./Cart";
-import CheckOut from "./CheckOut";
+// import Cart from "./Cart";
+// import CheckOut from "./CheckOut";
 
 import catalogue from "../constants/Catalogue";
 import nostar from "../assets/svgs/nostar.svg";
@@ -23,7 +23,7 @@ const Product = () => {
     const { id } = useParams();
 
     const product = catalogue.find((item) => item.id === id);
-    const { name, details, images, stars, seller, ratings, reviews, rrlink, description, instructions } = product;
+    const { name, details, images, stars, seller, ratings, reviews, rrlink} = product;
 
 
     const [pincode, setPincode] = useState(localStorage.getItem('pincode') || '');
@@ -171,7 +171,7 @@ const Product = () => {
 
                 <div className="border-t-2 p-2 text-gray-800 ml-2 lg:ml-6">
                     <h2 className="text-xl md:text-2xl lg:text-3xl font-bold ">Product Description</h2>
-                    <h2 className="text-sm md:text-lg my-2">{description}</h2>
+                    <h2 className="text-sm md:text-lg my-2">{details.description}</h2>
 
                     <h1 className="text-xl md:text-2xl lg:text-3xl font-bold mt-2 md:mt-4">Product Details</h1>
                     <div className="md:flex">
@@ -186,21 +186,22 @@ const Product = () => {
                         </div>
                     </div>
 
-                    {instructions && <div className="mt-2 md:mt-4">
+                    {details.instructions && <div className="mt-2 md:mt-4">
                         <h2 className="text-xl md:text-2xl lg:text-3xl font-bold">Instructions</h2>
-                        <h4 className="text-gray-800 text-sm md:text-lg">{instructions}</h4>
+                        <h4 className="text-gray-800 text-sm md:text-lg">{details.instructions}</h4>
                     </div>}
                 </div>
             </div>
 
 
             {/* DELIVERY PART */}
-            <div className="w-[80vw] rounded-2xl m-8 p-4 border-2 ">
+            <div className="w-[90vw] md:w-[80vw] rounded-2xl m-8 p-4 border-2 ">
                 <div className="flex items-center ml-4">
                     <h1 className="text-xl md:text-2xl lg:text-3xl font-bold ml-2">Delivery</h1>
                     <img src={transport} alt="transport" className="h-8 w-8 lg:h-12 lg:w-12 ml-6" />
                 </div>
                 <div className="ml-4 my-2">
+                <h2 className="text-xl block font-bold ml-2 text-blue-700 mt-4 md:text-2xl">{details.price>=99 ? 'Free Delivery with this item' : 'Delivery charge ₹ 49'}</h2>
                     <h2 className="text-md xl:text-xl font-bold m-2">Enter Pincode to check delivery</h2>
                     <div className="flex flex-col xl:flex-row">
                         <div className="flex flex-col md:flex-row md:items-center">
@@ -211,7 +212,6 @@ const Product = () => {
                             </div>
                         </div>
 
-                        <h2 className="text-xl font-bold text-center mt-4 md:text-2xl">{details.price>=99 ? 'Free Delivery with this item' : 'Delivery charge ₹ 49'}</h2>
 
 
                         <div className={`${!valid() && pincode !== '' ? 'flex' : 'hidden'} items-center ml-4`}>
