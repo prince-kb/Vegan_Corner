@@ -1,9 +1,16 @@
 import { Link } from "react-router-dom"
-import catalogue from "../constants/Catalogue"
 import bolt1 from '../assets/svgs/bolt1.svg'
+import { useSelector } from "react-redux"
+// import { getCatalogue } from "../redux/slices/mainSlice"
 
 const Category = (props) => {
+    const catalogue = useSelector(state => state.main.Catalogue)
     const { type } = props;
+
+
+    // const catal = useSelector(getCatalogue)
+    // console.log(catal)
+
     return (
         <div className={`m-4 lg:m-8 mt-8 ${!catalogue.length && 'hidden'}`}>
             <h1 className="font-bold text-xl md:text-2xl lg:text-3xl text-brown mb-2 ml-6 lg:ml-8">{type.toUpperCase()}</h1>

@@ -4,7 +4,6 @@ import { useEffect, useState, useRef } from "react";
 // import Cart from "./Cart";
 // import CheckOut from "./CheckOut";
 
-import catalogue from "../constants/Catalogue";
 import nostar from "../assets/svgs/nostar.svg";
 import fullstar from "../assets/svgs/fullstar.svg";
 import halfstar from "../assets/svgs/halfstar.svg";
@@ -16,11 +15,16 @@ import transport from "../assets/svgs/transport.svg";
 import error from "../assets/svgs/error.svg";
 import loaderSpinner from "../assets/svgs/loader.svg";
 
+import { useSelector } from "react-redux";
+
 
 
 const Product = () => {
     const ref = useRef(null); // Ref for pincode input to set pincode after every input change
     const { id } = useParams();
+    const catalogue = useSelector(state => state);
+
+
 
     const product = catalogue.find((item) => item.id === id);
     const { name, details, images, stars, seller, ratings, reviews, rrlink} = product;
@@ -86,21 +90,29 @@ const Product = () => {
         }
     }
 
+    //Average rating for the product
+    const averageRating = () =>{
+        let x = ratings.reduce((item,a)=>item+a,0);
+        return Math.round((x/ratings.length)*100)/100
+    }
+
     // Stars for the product
     const starrs = () => {
         return <div className="flex items-center">
-            <h2 className="font-bold text-lg md:text:xl lg:text-2xl mr-4">Rating: </h2>
+            <h2 className="font-bold text-lg md:text:xl lg:text-2xl mr-4">Ratings: </h2>
             <img src={stars - 1 <= 0 ? stars - 1 > (-1) ? halfstar : nostar : fullstar} alt="star" className="h-6 w-6" />
             <img src={stars - 2 <= 0 ? stars - 2 > (-1) ? halfstar : nostar : fullstar} alt="star" className="h-6 w-6" />
             <img src={stars - 3 <= 0 ? stars - 3 > (-1) ? halfstar : nostar : fullstar} alt="star" className="h-6 w-6" />
             <img src={stars - 4 <= 0 ? stars - 4 > (-1) ? halfstar : nostar : fullstar} alt="star" className="h-6 w-6" />
             <img src={stars - 5 <= 0 ? stars - 5 > (-1) ? halfstar : nostar : fullstar} alt="star" className="h-6 w-6" />
-            <h2 className="ml-2 font-bold"> ({stars})</h2>
+            <h2 className="ml-2 font-bold"> ({averageRating()})</h2>
         </div>
     }
 
+
+
     return (
-        <div className="flex flex-col items-center mt-6 mb-4 w-[90%] mx-auto">
+        <div className="mt-6 mb-4 flex flex-col items-center">
 
             {/* IMAGE PART */}
             <div className="xl:flex flex flex-col p-8 mb-4 min-w-3/4 w-fit items-center neu1">
@@ -162,7 +174,7 @@ const Product = () => {
                     <div className="ml-4">
                         <span className="">{starrs()}</span>
                         <Link to={rrlink} className="cursor-pointer mb-4 flex items-center text-sm md:text-md lg:text-lg">
-                            <span className="px-2 text-gray-100 bg-green-600 font-bold p-1 rounded-xl hover:scale-105 transition-all">View {ratings} Ratings and {reviews} Reviews</span>
+                            <span className="px-2 text-gray-100 bg-green-600 font-bold p-1 rounded-xl hover:scale-105 transition-all">View {ratings.length} Ratings and {reviews.length} Reviews</span>
                             <img src={forward} alt="" className="h-8 w-8 m-2 hover:scale-150 transition-all" />
                         </Link>
                     </div>
@@ -196,7 +208,7 @@ const Product = () => {
 
             {/* DELIVERY PART */}
             <div className="w-[90vw] md:w-[80vw] rounded-2xl m-8 p-4 border-2 ">
-                <div className="flex items-center ml-4">
+                <div className="flex items-center mx-auto">
                     <h1 className="text-xl md:text-2xl lg:text-3xl font-bold ml-2">Delivery</h1>
                     <img src={transport} alt="transport" className="h-8 w-8 lg:h-12 lg:w-12 ml-6" />
                 </div>
