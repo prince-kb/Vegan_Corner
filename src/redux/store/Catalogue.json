@@ -22,7 +22,7 @@
         "rrlink": "https://vegancorner.vercel.app",
         "related":["00000004","00000002","00000003"],
         "priority":1,
-        "offer":true,
+        "offer":false,
         "others1":"",
         "others2":[]
     },
@@ -49,7 +49,7 @@
         "rrlink": "https://vegancorner.vercel.app",
         "related":["00000001","00000004","00000003"],
         "priority":2,
-        "offer":false,
+        "offer":true,
         "others1":"",
         "others2":[]
     },

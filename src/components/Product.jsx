@@ -1,9 +1,6 @@
 import { Link, useParams } from "react-router-dom"
 import { useEffect, useState, useRef } from "react";
 
-// import Cart from "./Cart";
-// import CheckOut from "./CheckOut";
-
 import nostar from "../assets/svgs/nostar.svg";
 import fullstar from "../assets/svgs/fullstar.svg";
 import halfstar from "../assets/svgs/halfstar.svg";
@@ -12,24 +9,16 @@ import cartadd from "../assets/svgs/cartadd.svg";
 import tick from "../assets/svgs/tick.svg";
 import bolt from "../assets/svgs/bolt.svg";
 import transport from "../assets/svgs/transport.svg";
-import error from "../assets/svgs/error.svg";
+import errorimg from "../assets/svgs/error.svg";
 import loaderSpinner from "../assets/svgs/loader.svg";
-
-import { useSelector } from "react-redux";
-
 
 
 const Product = () => {
     const ref = useRef(null); // Ref for pincode input to set pincode after every input change
-    const { id } = useParams();
-    const catalogue = useSelector(state => state);
+    const { id } = useParams(); // Getting the id of the product from the url
 
-
-
-    const product = catalogue.find((item) => item.id === id);
-    const { name, details, images, stars, seller, ratings, reviews, rrlink} = product;
-
-
+    const [product, setProduct] = useState({}); // Product details
+    const [mainLoader, setMainLoader] = useState(true); //To show product after fetching
     const [pincode, setPincode] = useState(localStorage.getItem('pincode') || '');
     const [pinc, setPinc] = useState(pincode); // extra variable to handle onchange event of pincode input
     const [visible, setVisible] = useState(pincode !== '' ? 1 : 0); // Visibility of the delivery status
@@ -37,6 +26,23 @@ const Product = () => {
     const [address, setAddress] = useState({ pincode: "", office: "", city: "", district: "", state: "" }); // Address of the pincode
     const [deliverable, setDeliverable] = useState(false); // Delivery status of the pincode to show if it is deliverable or not at the pincode
     const [n, setN] = useState(0); // Image index for the product images
+    const [error, setError] = useState(false); // Error in fetching data
+
+
+    useEffect(() => {
+        const fetchProduct = async () => {
+            try {
+                const response = await fetch(`${import.meta.env.VITE_REACT_APP_API}/api/getproduct/${id}`)
+                const data = await response.json()
+                setProduct(data)
+                setMainLoader(false)
+            } catch (err) {
+                setError(true);
+                console.log(" Unable to fetch data")
+            }
+        }
+        fetchProduct();
+    }, [id])
 
 
     useEffect(() => {
@@ -46,9 +52,7 @@ const Product = () => {
 
     useEffect(() => {
         if (pincode.length === 6) submitPincode();
-
     }, [])
-
 
     // Checking Valid Pincode
     const valid = () => {
@@ -91,9 +95,9 @@ const Product = () => {
     }
 
     //Average rating for the product
-    const averageRating = () =>{
-        let x = ratings.reduce((item,a)=>item+a,0);
-        return Math.round((x/ratings.length)*100)/100
+    const averageRating = () => {
+        let x = ratings.reduce((item, a) => item + a, 0);
+        return Math.round((x / ratings.length) * 100) / 100
     }
 
     // Stars for the product
@@ -109,9 +113,23 @@ const Product = () => {
         </div>
     }
 
+    const { name, details, images, stars, seller, ratings, reviews, rrlink } = product;
+
 
 
     return (
+        mainLoader ? <div className="flex justify-center items-center h-screen">
+            {error ? <div className="text-center">
+                <div className="flex items-center">
+                    <img src={errorimg} alt="error" className="h-4 w-4 md:h-8 md:w-8 mr-4 md:mr-8 animate-ping" />
+                    <h1 className="md:text-3xl text-red-600 font-bold text-2xl">Unable to fetch data at the Moment</h1>
+                </div>
+                <button className="my-4 rounded-2xl px-4 py-2 bg-blue-500 text-white font-bold text-xl" onClick={() => window.location.reload()}>Go Back to Home</button>
+            </div> :
+                <img src={loaderSpinner} alt="Loading..." className="h-24 w-24" />
+            }
+        </div> : !error &&
+
         <div className="mt-6 mb-4 flex flex-col items-center">
 
             {/* IMAGE PART */}
@@ -147,7 +165,7 @@ const Product = () => {
 
 
             {/* BUY NOW PART */}
-            <div className=" flex justify-around rounded-3xl py-2 lg:py-4 m-2 mb-4 px-2 md:px-6 gap-4 w-[95vw] md:w-[80vw] font-semibold">
+            <div className="flex justify-around rounded-3xl py-2 lg:py-4 m-2 mb-4 px-2 md:px-6 gap-4 w-[95vw] md:w-[80vw] font-semibold">
                 <Link to="/checkout" className="min-w-[30vw] flex-center px-4 lg:px-6 py-4 lg:py-4 group/1 bg-green-500 shadow-sm shadow-green-300 hover:scale-105 transition-all text-gray-50 rounded-2xl">
                     <h1 className="text-xl md:text-2xllg:text-3xl mr-2">Buy Now! </h1>
                     <img src={tick} alt="BUY" className="h-6 w-6 md:h-8 md:w-8 md:ml-2 lg:h-12 lg:w-12 group-hover/1:scale-[118%] group-hover/1:translate-x-2 transition-all" />
@@ -161,7 +179,7 @@ const Product = () => {
 
 
             {/* PRODUCT DETAILS PART */}
-            <div className=" border-2 w-[90vw] mx-auto rounded-2xl p-2 text-xl md:text:2xl lg:text-3xl text-balance">
+            <div className="border-2 w-[90vw] mx-auto rounded-2xl p-2 text-xl md:text:2xl lg:text-3xl text-balance">
 
                 <div className="ml-2">
                     <h1 className="text-2xl md:text-3xl font-bold text-brown mb-2 md:mb-4 ml-4">{name} <span className=" text-xl">(by {seller})</span></h1>
@@ -213,7 +231,7 @@ const Product = () => {
                     <img src={transport} alt="transport" className="h-8 w-8 lg:h-12 lg:w-12 ml-6" />
                 </div>
                 <div className="ml-4 my-2">
-                <h2 className="text-xl block font-bold ml-2 text-blue-700 mt-4 md:text-2xl">{details.price>=99 ? 'Free Delivery with this item' : 'Delivery charge ₹ 49'}</h2>
+                    <h2 className="text-xl block font-bold ml-2 text-blue-700 mt-4 md:text-2xl">{details.price >= 99 ? 'Free Delivery with this item' : 'Delivery charge ₹ 49'}</h2>
                     <h2 className="text-md xl:text-xl font-bold m-2">Enter Pincode to check delivery</h2>
                     <div className="flex flex-col xl:flex-row">
                         <div className="flex flex-col md:flex-row md:items-center">
@@ -228,7 +246,7 @@ const Product = () => {
 
                         <div className={`${!valid() && pincode !== '' ? 'flex' : 'hidden'} items-center ml-4`}>
                             <h2 className="font-bold mr-4 text-red-600">{pincode.length !== 6 ? 'Length of Pincode should must be 6 ' : "Pincode should contain only numeric values"}</h2>
-                            <img src={error} alt="error" className="rounded-full h-4 w-4 animate-ping" />
+                            <img src={errorimg} alt="error" className="rounded-full h-4 w-4 animate-ping" />
                         </div>
                     </div>
                 </div>
@@ -250,7 +268,7 @@ const Product = () => {
                     <div className={`${deliverable && 'hidden'}`}>
                         <div className="flex items-center">
                             <h2 className="font-bold text-red-600 mr-4 text-xl">Delivery Unavailable </h2>
-                            <img src={error} alt="error" className="rounded-full h-4 w-4 animate-ping" />
+                            <img src={errorimg} alt="error" className="rounded-full h-4 w-4 animate-ping" />
                         </div>
                         <h2 className="font-bold">Sorry! We don't deliver to this location at this moment !</h2>
                     </div>

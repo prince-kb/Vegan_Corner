@@ -14,7 +14,8 @@ const mainSlice = createSlice({
 export const { updateMain } = mainSlice.actions;
 export const main = mainSlice.reducer;
 
+// Should be used when we want to get the Catalogue from the store instead of calling Catalogue.main.Catalogue
 // export const getCatalogue = createSelector(
 //   (state) => state.main.Catalogue,
-//     (Catalogue) => Catalogue
+//   (catalogue) => catalogue
 // );

@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom"
 import bolt1 from '../assets/svgs/bolt1.svg'
 import { useSelector } from "react-redux"
-// import { getCatalogue } from "../redux/slices/mainSlice"
 
 const Category = (props) => {
     const catalogue = useSelector(state => state.main.Catalogue)
     const { type } = props;
 
-
-    // const catal = useSelector(getCatalogue)
-    // console.log(catal)
+    const averageRating = (ratings) => {
+        let x = ratings.reduce((item, a) => item + a, 0);
+        return Math.round((x / ratings.length) * 100) / 100
+    }
 
     return (
         <div className={`m-4 lg:m-8 mt-8 ${!catalogue.length && 'hidden'}`}>
@@ -21,9 +21,8 @@ const Category = (props) => {
                         {/* Priority Part */}
                         <div className="w-full flex justify-end absolute right-2 top-2">
                             {item.offer ? <div className="flex items-center gap-1 bg-green-500 text-white z-[-1] px-2 py-1 animate-bounce rounded-full text-[10px] lg:text-sm"><img src={bolt1} alt="S" className="h-4 w-4" />SALE </div>
-                                : <div className={`${item.priority>=3 ? 'bg-violet-500' : item.priority===2 ? 'bg-orange' : item.priority===1 ? 'bg-blue-500' : 'bg-red-500'} text-white p-1 md:p-2 rounded-full`}></div>
+                                : <div className={`${item.priority >= 3 ? 'bg-violet-500' : item.priority === 2 ? 'bg-orange' : item.priority === 1 ? 'bg-blue-500' : 'bg-red-500'} text-white p-1 md:p-2 rounded-full`}></div>
                             }
-
                         </div>
 
                         <h2 className="lg:px-2 text-center font-bold text-md md:text-xl lg:text-2xl mt-4 lg:mt-6 mb-2">{item.name}</h2>
@@ -38,11 +37,11 @@ const Category = (props) => {
                             </div>
                             <div className="text-end flex-col justify-center">
                                 <h2 className="">Quantity</h2>
-                                <h2 className=" font-bold mr-1">{item.details.weight}</h2>
+                                <h2 className=" font-bold mr-1">{item.details.quantity}</h2>
                             </div>
 
                         </div>
-                        <h2 className="text-xl md:text-2xl text-center font-bold mt-4 mb-2">{item.stars} ⭐</h2>
+                        <h2 className="text-xl md:text-2xl text-center font-bold mt-4 mb-2">{averageRating(item.ratings)} ⭐</h2>
                     </div>
                 ))}
             </div>

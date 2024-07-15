@@ -4,7 +4,9 @@ import { useDispatch } from "react-redux";
 import { updateMain } from "../redux/slices/mainSlice";
 
 const LandingPage = () => {
-  
+
+  const API = import.meta.env.VITE_REACT_APP_API
+
   const dispatch = useDispatch()
   const [n, setN] = useState(0);
   const [banners, setBanners] = useState(["https://img.freepik.com/free-vector/green-sale-banner_1017-7937.jpg"]);
@@ -13,9 +15,8 @@ const LandingPage = () => {
   useEffect(() => {
     const mainData = async () => {
       try {
-        const response = await fetch('http://localhost:8010/api/getallproducts')
+        const response = await fetch(`${API}/api/getallproducts`)
         const data = await response.json()
-        // console.log(data)
         dispatch(updateMain(data))
       } catch (err) {
         dispatch(updateMain([]))
@@ -26,22 +27,20 @@ const LandingPage = () => {
 
     const fetchBanners = async () => {
       try {
-        const response = await fetch('http://localhost:8010/api/getbanners')
+        const response = await fetch(`${API}/api/getbanners`)
         const data = await response.json()
         setBanners(data)
-        setN(0)
       } catch (err) {
         console.log(err, " Unable to fetch banners data")
       }
     }
     fetchBanners();
-
   }, [])
 
   useEffect(() => {
     const interval = setInterval(() => n === banners.length - 1 ? setN(0) : setN(n + 1), 3000)
     return () => clearInterval(interval);
-  }, [n])
+  },)
 
 
   return (
