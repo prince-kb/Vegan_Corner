@@ -115,8 +115,6 @@ const Product = () => {
 
     const { name, details, images, stars, seller, ratings, reviews, rrlink } = product;
 
-
-
     return (
         mainLoader ? <div className="flex justify-center items-center h-screen">
             {error ? <div className="text-center">
