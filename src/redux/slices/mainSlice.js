@@ -1,13 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-import Catalogue from "../store/Catalogue.json";
+import Products from "../store/Products.json";
 const mainSlice = createSlice({
   name: "main",
   initialState: {
-    Catalogue,
+    Products,
   },
   reducers: {
     updateMain: (state, action) => {
-      state.Catalogue = action.payload;
+      state.Products = action.payload;
     },
   },
 });
@@ -19,3 +19,4 @@ export const main = mainSlice.reducer;
 //   (state) => state.main.Catalogue,
 //   (catalogue) => catalogue
 // );
+
