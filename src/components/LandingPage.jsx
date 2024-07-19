@@ -59,13 +59,12 @@ const LandingPage = () => {
               <div key={index} className={`${n === index ? "lg:h-6 lg:w-6 h-4 w-4" : "lg:h-4 lg:w-4 h-2 w-2"} rounded-full ${n == index ? "bg-red-200" : "bg-white"} cursor-pointer transition-all`} onClick={() => setN(index)}></div>
             ))}
           </div>
-
         </div>
       </div>
 
       <Category type="milk" />
       <Category type="snacks" />
-      <Category type="instant foods" />
+      <Category type="quick foods" />
       <Category type="grocery" />
       <Category type="munchies" />
 
