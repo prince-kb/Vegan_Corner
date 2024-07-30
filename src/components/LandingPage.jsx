@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import Category from "./Category"
 import { useDispatch } from "react-redux";
 import { updateMain } from "../redux/slices/mainSlice";
+
+import Category from "./Category"
 
 const LandingPage = () => {
 
@@ -15,12 +16,12 @@ const LandingPage = () => {
   useEffect(() => {
     const mainData = async () => {
       try {
-        const response = await fetch(`${API}/api/getallproducts`)
+        const response = await fetch(`${API}/api/getcatalogue`)
         const data = await response.json()
         dispatch(updateMain(data))
       } catch (err) {
         dispatch(updateMain([]))
-        console.log(err, " Unable to fetch data")
+        console.log(" Unable to fetch data")
       }
     }
     mainData();
@@ -31,11 +32,11 @@ const LandingPage = () => {
         const data = await response.json()
         setBanners(data)
       } catch (err) {
-        console.log(err, " Unable to fetch banners data")
+        console.log(" Unable to fetch banners data")
       }
     }
     fetchBanners();
-  }, [])
+  }, [window.onload])
 
   useEffect(() => {
     const interval = setInterval(() => n === banners.length - 1 ? setN(0) : setN(n + 1), 3000)

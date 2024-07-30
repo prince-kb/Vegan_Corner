@@ -138,7 +138,7 @@ const Product = () => {
 
                         <div className="border-b-2 border-gray-300 flex flex-col items-center shadow-orange/80">
                             <div className="mb-1 mt-2">
-                                <img src={images[`${n}`]} alt={name} className="rounded-t-2xl min-h-[35vh] sm:h-[40vh] md:h-[50vh]" />
+                                <img src={images[`${n}`]} alt={name} className="rounded-t-2xl h-[35vh] sm:h-[40vh] md:h-[50vh] " />
                             </div>
                             <div className={` flex rounded-2xl max-w-[70vw] ${images.length > 2 && 'overflow-x-scroll'}`}>
                                 {images.map((image, i) => (
