@@ -30,6 +30,18 @@
   font-family: CavBold;
   src: url(./assets//fonts/CAVOLINIBOLD.TTF);
 }
+@font-face {
+  font-family: Janime;
+  src: url(./assets//fonts/janime.otf);
+}
+@font-face {
+  font-family: NewWalto;
+  src: url(./assets//fonts/NewWalto.ttf);
+}
+@font-face {
+  font-family: Bubble;
+  src: url(./assets//fonts/Bubble.otf);
+}
 
 /* width */
 ::-webkit-scrollbar {

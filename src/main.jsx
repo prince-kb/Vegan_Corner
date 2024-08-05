@@ -1,14 +1,16 @@
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
-import { RouterProvider,createHashRouter } from 'react-router-dom'
+import { RouterProvider, createHashRouter } from 'react-router-dom'
 import Dynamic from './components/Dynamic.jsx'
 import LandingPage from './components/LandingPage.jsx'
 import Product from './components/Product.jsx'
 import CheckOut from './components/CheckOut.jsx'
 import Cart from './components/Cart.jsx'
-import { Provider } from 'react-redux'
+import Login from './components/Login.jsx'
+
 import { store } from './redux/store/store.js'
+import { Provider } from 'react-redux'
 
 const router = createHashRouter([
   {
@@ -34,6 +36,10 @@ const router = createHashRouter([
       {
         path: "cart",
         element: <Cart />
+      },
+      {
+        path: "login",
+        element: <Login />
       }
     ]
   }
@@ -41,6 +47,6 @@ const router = createHashRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
-    <RouterProvider router={router} />
+      <RouterProvider router={router} />
   </Provider>
 )
