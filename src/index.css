@@ -46,7 +46,7 @@
 /* width */
 ::-webkit-scrollbar {
   width: 0px;
-  height: 8px;
+  height: 0px;
   transition: all;
 }
 
@@ -65,4 +65,12 @@
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #533030;
+}
+
+::-webkit-input-placeholder {
+  color: #000000;
+}
+::-webkit-input-placeholder::active {
+  border: #000000;
+  color: #000000;
 }

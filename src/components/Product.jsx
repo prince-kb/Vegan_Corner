@@ -32,7 +32,15 @@ const Product = () => {
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const response = await fetch(`${import.meta.env.VITE_REACT_APP_API}/api/getproduct/${id}`)
+                const SERVER_SECRET = import.meta.env.VITE_REACT_APP_SERVER_SECRET
+                const response = await fetch(`${import.meta.env.VITE_REACT_APP_API}/api/getproduct/${id}`,{
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'secret' : SERVER_SECRET
+                    }
+                })
                 const data = await response.json()
                 setProduct(data)
                 setMainLoader(false)

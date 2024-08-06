@@ -22,32 +22,32 @@ const Navbar = () => {
     const goToHomePage = () => location.pathname !== '/' && navigate('/');
 
     useEffect(() => {
-        gsap.to('#toolbox', { x: !opened ? "-80vw" : "-10vw", duration: 0.3, ease: 'power1.inOut' })
+        gsap.to('#toolbox', { x: !opened ? "-135vw" : "-20vw", duration: 0.3, ease: 'power1.inOut' })
     }, [opened])
 
 
     return (
         <div className="flex select-none">
  
-            <div className="w-fit px-4 pr-10 h-[64px] lg:h-[92px] bg-orange rounded-br-full flex items-center relative z-[2]">
+            <div className="w-fit px-4 md:pr-6 lg:pr-10 h-[64px] lg:h-[92px] bg-orange rounded-br-full flex items-center relative z-[2]">
                 <img src={logo} alt="Vegan" className='h-8 md:h-12 lg:h-16 cursor-pointer' onClick={goToHomePage} />
-                <h1 className="font-bold font-janime tracking-wider text-2xl md:text-3xl lg:text-4xl ml-2 lg:ml-4">Vegan's Corner</h1>
+                <h1 className="font-bold font-janime tracking-wider text-xl md:text-2xl lg:text-3xl xl:text-4xl ml-2 lg:ml-4">Vegan's Corner</h1>
             </div>
 
             <div className="relative h-fit w-fit z-[4]">
-                <div className='group h-[64px] lg:h-[92px] w-fit flex rounded-full bg-orange justify-center cursor-pointer items-center p-6' onClick={() => setOpened(!opened)} onMouseEnter={() => setOpened(!opened)} >
-                    <img src={user} alt="user" className='h-10 w-10' />
+                <div className={`group h-[64px] lg:h-[92px] w-fit flex rounded-full bg-orange justify-center cursor-pointer items-center p-2 px-4 md:p-4 lg:p-6 `} onMouseEnter={() => setOpened(!opened)} onClick={() => setOpened(!opened)}  >
+                    <img src={user} alt="user" className='h-6 md:h-10 lg:h-12' />
                 </div>
-                <div id='toolbox' className="z-[5] absolute gap-4 shadow-black shadow-2xl  rounded-3xl bg-[#eca042f1]" onClick={() => setOpened(!opened)}>
-                    <div className='flex flex-col justify-between items-center min-h-[60vh] md:min-h-[30vh] min-w-[30vw]'>
-                        <div className='flex items-center w-full justify-center mt-4 border-b-2 pb-4'>
-                            <div className='h-12 w-12 mr-8 bg-brown rounded-full' />
-                            <div className='font font-newWalto tracking-widest text-2xl'>YOUR NAME</div>
+                <div id='toolbox' className="z-[5] absolute gap-4 shadow-black shadow-2xl rounded-3xl bg-[#eca042f1]" onClick={() => setOpened(!opened)}>
+                    <div className='flex flex-col justify-between items-center min-h-[60vh] md:min-h-[30vh] min-w-[60vw] md:min-w-[40vw] lg:min-w-[25vw] '>
+                        <div className='flex items-center w-full justify-center gap-4 mt-4 border-b-2 pb-4'>
+                            <div className='h-12 w-12 mr-2  bg-brown rounded-full' />
+                            <div className='font-bold font-newWalto text-white tracking-widest text-2xl'>YOUR NAME</div>
                         </div>
 
-                        <div className='mx-auto flex mb-4 items-center'>
-                            <div className='bg-brown hover:scale-105 cursor-pointer transition-all hover:bg-lightBrown  mx-2 rounded-2xl px-4 py-2 text-white font-bold' onClick={()=>navigate('login')}>LOGIN</div>
-                            <div className='bg-brown hover:scale-105 cursor-pointer transition-all hover:bg-lightBrown  mx-2 rounded-2xl px-4 py-2 text-white font-bold'>SIGNUP</div>
+                        <div className='mx-auto flex mb-4 items-center w-fit'>
+                            <div className='bg-brown hover:scale-105 cursor-pointer transition-all hover:bg-lightBrown mx-2 rounded-2xl px-4 py-2 text-white font-bold' onClick={()=>navigate('login')}>LOGIN &#8702;</div>
+                            <div className='bg-brown hover:scale-105 cursor-pointer transition-all hover:bg-lightBrown mx-2 rounded-2xl px-4 py-2 text-white font-bold'>SIGNUP &#8702; </div>
                         </div>
                     </div>
                 </div>

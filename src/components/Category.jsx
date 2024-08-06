@@ -7,14 +7,22 @@ import { updateCatalogue } from "../redux/slices/catalogueSlice"
 const Category = (props) => {
     const catalogue = useSelector(state => state.catalogue.Catalogue)
     const { type } = props;
-    const API = import.meta.env.VITE_REACT_APP_API
     const dispatch = useDispatch();
-
-
+    
+    
     useEffect(() => {
         const fetchCatalogue = async () => {
             try {
-                const response = await fetch(`${API}/api/getcatalogue`)
+                const API = import.meta.env.VITE_REACT_APP_API
+                const SERVER_SECRET = import.meta.env.VITE_REACT_APP_SERVER_SECRET
+                const response = await fetch(`${API}/api/getcatalogue`,{
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'secret' : SERVER_SECRET
+                    }
+                })
                 const data = await response.json()
                 dispatch(updateCatalogue(data))
             } catch (err) {
@@ -30,7 +38,7 @@ const Category = (props) => {
         <div className={`m-4 lg:m-8 mt-8 ${catalogue && !catalogue.length && 'hidden'}`}>
             <h1 className="font-bold text-xl md:text-2xl lg:text-3xl text-brown mb-2 ml-6 lg:ml-8">{type.toUpperCase()}</h1>
             <div className={`flex gap-4 overflow-auto pl-2 lg:pl-6`}>
-                {catalogue && catalogue.filter(item => item.type === type).map((item, i) => (
+                {catalogue && catalogue.length>0 && catalogue.filter(item => item.type === type).map((item, i) => (
                     <div key={i} className="relative mb-4 min-w-[160px] md:min-w-[200px] lg:min-w-[240px] hover:neu2 border rounded-2xl transition-all shadow-lg flex flex-col items-center">
 
                         {/* Priority Part */}
