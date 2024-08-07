@@ -27,7 +27,7 @@ const Navbar = () => {
 
 
     return (
-        <div className="flex select-none">
+        <div className="flex select-none " onClick={()=>setOpened(false)}>
  
             <div className="w-fit px-4 md:pr-6 lg:pr-10 h-[64px] lg:h-[92px] bg-orange rounded-br-full flex items-center relative z-[2]">
                 <img src={logo} alt="Vegan" className='h-8 md:h-12 lg:h-16 cursor-pointer' onClick={goToHomePage} />
@@ -35,7 +35,7 @@ const Navbar = () => {
             </div>
 
             <div className="relative h-fit w-fit z-[4]">
-                <div className={`group h-[64px] lg:h-[92px] w-fit flex rounded-full bg-orange justify-center cursor-pointer items-center p-2 px-4 md:p-4 lg:p-6 `} onMouseEnter={() => setOpened(!opened)} onClick={() => setOpened(!opened)}  >
+                <div className={`group h-[64px] lg:h-[92px] w-fit flex rounded-full bg-orange justify-center cursor-pointer items-center p-2 px-4 md:p-4 lg:p-6 `} onMouseEnter={() => {if(!opened) setOpened(!opened)}} onClick={() => setOpened(!opened)}  >
                     <img src={user} alt="user" className='h-6 md:h-10 lg:h-12' />
                 </div>
                 <div id='toolbox' className="z-[5] absolute gap-4 shadow-black shadow-2xl rounded-3xl bg-[#eca042f1]" onClick={() => setOpened(!opened)}>
@@ -46,8 +46,8 @@ const Navbar = () => {
                         </div>
 
                         <div className='mx-auto flex mb-4 items-center w-fit'>
-                            <div className='bg-brown hover:scale-105 cursor-pointer transition-all hover:bg-lightBrown mx-2 rounded-2xl px-4 py-2 text-white font-bold' onClick={()=>navigate('login')}>LOGIN &#8702;</div>
-                            <div className='bg-brown hover:scale-105 cursor-pointer transition-all hover:bg-lightBrown mx-2 rounded-2xl px-4 py-2 text-white font-bold'>SIGNUP &#8702; </div>
+                            <div className='bg-brown hover:scale-105 cursor-pointer transition-all hover:bg-lightBrown mx-2 rounded-2xl px-4 py-2 text-white font-bold' onClick={()=>navigate('signin')}>LOGIN &#8702;</div>
+                            <div className='bg-brown hover:scale-105 cursor-pointer transition-all hover:bg-lightBrown mx-2 rounded-2xl px-4 py-2 text-white font-bold' onClick={()=>navigate('signup')}>SIGNUP &#8702; </div>
                         </div>
                     </div>
                 </div>

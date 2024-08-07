@@ -2,12 +2,13 @@ import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
 import { RouterProvider, createHashRouter } from 'react-router-dom'
-import Dynamic from './components/Dynamic.jsx'
-import LandingPage from './components/LandingPage.jsx'
-import Product from './components/Product.jsx'
-import CheckOut from './components/CheckOut.jsx'
-import Cart from './components/Cart.jsx'
-import Login from './components/Login.jsx'
+import Dynamic from './components/Dynamic'
+import LandingPage from './components/LandingPage'
+import Product from './components/Product'
+import CheckOut from './components/CheckOut'
+import Cart from './components/Cart'
+import SignIn from './components/SignIn'
+import SignUp from './components/SignUp'
 
 import { store } from './redux/store/store.js'
 import { Provider } from 'react-redux'
@@ -38,8 +39,12 @@ const router = createHashRouter([
         element: <Cart />
       },
       {
-        path: "login",
-        element: <Login />
+        path: "signin",
+        element: <SignIn />
+      },
+      {
+        path: "signup",
+        element: <SignUp />
       }
     ]
   }
