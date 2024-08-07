@@ -73,18 +73,15 @@ useEffect(()=>{
     setX1(0);
   })
 
-  return ()=>  ref.current.removeEventListener('touchend', e => {
+  return ref.current.removeEventListener('touchend', e => {
     x=e.changedTouches[0].clientX;
     if(x1 && x){
       if(x1>x) setN(n === banners.length - 1 ? 0 : n + 1)
-      else setN(n === 0 ? banners.length - 1 : n - 1)
+        else setN(n === 0 ? banners.length - 1 : n - 1)
     }
     setX1(0);
   })
 })
-
-
-
 
   return (
     <div className="" ref={ref}  >
@@ -94,12 +91,12 @@ useEffect(()=>{
       {/* Banner */}
       <div onTouchStart={e=>{ setX1(e.changedTouches[0].clientX)}} className={` mx-auto mt-4 lg:mt-8 h-[18vh] md:h-[30vh] lg:h-[40vh] xl:w-[50vw] w-[60vw] rounded-3xl bg-green-200 relative flex justify-center items-end`}>
         {banners && banners.length > 0 && banners.map((banner, index) => (
-          <img src={banners[index]} key={index} alt="Banner" className={` h-full w-[100%] absolute transition-all duration-500 neu2 ${index === n ? ' border-l-4 border-b-4 border-green-800 z-[2]' : index === (n + 1) % banners.length ? ' border-green-800 border-l-4 border-b-4 -translate-x-2 translate-y-2 lg:-translate-x-4 lg:translate-y-4 z-[1] ' : 'border-l-4 border-b-4 border-green-800 -translate-x-4 translate-y-4 lg:-translate-x-8 lg:translate-y-8 z-[0]'} `} />
+          <img src={banners[index]} key={index} alt="Banner" className={` h-full w-[100%] absolute transition-all duration-500 neu2 border-l-4 lg:border-b-8 lg:border-l-8 border-b-4 border-green-800 ${index === n ? ' z-[2]' : index === (n + 1) % banners.length ? ' -translate-x-2 translate-y-2 lg:-translate-x-4 lg:translate-y-4 z-[1] ' : '-translate-x-4 translate-y-4 lg:-translate-x-8 lg:translate-y-8 z-[0]'} `} />
         ))}
         <div className="flex z-[2] ">
-          <div className="flex mb-2 md:mb-4 lg:mb-6 gap-6 items-center">
+          <div className="flex mb-2 md:mb-4 lg:mb-6 gap-3 md:gap-4 lg:gap-6 items-center">
             {banners && banners.length > 0 && banners.map((banner, index) => (
-              <div key={index} className={`${n === index ? "lg:h-6 lg:w-6 h-4 w-4" : "lg:h-4 lg:w-4 h-2 w-2"} rounded-full ${n == index ? "bg-red-200" : "bg-white"} cursor-pointer transition-all`} onClick={() => setN(index)}></div>
+              <div key={index} className={`${n === index ? "lg:h-6 lg:w-6 md:w-4 md:h-4 h-2 w-2" : "lg:h-4 lg:w-4 md:h-2 md:w-2 h-1 w-1"} rounded-full ${n == index ? "bg-orange" : "bg-brown"} cursor-pointer transition-all`} onClick={() => setN(index)}></div>
             ))}
           </div>
         </div>

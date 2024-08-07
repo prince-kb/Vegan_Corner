@@ -35,12 +35,12 @@
   src: url(./assets//fonts/janime.otf);
 }
 @font-face {
-  font-family: NewWalto;
-  src: url(./assets//fonts/NewWalto.ttf);
-}
-@font-face {
   font-family: Bubble;
   src: url(./assets//fonts/Bubble.otf);
+}
+@font-face {
+  font-family: Walto;
+  src: url(./assets//fonts/walto.ttf);
 }
 
 /* width */

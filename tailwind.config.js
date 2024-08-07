@@ -10,7 +10,7 @@ export default {
         cavo : ['CavBold'],
         bubble:['Bubble'],
         janime:['Janime'],
-        newWalto:['NewWalto']
+        walto:['Walto'],
       },
       colors: {
         orange: "#FFB84D",

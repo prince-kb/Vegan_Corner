@@ -12,7 +12,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 
 const Navbar = () => {
 
-    const [opened, setOpened] = useState(false);
+    const [opened, setOpened] = useState(false); //To check if toolbox is opened
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -27,7 +27,7 @@ const Navbar = () => {
 
 
     return (
-        <div className="flex select-none " onClick={()=>setOpened(false)}>
+        <div className="flex select-none " onClick={()=>opened && setOpened(false)}>
  
             <div className="w-fit px-4 md:pr-6 lg:pr-10 h-[64px] lg:h-[92px] bg-orange rounded-br-full flex items-center relative z-[2]">
                 <img src={logo} alt="Vegan" className='h-8 md:h-12 lg:h-16 cursor-pointer' onClick={goToHomePage} />

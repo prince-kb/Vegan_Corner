@@ -55,16 +55,16 @@ const Category = (props) => {
                         <hr />
                         <div className="flex mt-2 justify-around w-full">
                             <div className="text-start">
-                                <h3 className="text-green-500 font-bold text-xl md:text-2xl">&#8377; {item.price} </h3>
-                                <p className="text-md md:text-lg text-center font-brown font-bold line-through">{item.price2}</p>
+                                <h3 className="text-green-500 font-bubble text-xl md:text-2xl">&#8377; {item.price} </h3>
+                                <p className="text-md md:text-lg text-center font-brown font-walto line-through">{item.price2}</p>
                             </div>
                             <div className="text-end flex-col justify-center">
-                                <h2 className="">Quantity</h2>
+                                <h2 className="font-thin tracking-tight">Quantity</h2>
                                 <h2 className=" font-bold mr-1">{item.quantity}</h2>
                             </div>
 
                         </div>
-                        <h2 className="text-xl md:text-2xl text-center font-bold mt-4 mb-2">{item.rating} ⭐</h2>
+                        <h2 className="text-xl md:text-2xl text-center font-bold mt-2 md:mt-4 mb-2">{item.rating} ⭐</h2>
                     </div>
                 ))}
             </div>
