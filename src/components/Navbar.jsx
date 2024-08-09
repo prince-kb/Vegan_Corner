@@ -4,10 +4,11 @@ import shop from '../assets/svgs/navbar/shop.svg'
 import quick from '../assets/svgs/navbar/quick.svg'
 import baked from '../assets/svgs/navbar/baked.svg'
 import love from '../assets/svgs/navbar/love.svg'
-import user from '../assets/svgs/navbar/user.svg'
-import gsap from 'gsap'
-import { useEffect, useRef, useState } from 'react'
+import logoutsvg from '../assets/svgs/navbar/logout.svg'
+import usersvg from '../assets/svgs/navbar/user.svg'
+import { useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 
 const Navbar = () => {
@@ -21,37 +22,42 @@ const Navbar = () => {
     const rotate1 = () => ref.current.classList.add('rotate-[-90deg]')
     const goToHomePage = () => location.pathname !== '/' && navigate('/');
 
-    // useEffect(() => {
-    //     gsap.to('#toolbox', { x: !opened ? "-135vw" : "-20vw", duration: 0.3, ease: 'power1.inOut' })
-    // }, [opened])
-
-
+    const user = useSelector(state => state.user.user);
+    
     return (
-        <div className="flex select-none " onClick={()=>opened && setOpened(false)}>
- 
+        <div className="flex select-none " onClick={() => opened && setOpened(false)}>
+
             <div className="w-fit px-4 md:pr-6 lg:pr-10 h-[64px] lg:h-[92px] bg-orange rounded-br-full flex items-center relative z-[2]">
                 <img src={logo} alt="Vegan" className='h-8 md:h-12 lg:h-16 cursor-pointer' onClick={goToHomePage} />
                 <h1 className="font-bold font-janime tracking-wider text-xl md:text-2xl lg:text-3xl xl:text-4xl ml-2 lg:ml-4">Vegan's Corner</h1>
             </div>
 
             <div className="group/xx relative h-fit w-fit z-[4] flex justify-center">
-                <div className={`peer h-[64px] w-[64px] lg:h-[92px] lg:w-[92px] flex rounded-full bg-orange justify-center cursor-pointer items-center `} onMouseEnter={() => {if(!opened) setOpened(!opened)}} onClick={() => setOpened(!opened)}  >
+                <div className={`h-[64px] w-[64px] lg:h-[92px] lg:w-[92px] flex rounded-full bg-orange justify-center cursor-pointer items-center `} onMouseEnter={() => { if (!opened) setOpened(!opened) }} onClick={() => setOpened(!opened)}  >
                     <div className='h-[80%] w-[80%] bg-brown rounded-full flex-center'>
-                        <img src={user} alt="user" className='h-[80%] fill-white bg-brown rounded-full' />
+                        {user?.name ? <h2 className='text-yellow-300 font-peach text-4xl md:text-3xl lg:text-4xl'>{user.name.slice(0, 1)}</h2> :
+                            <img src={usersvg} alt="user" className='h-[80%] fill-white bg-brown rounded-full' />}
                     </div>
                 </div>
 
-                <div id='toolbox' className="group-hover/xx:translate-x-0 translate-x-[-100vw] transition-all translate-y-[64px] lg:translate-y-[92px]group-hover/xx:opacity-100 z-[5] absolute gap-4 shadow-brown shadow-2xl rounded-3xl bg-[#eca042f1]" onClick={() => setOpened(!opened)}>
-                    <div className='flex flex-col justify-between items-center min-h-[60vh] md:min-h-[30vh] min-w-[60vw] md:min-w-[40vw] lg:min-w-[25vw] '>
-                        <div className='flex items-center w-full justify-center gap-2 md:gap-4 mt-4 border-b-2 ml-2 pb-2'>
-                            <div className='h-12 w-12 mr-2 bg-brown rounded-full' />
-                            <div className='font-bold font-bubble text-white tracking-wide text-xl md:text-2xl'>YOUR NAME</div>
+                <div id='toolbox' className="group-hover/xx:translate-x-0 translate-x-[-100vw] transition-all translate-y-[64px] lg:translate-y-[92px] z-[5] absolute gap-4 shadow-brown shadow-2xl rounded-3xl bg-[#eca042f1]" onClick={() => setOpened(!opened)}>
+                    <div className='flex flex-col justify-between items-center min-h-[50vh] md:min-h-[30vh] min-w-[60vw] md:min-w-[40vw] lg:min-w-[25vw] '>
+                        <div className='flex items-center w-full justify-around gap-2 md:gap-4 mt-4 border-b-2 ml-2 pb-2'>
+                            {user?.name && <div className='h-2 w-2 bg-transparent'/>}
+                            <div className='font font-bubble text-white tracking-wider text-xl md:text-2xl'>{user?.name ? user.name : 'WELCOME'}</div>
+                            {user?.name && 
+                                <img src={logoutsvg} alt="user" className='cursor-pointer hover:scale-110  transition-all hover:translate-x-1 h-8 w-8 stroke-white fill-white' onClick={()=>{localStorage.removeItem('authy'); window.location.reload(false);} } />
+                            }
                         </div>
 
-                        <div className='mx-auto flex mb-4 items-center w-fit'>
-                            <div className='text-sm md:text-base bg-brown hover:scale-105 cursor-pointer transition-all hover:bg-lightBrown mx-2 rounded-2xl px-4 py-2 text-white font-bold' onClick={()=>navigate('signin')}>LOGIN &#8702;</div>
-                            <div className='text-sm md:text-base bg-brown hover:scale-105 cursor-pointer transition-all hover:bg-lightBrown mx-2 rounded-2xl px-4 py-2 text-white font-bold' onClick={()=>navigate('signup')}>SIGNUP &#8702; </div>
-                        </div>
+                        {user?.name ? <div className='mx-auto flex mb-4 items-center w-fit'>
+                            <div className='text-sm md:text-base bg-darkbrown hover:scale-105 cursor-pointer transition-all hover:bg-brown mx-2 rounded-2xl px-4 py-2 text-white font-bold' onClick={() => navigate('cart')}>CART &#8702;</div>
+                            <div className='text-sm md:text-base bg-darkbrown hover:scale-105 cursor-pointer transition-all hover:bg-brown mx-2 rounded-2xl px-4 py-2 text-white font-bold' onClick={() => navigate('wishlist')}>WISHLIST &#8702; </div>
+                        </div> :
+                            <div className='mx-auto flex mb-4 items-center w-fit'>
+                                <div className='text-sm md:text-base bg-darkbrown hover:scale-105 cursor-pointer transition-all hover:bg-brown mx-2 rounded-2xl px-4 py-2 text-white font-bold' onClick={() => navigate('signin')}>LOGIN &#8702;</div>
+                                <div className='text-sm md:text-base bg-darkbrown hover:scale-105 cursor-pointer transition-all hover:bg-brown mx-2 rounded-2xl px-4 py-2 text-white font-bold' onClick={() => navigate('signup')}>SIGNUP &#8702; </div>
+                            </div>}
                     </div>
                 </div>
 

@@ -1,37 +1,10 @@
 import { Link } from "react-router-dom"
+import { useSelector } from "react-redux"
 import bolt1 from '../assets/svgs/bolt1.svg'
-import { useDispatch, useSelector } from "react-redux"
-import { useEffect } from "react"
-import { updateCatalogue } from "../redux/slices/catalogueSlice"
 
 const Category = (props) => {
     const catalogue = useSelector(state => state.catalogue.Catalogue)
     const { type } = props;
-    const dispatch = useDispatch();
-    
-    
-    useEffect(() => {
-        const fetchCatalogue = async () => {
-            try {
-                const API = import.meta.env.VITE_REACT_APP_API
-                const SERVER_SECRET = import.meta.env.VITE_REACT_APP_SERVER_SECRET
-                const response = await fetch(`${API}/api/getcatalogue`,{
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json',
-                        'secret' : SERVER_SECRET
-                    }
-                })
-                const data = await response.json()
-                dispatch(updateCatalogue(data))
-            } catch (err) {
-                dispatch(updateCatalogue([]))
-                console.log(err, " Unable to fetch data")
-            }
-        }
-        fetchCatalogue();
-    },[window.onload])
 
 
     return (

@@ -42,6 +42,10 @@
   font-family: Walto;
   src: url(./assets//fonts/walto.ttf);
 }
+@font-face {
+  font-family: Peach;
+  src: url(./assets//fonts/milkpeach.ttf);
+}
 
 /* width */
 ::-webkit-scrollbar {

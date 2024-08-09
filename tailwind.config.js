@@ -11,11 +11,12 @@ export default {
         bubble:['Bubble'],
         janime:['Janime'],
         walto:['Walto'],
+        peach:['Peach']
       },
       colors: {
         orange: "#FFB84D",
         brown : "#533030",
-        lightBrown : "#7A4A4A",
+        darkbrown : "#3B1F1F",
         grey : {
         1 : "#EEE9E9"
       }

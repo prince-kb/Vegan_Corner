@@ -1,22 +1,65 @@
 import React, { useState } from 'react'
 import loginbg from "../assets/images/LOGIN-BG.jpeg"
 import error from "../assets/svgs/error.svg"
+import { setUser } from '../redux/slices/userSlice'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 const SignIn = () => {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-
   const [valid, setValid] = useState(true)
 
-  const submit = () => {
-    if (email.length<3 || !emailFormatChecker(email) || password.length<3){
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const submit = async () => {
+    if (email.length < 3 || !emailFormatChecker(email) || password.length < 3) {
       setValid(false)
       setTimeout(() => {
         setValid(true)
       }, 3000);
       return;
     }
-    
+
+    const API = import.meta.env.VITE_REACT_APP_API
+    const SERVER_SECRET = import.meta.env.VITE_REACT_APP_SERVER_SECRET
+    try {
+      const r = await fetch(`${API}/api/user/signin`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'secret': SERVER_SECRET
+        },
+        body : JSON.stringify({email,password})
+      })
+      const d = await r.json();
+
+      const response = await fetch(`${API}/api/user/getuser`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'secret': SERVER_SECRET,
+          'authToken': d.authToken
+        },
+        body : JSON.stringify({email,password})
+      })
+      const data = await response.json();
+      if(data.success===false){
+        setValid(false)
+        setTimeout(() => {
+          setValid(true)
+        }, 5000);
+        return;
+      }
+      dispatch(setUser(data));
+      localStorage.setItem('authy', d.authToken);
+      navigate('/');
+    } catch (err) {
+      console.log(" Unable to login, please try again")
+    }
   }
 
   const emailFormatChecker = (email) => {
@@ -37,7 +80,7 @@ const SignIn = () => {
           <h2 className='ml-4 font-semibold font-janime tracking-widest text-brown text-[3.2vw] text-center mb-12'>WELCOME BACK !</h2>
           <h3 className='ml-4 font-semibold font-janime tracking-widest text-brown text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-center mb-8'>LOGIN</h3>
 
-          <form action="submit " className='flex flex-col items-center gap-2'>
+          <form onSubmit={submit} className='flex flex-col items-center gap-2'>
             <div className='flex gap-2 items-center'>
               <h2 className='ml-4 text-3xl font-bold text-brown group'>😊</h2>
               <input type="text" id="email" value={email} onChange={e => setEmail(e.target.value)} placeholder='Email' className='border-2 border-brown focus:ring-4 ring-orange h-12 w-[60vw] md:w-[30vw] rounded-2xl px-4 py-2' />

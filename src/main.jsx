@@ -12,6 +12,7 @@ import SignUp from './components/SignUp'
 
 import { store } from './redux/store/store.js'
 import { Provider } from 'react-redux'
+import Wishlist from './components/Wishlist.jsx'
 
 const router = createHashRouter([
   {
@@ -45,7 +46,15 @@ const router = createHashRouter([
       {
         path: "signup",
         element: <SignUp />
-      }
+      },
+      {
+        path: "cart",
+        element: <Cart />
+      },
+      {
+        path: "wishlist",
+        element: <Wishlist />
+      },
     ]
   }
 ])
