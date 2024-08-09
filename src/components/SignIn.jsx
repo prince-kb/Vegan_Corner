@@ -35,6 +35,13 @@ const SignIn = () => {
         body : JSON.stringify({email,password})
       })
       const d = await r.json();
+      if(d.success===false){
+        setValid(false)
+        setTimeout(() => {
+          setValid(true)
+        }, 5000);
+        return;
+      }
 
       const response = await fetch(`${API}/api/user/getuser`, {
         method: 'PUT',
@@ -43,8 +50,7 @@ const SignIn = () => {
           'Accept': 'application/json',
           'secret': SERVER_SECRET,
           'authToken': d.authToken
-        },
-        body : JSON.stringify({email,password})
+        }
       })
       const data = await response.json();
       if(data.success===false){
@@ -89,7 +95,7 @@ const SignIn = () => {
 
             <div className='flex gap-2 items-center'>
               <h2 className='ml-4 text-3xl font-bold text-brown group'>🔒</h2>
-              <input type="password" id="password" value={password} onChange={e => setPassword(e.target.value)} placeholder='Password' className='border-2 border-brown focus:ring-4 ring-orange h-12 w-[60vw] md:w-[30vw] rounded-2xl px-4 py-2' />
+              <input onKeyDown={e=>e.key==='Enter' && submit()} type="password" id="password" value={password} onChange={e => setPassword(e.target.value)} placeholder='Password' className='border-2 border-brown focus:ring-4 ring-orange h-12 w-[60vw] md:w-[30vw] rounded-2xl px-4 py-2' />
             </div>
 
             <div className='ml-4 flex flex-col gap-4 items-center mt-2 md:mt-4 w-full'>
@@ -98,13 +104,13 @@ const SignIn = () => {
                 <h2 className='text-red-700 font-bold'>Invalid Email or Password</h2>
 
               </div>
-              <h2 className=' cursor-pointer w-[100%] text-end transition-all hover:text-purple-700 mx-2 text-orange font-bold'>SELLER LOGIN</h2>
+              <div className='flex justify-end w-[85%]'>
+              <h2 className=' cursor-pointer text-end transition-all hover:text-purple-700 text-orange font-bold' onClick={() => window.open('https://veganseller.princekb.tech', '_blank', 'noopener')}>SELLER LOGIN</h2>
+              </div>
               <div onClick={submit} className='bg-brown hover:scale-105 cursor-pointer transition-all hover:bg-lightBrown mx-2 rounded-2xl px-4 py-2 text-white font-bold mt-0'>LOGIN</div>
             </div>
 
           </form>
-
-
 
         </div>
       </div>
