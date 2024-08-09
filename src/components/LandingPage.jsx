@@ -89,7 +89,7 @@ useEffect(()=>{
       <h2 className="text-center font-bold text-xl md:text-2xl xl:text-3xl mx-2 font-cav"> Real and Pure.</h2>
 
       {/* Banner */}
-      <div onTouchStart={e=>{ setX1(e.changedTouches[0].clientX)}} className={` mx-auto mt-4 lg:mt-8 h-[18vh] md:h-[30vh] lg:h-[40vh] xl:w-[50vw] w-[60vw] rounded-3xl bg-green-200 relative flex justify-center items-end`}>
+      <div onTouchStart={e=>{ setX1(e.changedTouches[0].clientX)}} className={` mx-auto mt-4 lg:mt-8 h-[18vh] md:h-[30vh] lg:h-[40vh] xl:w-[50vw] w-[60vw] rounded-3xl lg:rounded-3xl bg-green-200 relative `}>
         {banners && banners.length > 0 && banners.map((banner, index) => (
           <img src={banners[index]} key={index} alt="Banner" className={` h-full w-[100%] absolute transition-all duration-500 neu2 border-l-4 lg:border-b-8 lg:border-l-8 border-b-4 border-green-800 ${index === n ? ' z-[2]' : index === (n + 1) % banners.length ? ' -translate-x-2 translate-y-2 lg:-translate-x-4 lg:translate-y-4 z-[1] ' : '-translate-x-4 translate-y-4 lg:-translate-x-8 lg:translate-y-8 z-[0]'} `} />
         ))}

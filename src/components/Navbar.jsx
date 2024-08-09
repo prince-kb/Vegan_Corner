@@ -21,9 +21,9 @@ const Navbar = () => {
     const rotate1 = () => ref.current.classList.add('rotate-[-90deg]')
     const goToHomePage = () => location.pathname !== '/' && navigate('/');
 
-    useEffect(() => {
-        gsap.to('#toolbox', { x: !opened ? "-135vw" : "-20vw", duration: 0.3, ease: 'power1.inOut' })
-    }, [opened])
+    // useEffect(() => {
+    //     gsap.to('#toolbox', { x: !opened ? "-135vw" : "-20vw", duration: 0.3, ease: 'power1.inOut' })
+    // }, [opened])
 
 
     return (
@@ -34,23 +34,27 @@ const Navbar = () => {
                 <h1 className="font-bold font-janime tracking-wider text-xl md:text-2xl lg:text-3xl xl:text-4xl ml-2 lg:ml-4">Vegan's Corner</h1>
             </div>
 
-            <div className="relative h-fit w-fit z-[4]">
-                <div className={`group h-[64px] lg:h-[92px] w-fit flex rounded-full bg-orange justify-center cursor-pointer items-center p-2 px-4 md:p-4 lg:p-6 `} onMouseEnter={() => {if(!opened) setOpened(!opened)}} onClick={() => setOpened(!opened)}  >
-                    <img src={user} alt="user" className='h-6 md:h-10 lg:h-12' />
+            <div className="group/xx relative h-fit w-fit z-[4] flex justify-center">
+                <div className={`peer h-[64px] w-[64px] lg:h-[92px] lg:w-[92px] flex rounded-full bg-orange justify-center cursor-pointer items-center `} onMouseEnter={() => {if(!opened) setOpened(!opened)}} onClick={() => setOpened(!opened)}  >
+                    <div className='h-[80%] w-[80%] bg-brown rounded-full flex-center'>
+                        <img src={user} alt="user" className='h-[80%] fill-white bg-brown rounded-full' />
+                    </div>
                 </div>
-                <div id='toolbox' className="z-[5] absolute gap-4 shadow-black shadow-2xl rounded-3xl bg-[#eca042f1]" onClick={() => setOpened(!opened)}>
+
+                <div id='toolbox' className="group-hover/xx:translate-x-0 translate-x-[-100vw] transition-all translate-y-[64px] lg:translate-y-[92px]group-hover/xx:opacity-100 z-[5] absolute gap-4 shadow-brown shadow-2xl rounded-3xl bg-[#eca042f1]" onClick={() => setOpened(!opened)}>
                     <div className='flex flex-col justify-between items-center min-h-[60vh] md:min-h-[30vh] min-w-[60vw] md:min-w-[40vw] lg:min-w-[25vw] '>
-                        <div className='flex items-center w-full justify-center gap-4 mt-4 border-b-2 pb-4'>
-                            <div className='h-12 w-12 mr-2  bg-brown rounded-full' />
-                            <div className='font-bold font-newWalto text-white tracking-widest text-2xl'>YOUR NAME</div>
+                        <div className='flex items-center w-full justify-center gap-2 md:gap-4 mt-4 border-b-2 ml-2 pb-2'>
+                            <div className='h-12 w-12 mr-2 bg-brown rounded-full' />
+                            <div className='font-bold font-bubble text-white tracking-wide text-xl md:text-2xl'>YOUR NAME</div>
                         </div>
 
                         <div className='mx-auto flex mb-4 items-center w-fit'>
-                            <div className='bg-brown hover:scale-105 cursor-pointer transition-all hover:bg-lightBrown mx-2 rounded-2xl px-4 py-2 text-white font-bold' onClick={()=>navigate('signin')}>LOGIN &#8702;</div>
-                            <div className='bg-brown hover:scale-105 cursor-pointer transition-all hover:bg-lightBrown mx-2 rounded-2xl px-4 py-2 text-white font-bold' onClick={()=>navigate('signup')}>SIGNUP &#8702; </div>
+                            <div className='text-sm md:text-base bg-brown hover:scale-105 cursor-pointer transition-all hover:bg-lightBrown mx-2 rounded-2xl px-4 py-2 text-white font-bold' onClick={()=>navigate('signin')}>LOGIN &#8702;</div>
+                            <div className='text-sm md:text-base bg-brown hover:scale-105 cursor-pointer transition-all hover:bg-lightBrown mx-2 rounded-2xl px-4 py-2 text-white font-bold' onClick={()=>navigate('signup')}>SIGNUP &#8702; </div>
                         </div>
                     </div>
                 </div>
+
             </div>
 
             <div className='fixed w-[100vw] h-[256px] flex justify-end overflow-hidden'>
