@@ -8,6 +8,7 @@ import { setUser } from "./redux/slices/userSlice";
 function App() {
 
   const dispatch = useDispatch();
+  
   const autoLogin = async () => {
     const API = import.meta.env.VITE_REACT_APP_API
     const SERVER_SECRET = import.meta.env.VITE_REACT_APP_SERVER_SECRET

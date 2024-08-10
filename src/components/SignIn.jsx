@@ -1,10 +1,16 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import loginbg from "../assets/images/LOGIN-BG.jpeg"
 import error from "../assets/svgs/error.svg"
 import { setUser } from '../redux/slices/userSlice'
-import { useDispatch } from 'react-redux'
+import { useDispatch,useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 const SignIn = () => {
+
+  const userAvailable = useSelector(state => state.user.user)
+
+  useEffect(() => {
+    if(userAvailable?.name) navigate('/');
+  }, [window.onload])
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -83,8 +89,8 @@ const SignIn = () => {
       <div className='w-[40vw] h-[80vh] md:h-[70vh] lg:h-[60vh]'>
         <div className='flex flex-col justify-center items-center h-full'>
 
-          <h2 className='ml-4 font-semibold font-janime tracking-widest text-brown text-[3.2vw] text-center mb-12'>WELCOME BACK !</h2>
-          <h3 className='ml-4 font-semibold font-janime tracking-widest text-brown text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-center mb-8'>LOGIN</h3>
+          <h2 className='ml-4 font-semibold font-janime tracking-widest text-brown text-[4.5vw] md:text-[3.2vw] text-center mb-12'>WELCOME BACK !</h2>
+          <h3 className='ml-4 font-semibold font-janime tracking-widest text-brown text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-center mb-8'>SIGN IN</h3>
 
           <form onSubmit={submit} className='flex flex-col items-center gap-2'>
             <div className='flex gap-2 items-center'>
@@ -104,10 +110,11 @@ const SignIn = () => {
                 <h2 className='text-red-700 font-bold'>Invalid Email or Password</h2>
 
               </div>
-              <div className='flex justify-end w-[85%]'>
-              <h2 className=' cursor-pointer text-end transition-all hover:text-purple-700 text-orange font-bold' onClick={() => window.open('https://veganseller.princekb.tech', '_blank', 'noopener')}>SELLER LOGIN</h2>
+              <div className='flex flex-col justify-end w-[85%]'>
+              <h2 className=' cursor-pointer text-end transition-all hover:text-purple-700 text-orange font-bold' onClick={() => navigate('/signup')}>New User? SIGN UP</h2>
+              <h2 className=' cursor-pointer text-end transition-all hover:text-purple-700 text-orange font-bold' onClick={() => window.open('https://veganseller.princekb.tech', '_blank', 'noopener')}>Seller SIGNIN</h2>
               </div>
-              <div onClick={submit} className='bg-brown hover:scale-105 cursor-pointer transition-all hover:bg-lightBrown mx-2 rounded-2xl px-4 py-2 text-white font-bold mt-0'>LOGIN</div>
+              <div onClick={submit} className='bg-brown hover:scale-105 cursor-pointer transition-all hover:bg-lightBrown mx-2 rounded-2xl px-4 py-2 text-white font-bold mt-0'>SIGN IN &#8702;</div>
             </div>
 
           </form>

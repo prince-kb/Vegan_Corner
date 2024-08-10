@@ -6,14 +6,16 @@ import baked from '../assets/svgs/navbar/baked.svg'
 import love from '../assets/svgs/navbar/love.svg'
 import logoutsvg from '../assets/svgs/navbar/logout.svg'
 import usersvg from '../assets/svgs/navbar/user.svg'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 
 const Navbar = () => {
+    const user = useSelector(state => state.user.user);
 
     const [opened, setOpened] = useState(false); //To check if toolbox is opened
+    
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -21,8 +23,6 @@ const Navbar = () => {
     const rotate = () => ref.current.classList.toggle('rotate-[-90deg]')
     const rotate1 = () => ref.current.classList.add('rotate-[-90deg]')
     const goToHomePage = () => location.pathname !== '/' && navigate('/');
-
-    const user = useSelector(state => state.user.user);
     
     return (
         <div className="flex select-none " onClick={() => opened && setOpened(false)}>
@@ -40,7 +40,7 @@ const Navbar = () => {
                     </div>
                 </div>
 
-                <div id='toolbox' className="group-hover/xx:translate-x-0 translate-x-[-100vw] transition-all translate-y-[64px] lg:translate-y-[92px] z-[5] absolute gap-4 shadow-brown shadow-2xl rounded-3xl bg-[#eca042f1]" onClick={() => setOpened(!opened)}>
+                <div id='toolbox' className="group-hover/xx:translate-x-0 translate-x-[-150vw] sm:translate-x-[-100vw] transition-all translate-y-[64px] lg:translate-y-[92px] z-[5] absolute gap-4 shadow-brown shadow-2xl rounded-3xl bg-[#eca042f1]" onClick={() => setOpened(!opened)}>
                     <div className='flex flex-col justify-between items-center min-h-[50vh] md:min-h-[30vh] min-w-[60vw] md:min-w-[40vw] lg:min-w-[25vw] '>
                         <div className='flex items-center w-full justify-around gap-2 md:gap-4 mt-4 border-b-2 ml-2 pb-2'>
                             {user?.name && <div className='h-2 w-2 bg-transparent'/>}
