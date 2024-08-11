@@ -27,18 +27,22 @@ const Navbar = () => {
     const startAnim =  gsap.timeline({
         onStart:()=>{
             document.getElementById('sun').style.overflow='visible'
+            document.getElementById('sun').style.zIndex='10'
             document.querySelectorAll('.stars').forEach((star)=>star.style.display='none')
             ref1.current.classList.add('sunshadow')
         },
         onComplete:()=>{
             setTimeout(()=>{
             document.getElementById('sun').style.overflow='hidden'
+            document.getElementById('sun').style.zIndex='1'
             document.querySelectorAll('.stars').forEach((star)=>star.style.display='flex')
             ref1.current.classList.remove('sunshadow')
-            },2000)
+            },3000)
         }
     })
     useEffect(()=>{
+        gsap.from("#tool2",{x:'-50vw',duration:2,delay:1})
+        gsap.from("#tool1",{x:'-100%',duration:2,delay:1})
         startAnim.from('#sun', {x:'-100%',y:'60vh', duration:2})
         startAnim.from('#wheel', {rotate:'-360deg', duration:2},'<')
     },[window.onload])
@@ -47,12 +51,12 @@ const Navbar = () => {
     return (
         <div className="flex select-none " onClick={() => opened && setOpened(false)}>
 
-            <div className="w-fit px-4 md:pr-6 lg:pr-10 h-[64px] lg:h-[92px] bg-orange rounded-br-full flex items-center relative z-[2]">
+            <div id="tool1" className=" w-fit px-4 md:pr-6 lg:pr-10 h-[64px] lg:h-[92px] bg-orange rounded-br-full flex items-center relative z-[3]">
                 <img src={logo} alt="Vegan" className='h-8 md:h-12 lg:h-16 cursor-pointer' onClick={goToHomePage} />
                 <h1 className="font-bold font-janime tracking-wider text-xl md:text-2xl lg:text-3xl xl:text-4xl ml-2 lg:ml-4">Vegan's Corner</h1>
             </div>
 
-            <div className="group/xx relative h-fit w-fit z-[4] flex justify-center">
+            <div id="tool2" className="group/xx relative h-fit w-fit z-[4] flex justify-center">
                 <div className={`h-[64px] w-[64px] lg:h-[92px] lg:w-[92px] flex rounded-full bg-orange justify-center cursor-pointer items-center `} onMouseEnter={() => { if (!opened) setOpened(!opened) }} onClick={() => setOpened(!opened)}  >
                     <div className='h-[80%] w-[80%] bg-brown rounded-full flex-center'>
                         {user?.name ? <h2 className='text-yellow-300 font-peach text-4xl md:text-3xl lg:text-4xl'>{user.name.slice(0, 1)}</h2> :
@@ -60,7 +64,7 @@ const Navbar = () => {
                     </div>
                 </div>
 
-                <div id='toolbox' className="group-hover/xx:translate-x-0 translate-x-[-150vw] sm:translate-x-[-100vw] transition-all translate-y-[64px] lg:translate-y-[92px] z-[5] absolute gap-4 shadow-brown shadow-2xl rounded-3xl bg-[#eca042f1]" onClick={() => setOpened(!opened)}>
+                <div id='toolbox' className=" group-hover/xx:translate-x-0 translate-x-[-150vw] sm:translate-x-[-100vw] transition-all translate-y-[64px] lg:translate-y-[92px] z-[5] absolute gap-4 shadow-brown shadow-2xl rounded-3xl bg-[#eca042f1]" onClick={() => setOpened(!opened)}>
                     <div className='flex flex-col justify-between items-center min-h-[50vh] md:min-h-[30vh] min-w-[60vw] md:min-w-[40vw] lg:min-w-[25vw] '>
                         <div className='flex items-center w-full justify-around gap-2 md:gap-4 mt-4 border-b-2 ml-2 pb-2'>
                             {user?.name && <div className='h-2 w-2 bg-transparent'/>}
@@ -83,9 +87,9 @@ const Navbar = () => {
 
             </div>
 
-            <div  id="sun" className='z-[3] fixed w-[100vw] h-[256px] flex justify-end '>
+            <div  id="sun" className=' fixed w-[100vw] h-[256px] flex justify-end '>
                 <div className='flex absolute transition-all translate-x-1/2 -translate-y-1/2 scale-50 md:scale-75 lg:scale-100 xl:scale-110'>
-                    <div ref={ref1} className='group flex transition-all rounded-full' onClick={rotate}>
+                    <div ref={ref1} className='group flex transition-all rounded-full duration-[1500ms]' onClick={rotate}>
                         <div className=" w-[256px] h-[256px] bg-orange relative rounded-full md:group-hover:rotate-[-90deg] transition-all duration-300 flex justify-center items-center " ref={ref}>
 
                             <img src={wheel} alt="market" className='h-64 w-64' id="wheel" />
