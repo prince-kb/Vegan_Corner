@@ -35,8 +35,8 @@ const SignUp = () => {
   const [pincode, setPincode] = useState('')
 
   const [passHidden, setPassHidden] = useState(true) //To hide password
-
   const [validCreds, setValidCreds] = useState(true) //To check name mobile email
+
   const [valid1, setValid] = useState('') //To check email after checking from server
   // const [valid2, setValid2] = useState('') //To check password
   const [valid3, setValid3] = useState('') //To check address
@@ -66,7 +66,7 @@ const SignUp = () => {
   }
 
   const submit1 = async () => {
-    if (email.length < 3 || !emailFormatChecker(email) || mobile.length !== 10 || firstName.length < 3) {
+    if (email.length < 3 || !emailFormatChecker(email) || mobile.length !== 10 || mobile?.slice(0,1)===0 || firstName.length < 3) {
       setValidCreds(false)
       setTimeout(() => {
         setValidCreds(true)
