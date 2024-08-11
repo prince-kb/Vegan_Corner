@@ -56,7 +56,7 @@ const Navbar = () => {
                 <h1 className="font-bold font-janime tracking-wider text-xl md:text-2xl lg:text-3xl xl:text-4xl ml-2 lg:ml-4">Vegan's Corner</h1>
             </div>
 
-            <div id="tool2" className="group/xx relative h-fit w-fit z-[4] flex justify-center">
+            <div id="tool2" className="group/xx relative h-fit w-fit z-[3] flex justify-center">
                 <div className={`h-[64px] w-[64px] lg:h-[92px] lg:w-[92px] flex rounded-full bg-orange justify-center cursor-pointer items-center `} onMouseEnter={() => { if (!opened) setOpened(!opened) }} onClick={() => setOpened(!opened)}  >
                     <div className='h-[80%] w-[80%] bg-brown rounded-full flex-center'>
                         {user?.name ? <h2 className='text-yellow-300 font-peach text-4xl md:text-3xl lg:text-4xl'>{user.name.slice(0, 1)}</h2> :
@@ -89,7 +89,7 @@ const Navbar = () => {
 
             <div  id="sun" className=' fixed w-[100vw] h-[256px] flex justify-end '>
                 <div className='flex absolute transition-all translate-x-1/2 -translate-y-1/2 scale-50 md:scale-75 lg:scale-100 xl:scale-110'>
-                    <div ref={ref1} className='group flex transition-all rounded-full duration-[1500ms]' onClick={rotate}>
+                    <div ref={ref1} className='group flex transition-all rounded-full duration-1000' onClick={rotate}>
                         <div className=" w-[256px] h-[256px] bg-orange relative rounded-full md:group-hover:rotate-[-90deg] transition-all duration-300 flex justify-center items-center " ref={ref}>
 
                             <img src={wheel} alt="market" className='h-64 w-64' id="wheel" />
