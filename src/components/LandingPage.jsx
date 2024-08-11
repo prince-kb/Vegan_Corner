@@ -19,9 +19,8 @@ const LandingPage = () => {
   useEffect(() => {
     startAnim2.from('.bannerss', { y: '10vh',x:'-20vw',opacity:0, duration: 1, ease: 'power2.out' })
     startAnim2.from('.intro', { y: '70', duration: 1,delay:0.7,opacity : 0, ease: 'power2.out' })
-    gsap.from('#categories', { y: '80vh',opacity:0.5, duration: 1,delay:1, ease: 'power2.out' })
+    gsap.from('#categories', { y: '70vh',opacity:0.5, duration: 1,delay:1 })
   }, [window.onload])
-
 
   useEffect(() => {
     const mainData = async () => {
@@ -71,7 +70,6 @@ const LandingPage = () => {
     return () => clearInterval(interval);
   })
 
-
   useEffect(() => {
     let x;
     ref.current.addEventListener('touchend', e => {
@@ -95,8 +93,8 @@ const LandingPage = () => {
 
   return (
     <div className="" ref={ref}  >
-      <h2 className="intro text-center font-bold text-xl md:text-2xl tracking-tighter md:tracking-normal xl:text-3xl mx-2 mt-4 font-cav">Only Plant based Products.</h2>
-      <h2 className="intro text-center font-bold text-xl md:text-2xl tracking-tighter md:tracking-normal xl:text-3xl mx-2 font-cav"> Real and Pure.</h2>
+      <h2 className="intro text-center font-bold text-base md:text-xl tracking-tighter md:tracking-normal xl:text-2xl mx-2 mt-4 font-cav">Only Plant based Products.</h2>
+      <h2 className="intro text-center font-bold text-base md:text-xl tracking-tighter md:tracking-normal xl:text-2xl mx-2 font-cav"> Real and Pure.</h2>
 
       {/* Banner */}
       <div onTouchStart={e => { setX1(e.changedTouches[0].clientX) }} className={`z-[2] bannerss mx-auto mt-4 lg:mt-8 h-[18vh] md:h-[30vh] lg:h-[40vh] xl:w-[40vw] w-[60vw] rounded-3xl lg:rounded-3xl bg-green-200 relative flex justify-center items-end`}>

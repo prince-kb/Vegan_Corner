@@ -24,30 +24,30 @@ const Navbar = () => {
     const rotate1 = () => ref.current.classList.add('rotate-[-90deg]')
     const goToHomePage = () => location.pathname !== '/' && navigate('/');
 
-    const startAnim =  gsap.timeline({
-        onStart:()=>{
-            document.getElementById('sun').style.overflow='visible'
-            document.getElementById('sun').style.zIndex='10'
-            document.querySelectorAll('.stars').forEach((star)=>star.style.display='none')
+    const startAnim = gsap.timeline({
+        onStart: () => {
+            document.getElementById('sun').style.overflow = 'visible'
+            document.getElementById('sun').style.zIndex = '10'
+            document.querySelectorAll('.stars').forEach((star) => star.style.display = 'none')
             ref1.current.classList.add('sunshadow')
         },
-        onComplete:()=>{
-            setTimeout(()=>{
-            document.getElementById('sun').style.overflow='hidden'
-            document.getElementById('sun').style.zIndex='1'
-            document.querySelectorAll('.stars').forEach((star)=>star.style.display='flex')
-            ref1.current.classList.remove('sunshadow')
-            },3000)
+        onComplete: () => {
+            setTimeout(() => {
+                document.getElementById('sun').style.overflow = 'hidden'
+                document.getElementById('sun').style.zIndex = '1'
+                document.querySelectorAll('.stars').forEach((star) => star.style.display = 'flex')
+                ref1.current.classList.remove('sunshadow')
+            }, 3000)
         }
     })
-    useEffect(()=>{
-        gsap.from("#tool2",{x:'-50vw',duration:2,delay:1})
-        gsap.from("#tool1",{x:'-100%',duration:2,delay:1})
-        startAnim.from('#sun', {x:'-100%',y:'60vh', duration:2})
-        startAnim.from('#wheel', {rotate:'-360deg', duration:2},'<')
-    },[window.onload])
+    useEffect(() => {
+        gsap.from("#tool2", { x: '-50vw', duration: 2, delay: 1, ease: 'power2.out' })
+        gsap.from("#tool1", { x: '-100%', duration: 2, delay: 1, ease: 'power2.out' })
+        startAnim.from('#sun', { x: '-100%', y: '60vh', duration: 2, ease: 'power2.out' })
+        startAnim.from('#wheel', { rotate: '-300deg', duration: 2, ease: 'cubic-bezier(0.12, 0, 0.39, 0)' }, '<')
+    }, [window.onload])
 
-    
+
     return (
         <div className="flex select-none " onClick={() => opened && setOpened(false)}>
 
@@ -67,27 +67,26 @@ const Navbar = () => {
                 <div id='toolbox' className=" group-hover/xx:translate-x-0 translate-x-[-150vw] sm:translate-x-[-100vw] transition-all translate-y-[64px] lg:translate-y-[92px] z-[5] absolute gap-4 shadow-brown shadow-2xl rounded-3xl bg-[#eca042f1]" onClick={() => setOpened(!opened)}>
                     <div className='flex flex-col justify-between items-center min-h-[50vh] md:min-h-[30vh] min-w-[60vw] md:min-w-[40vw] lg:min-w-[25vw] '>
                         <div className='flex items-center w-full justify-around gap-2 md:gap-4 mt-4 border-b-2 ml-2 pb-2'>
-                            {user?.name && <div className='h-2 w-2 bg-transparent'/>}
+                            {user?.name && <div className='h-2 w-2 bg-transparent' />}
                             <div className='font font-bubble text-white tracking-wider text-xl md:text-2xl'>{user?.name ? user.name.split(' ')[0] : 'WELCOME'}</div>
-                            {user?.name && 
-                                <img src={logoutsvg} alt="user" className='cursor-pointer hover:scale-110  transition-all hover:translate-x-1 h-8 w-8 stroke-white fill-white' onClick={()=>{localStorage.removeItem('authy'); window.location.reload(false);} } />
+                            {user?.name &&
+                                <img src={logoutsvg} alt="user" className='cursor-pointer hover:scale-110  transition-all hover:translate-x-1 h-8 w-8 stroke-white fill-white' onClick={() => { localStorage.removeItem('authy'); window.location.reload(false); }} />
                             }
                         </div>
 
                         {user?.name ? <div className='mx-auto flex mb-4 items-center w-fit'>
-                            <div className='text-sm md:text-base bg-darkbrown hover:scale-105 cursor-pointer transition-all hover:bg-brown mx-2 rounded-2xl px-4 py-2 text-white font-bold' onClick={() => navigate('cart')}>CART &#8702;</div>
-                            <div className='text-sm md:text-base bg-darkbrown hover:scale-105 cursor-pointer transition-all hover:bg-brown mx-2 rounded-2xl px-4 py-2 text-white font-bold' onClick={() => navigate('wishlist')}>WISHLIST &#8702; </div>
+                            <div className='text-sm md:text-base bg-darkbrown hover:scale-105 cursor-pointer transition-all hover:bg-brown mx-1 rounded-xl px-2 py-1 md:px-4 md:py-2 text-white font-bold' onClick={() => navigate('cart')}>CART &#8702;</div>
+                            <div className='text-sm md:text-base bg-darkbrown hover:scale-105 cursor-pointer transition-all hover:bg-brown mx-1 rounded-xl px-2 py-1 md:px-4 md:py-2 text-white font-bold' onClick={() => navigate('wishlist')}>WISHLIST &#8702; </div>
                         </div> :
                             <div className='mx-auto flex mb-4 items-center w-fit'>
-                                <div className='text-sm md:text-base bg-darkbrown hover:scale-105 cursor-pointer transition-all hover:bg-brown mx-2 rounded-2xl px-4 py-2 text-white font-bold' onClick={() => navigate('signin')}>LOGIN &#8702;</div>
-                                <div className='text-sm md:text-base bg-darkbrown hover:scale-105 cursor-pointer transition-all hover:bg-brown mx-2 rounded-2xl px-4 py-2 text-white font-bold' onClick={() => navigate('signup')}>SIGNUP &#8702; </div>
+                                <div className='text-sm md:text-base bg-darkbrown hover:scale-105 cursor-pointer transition-all hover:bg-brown mx-1 rounded-xl px-2 py-1 md:px-4 md:py-2 text-white font-bold' onClick={() => navigate('signin')}>LOGIN &#8702;</div>
+                                <div className='text-sm md:text-base bg-darkbrown hover:scale-105 cursor-pointer transition-all hover:bg-brown mx-1 rounded-xl px-2 py-1 md:px-4 md:py-2 text-white font-bold' onClick={() => navigate('signup')}>SIGNUP &#8702; </div>
                             </div>}
                     </div>
                 </div>
-
             </div>
 
-            <div  id="sun" className=' fixed w-[100vw] h-[256px] flex justify-end '>
+            <div id="sun" className=' fixed w-[100vw] h-[256px] flex justify-end '>
                 <div className='flex absolute transition-all translate-x-1/2 -translate-y-1/2 scale-50 md:scale-75 lg:scale-100 xl:scale-110'>
                     <div ref={ref1} className='group flex transition-all rounded-full duration-1000' onClick={rotate}>
                         <div className=" w-[256px] h-[256px] bg-orange relative rounded-full md:group-hover:rotate-[-90deg] transition-all duration-300 flex justify-center items-center " ref={ref}>

@@ -28,7 +28,7 @@ const Category = (props) => {
                         <hr />
                         <div className="flex mt-2 justify-around w-full">
                             <div className="text-start">
-                                <h3 className="text-green-500 font-bubble text-xl md:text-2xl">&#8377; {item.price} </h3>
+                                <h3 className="text-green-500 font-bubble text-md md:text-xl">&#8377; {item.price} </h3>
                                 <p className="text-md md:text-lg text-center font-brown font-walto line-through">{item.price2}</p>
                             </div>
                             <div className="text-end flex-col justify-center">
