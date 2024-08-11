@@ -92,7 +92,7 @@ const LandingPage = () => {
   })
 
   return (
-    <div className="" ref={ref}  >
+    <div className=" hover:love" ref={ref}  >
       <h2 className="intro text-center font-bold text-base md:text-xl tracking-tighter md:tracking-normal xl:text-2xl mx-2 mt-4 font-cav">Only Plant based Products.</h2>
       <h2 className="intro text-center font-bold text-base md:text-xl tracking-tighter md:tracking-normal xl:text-2xl mx-2 font-cav"> Real and Pure.</h2>
 

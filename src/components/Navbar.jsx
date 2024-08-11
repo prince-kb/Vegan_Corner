@@ -51,8 +51,8 @@ const Navbar = () => {
     return (
         <div className="flex select-none " onClick={() => opened && setOpened(false)}>
 
-            <div id="tool1" className=" w-fit px-4 md:pr-6 lg:pr-10 h-[64px] lg:h-[92px] bg-orange rounded-br-full flex items-center relative z-[3]">
-                <img src={logo} alt="Vegan" className='h-8 md:h-12 lg:h-16 cursor-pointer' onClick={goToHomePage} />
+            <div id="tool1"  onClick={goToHomePage} className=" w-fit px-4 cursor-pointer md:pr-6 lg:pr-10 h-[64px] lg:h-[92px] bg-orange rounded-br-full flex items-center relative z-[3]">
+                <img src={logo} alt="Vegan" className='h-8 md:h-12 lg:h-16' />
                 <h1 className="font-bold font-janime tracking-wider text-xl md:text-2xl lg:text-3xl xl:text-4xl ml-2 lg:ml-4">Vegan's Corner</h1>
             </div>
 
