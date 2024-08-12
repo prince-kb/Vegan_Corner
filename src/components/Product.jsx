@@ -6,14 +6,19 @@ import fullstar from "../assets/svgs/fullstar.svg";
 import halfstar from "../assets/svgs/halfstar.svg";
 import forward from "../assets/svgs/forward.svg";
 import cartadd from "../assets/svgs/cartadd.svg";
+import love from "../assets/svgs/love.svg";
 import tick from "../assets/svgs/tick.svg";
 import bolt from "../assets/svgs/bolt.svg";
+import share from "../assets/svgs/share.svg";
 import transport from "../assets/svgs/transport.svg";
 import errorimg from "../assets/svgs/error.svg";
 import loaderSpinner from "../assets/svgs/loader.svg";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../redux/slices/userSlice";
 
 
 const Product = () => {
+    const dispatch = useDispatch();
     const ref = useRef(null); // Ref for pincode input to set pincode after every input change
     const { id } = useParams(); // Getting the id of the product from the url
 
@@ -28,17 +33,42 @@ const Product = () => {
     const [n, setN] = useState(0); // Image index for the product images
     const [error, setError] = useState(false); // Error in fetching data
 
+    const user = useSelector(state => state.user.user);
+
+    useEffect(() => {
+        if (user) {
+            const addtorecents = async () => {
+                try {
+                    const API = import.meta.env.VITE_REACT_APP_API
+                    const SERVER_SECRET = import.meta.env.VITE_REACT_APP_SERVER_SECRET
+                    await fetch(`${API}/api/user/addtorecent`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'secret': SERVER_SECRET,
+                            'authToken': localStorage.getItem('authy')
+                        },
+                        body: JSON.stringify({ id: id })
+                    })
+                } catch (err) {
+                    console.log(" Unable to add product to recents")
+                }
+            }
+            addtorecents();
+        }
+    }, [window.onload])
 
     useEffect(() => {
         const fetchProduct = async () => {
             try {
                 const SERVER_SECRET = import.meta.env.VITE_REACT_APP_SERVER_SECRET
-                const response = await fetch(`${import.meta.env.VITE_REACT_APP_API}/api/getproduct/${id}`,{
+                const response = await fetch(`${import.meta.env.VITE_REACT_APP_API}/api/getproduct/${id}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
                         'Accept': 'application/json',
-                        'secret' : SERVER_SECRET
+                        'secret': SERVER_SECRET
                     }
                 })
                 const data = await response.json()
@@ -61,6 +91,64 @@ const Product = () => {
     useEffect(() => {
         if (pincode.length === 6) submitPincode();
     }, [])
+
+    const addtocart = async () => {
+        try {
+            const API = import.meta.env.VITE_REACT_APP_API
+            const SERVER_SECRET = import.meta.env.VITE_REACT_APP_SERVER_SECRET
+            await fetch(`${API}/api/user/addtocart`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'secret': SERVER_SECRET,
+                    'authToken': localStorage.getItem('authy')
+                },
+                body: JSON.stringify({ id: id })
+            })
+            autoLogin();
+        } catch (err) {
+            console.log(" Unable to add product to cart")
+        }
+    }
+
+    const addtowishlist = async () => {
+        try {
+            const API = import.meta.env.VITE_REACT_APP_API
+            const SERVER_SECRET = import.meta.env.VITE_REACT_APP_SERVER_SECRET
+            await fetch(`${API}/api/user/wishlist`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'secret': SERVER_SECRET,
+                    'authToken': localStorage.getItem('authy')
+                },
+                body: JSON.stringify({ id: id })
+            })
+            autoLogin();
+        } catch (err) {
+            console.log(" Unable to add product to wishlist")
+        }
+    }
+
+    const autoLogin = async () => {
+        const API = import.meta.env.VITE_REACT_APP_API
+        const SERVER_SECRET = import.meta.env.VITE_REACT_APP_SERVER_SECRET
+
+        const response = await fetch(`${API}/api/user/getuser`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'secret': SERVER_SECRET,
+                'authToken': localStorage.getItem('authy')
+            }
+        })
+        const data = await response.json();
+        if (data.success === false) return;
+        dispatch(setUser(data));
+    }
 
     // Checking Valid Pincode
     const valid = () => {
@@ -117,7 +205,7 @@ const Product = () => {
             <img src={stars - 3 <= 0 ? stars - 3 > (-1) ? halfstar : nostar : fullstar} alt="star" className="h-6 w-6" />
             <img src={stars - 4 <= 0 ? stars - 4 > (-1) ? halfstar : nostar : fullstar} alt="star" className="h-6 w-6" />
             <img src={stars - 5 <= 0 ? stars - 5 > (-1) ? halfstar : nostar : fullstar} alt="star" className="h-6 w-6" />
-            <h2 className="ml-2 font-bold"> ({averageRating()})</h2>
+            <h2 className="ml-2 md:text-lg xl:text-xl font-bold"> ({averageRating()})</h2>
         </div>
     }
 
@@ -126,7 +214,7 @@ const Product = () => {
     return (
         mainLoader ? <div className="flex justify-center items-center h-screen">
             {error ? <div className="text-center">
-                <div className="flex items-center">
+                <div className="flex items-cente">
                     <img src={errorimg} alt="error" className="h-4 w-4 md:h-8 md:w-8 mr-4 md:mr-8 animate-ping" />
                     <h1 className="md:text-3xl text-red-600 font-bold text-2xl">Unable to fetch data at the Moment</h1>
                 </div>
@@ -139,11 +227,9 @@ const Product = () => {
         <div className="mt-6 mb-4 flex flex-col items-center">
 
             {/* IMAGE PART */}
-            <div className="xl:flex flex flex-col p-8 mb-4 min-w-3/4 w-fit items-center neu1">
+            <div className="xl:flex flex flex-col p-8 mb-4 min-w-3/4 w-fit items-center neu1 ">
                 <div className="flex flex-col w-[80vw] xl:w-[80vw] mx-auto justify-around items-center">
-
                     <div className="w-[80vw] md:w-[70vw]">
-
                         <div className="border-b-2 border-gray-300 flex flex-col items-center shadow-orange/80">
                             <div className="mb-1 mt-2">
                                 <img src={images[`${n}`]} alt={name} className="rounded-t-2xl h-[35vh] sm:h-[40vh] md:h-[50vh] " />
@@ -155,7 +241,11 @@ const Product = () => {
                                     </div>
                                 ))}
                             </div>
-                            <h1 className="text-center font-bold text-xl md:text-2xl lg:text-3xl my-4">{name}</h1>
+                            <div className="flex md:my-2 z-[3]">
+                                <h1 className="text-center font-bold text-2xl md:text-3xl lg:text-4xl my-4">{name}</h1>
+                                <div onClick={addtowishlist} className="translate-y-2 ml-4 h-10 md:h-14 lg:h-18 m-2 cursor-pointer hover:scale-115 transition-all hover:-translate-y-1 rounded-full w-fit mb-4" ><img src={love} alt="" className="h-8 md:h-10 lg:h-12 " /></div>
+                                <div onClick={() => navigator.clipboard.writeText(window.location.href)} className="translate-y-2 h-10 md:h-14 lg:h-16 m-2 cursor-pointer hover:scale-115 transition-all hover:translate-x-2  rounded-full w-fit" ><img src={share} alt="" className="h-8 md:h-10 lg:h-12 fill-brown" /></div>
+                            </div>
                         </div>
                     </div>
 
@@ -172,15 +262,14 @@ const Product = () => {
 
             {/* BUY NOW PART */}
             <div className="flex justify-around rounded-3xl py-2 lg:py-4 m-2 mb-4 px-2 md:px-6 gap-4 w-[95vw] md:w-[80vw] font-semibold">
-                <Link to="/checkout" className="min-w-[30vw] flex-center px-4 lg:px-6 py-4 lg:py-4 group/1 bg-green-500 shadow-sm shadow-green-300 hover:scale-105 transition-all text-gray-50 rounded-2xl">
-                    <h1 className="text-xl md:text-2xllg:text-3xl mr-2">Buy Now! </h1>
+                <Link to="/checkout" className="min-w-[20vw] flex-center px-2 md:px-4 lg:px-6 py-1 md:py-2 lg:py-4 group/1 bg-green-500 shadow-sm shadow-green-300 hover:scale-105 transition-all text-gray-50 rounded-2xl">
+                    <h1 className="text-xl md:text-2xl lg:text-3xl mr-2">Buy Now! </h1>
                     <img src={tick} alt="BUY" className="h-6 w-6 md:h-8 md:w-8 md:ml-2 lg:h-12 lg:w-12 group-hover/1:scale-[118%] group-hover/1:translate-x-2 transition-all" />
                 </Link>
-                <Link to="/cart" className="min-w-[30vw] flex-center px-4 lg:px-6 py-4 lg:py-4 bg-yellow-500 shadow-sm shadow-yellow-300 rounded-2xl hover:scale-105 transition-all group/2">
-                    <h1 className="text-xl md:text-2xllg:text-3xl mr-2">Add to Cart </h1>
+                <Link to="/cart" onClick={addtocart} className="min-w-[20vw] flex-center px-4 lg:px-6 py-4 lg:py-4 bg-yellow-500 shadow-sm shadow-yellow-300 rounded-2xl hover:scale-105 transition-all group/2">
+                    <h1 className="text-xl md:text-2xl lg:text-3xl mr-2">Add to Cart </h1>
                     <img src={cartadd} alt="BUY" className="h-6 w-6 md:h-8 md:w-8 md:ml-2 lg:h-12 lg:w-12 group-hover/2:scale-[118%] transition-all" />
                 </Link>
-
             </div>
 
 
@@ -233,7 +322,7 @@ const Product = () => {
             {/* DELIVERY PART */}
             <div className="w-[90vw] md:w-[80vw] rounded-2xl m-8 p-4 border-2 ">
                 <div className="flex items-center mx-auto">
-                    <h1 className="text-xl md:text-2xl lg:text-3xl font-bold ml-2">Delivery</h1>
+                    <h1 className="ml-6 text-xl md:text-2xl lg:text-3xl font-bold">Delivery</h1>
                     <img src={transport} alt="transport" className="h-8 w-8 lg:h-12 lg:w-12 ml-6" />
                 </div>
                 <div className="ml-4 my-2">

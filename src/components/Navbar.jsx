@@ -75,8 +75,8 @@ const Navbar = () => {
                         </div>
 
                         {user?.name ? <div className='mx-auto flex mb-4 items-center w-fit'>
-                            <div className='text-sm md:text-base bg-darkbrown hover:scale-105 cursor-pointer transition-all hover:bg-brown mx-1 rounded-xl px-2 py-1 md:px-4 md:py-2 text-white font-bold' onClick={() => navigate('cart')}>CART &#8702;</div>
-                            <div className='text-sm md:text-base bg-darkbrown hover:scale-105 cursor-pointer transition-all hover:bg-brown mx-1 rounded-xl px-2 py-1 md:px-4 md:py-2 text-white font-bold' onClick={() => navigate('wishlist')}>WISHLIST &#8702; </div>
+                            <div className='text-sm md:text-base bg-darkbrown hover:scale-105 cursor-pointer transition-all hover:bg-brown mx-1 rounded-xl px-2 py-1 md:px-4 md:py-2 text-white font-bold' onClick={() => navigate('cart')}>CART ({user?.cart?.length ? user.cart.length : 0})</div>
+                            <div className='text-sm md:text-base bg-darkbrown hover:scale-105 cursor-pointer transition-all hover:bg-brown mx-1 rounded-xl px-2 py-1 md:px-4 md:py-2 text-white font-bold' onClick={() => navigate('wishlist')}>WISHLIST ({user?.wishlist?.length ? user.wishlist.length : 0}) </div>
                         </div> :
                             <div className='mx-auto flex mb-4 items-center w-fit'>
                                 <div className='text-sm md:text-base bg-darkbrown hover:scale-105 cursor-pointer transition-all hover:bg-brown mx-1 rounded-xl px-2 py-1 md:px-4 md:py-2 text-white font-bold' onClick={() => navigate('signin')}>LOGIN &#8702;</div>
