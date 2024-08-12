@@ -14,12 +14,12 @@ const LandingPage = () => {
 
   const [x1, setX1] = useState(0) //To hold the value of touch start
 
-  const startAnim2 = gsap.timeline({delay:0.5});
+  const startAnim2 = gsap.timeline({});
   
   useEffect(() => {
-    startAnim2.from('.bannerss', { y: '10vh',x:'-20vw',opacity:0, duration: 1, ease: 'power2.out' })
+    startAnim2.from('.bannerss', { scale : 0, translateX : "-100%",translateY : "100%",opacity:0, duration: 1,delay: 0.5, ease: 'power2.out' })
     startAnim2.from('.intro', { y: '70', duration: 1,delay:0.7,opacity : 0, ease: 'power2.out' })
-    gsap.from('#categories', { y: '70vh',opacity:0.5, duration: 1,delay:1 })
+    gsap.from('#categories', { y: '70vh',opacity:0.5, duration: 1,delay:0 })
   }, [window.onload])
 
   useEffect(() => {
