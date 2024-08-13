@@ -15,6 +15,7 @@ import errorimg from "../assets/svgs/error.svg";
 import loaderSpinner from "../assets/svgs/loader.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../redux/slices/userSlice";
+import { setNotification } from "../redux/slices/notificationSlice";
 
 
 const Product = () => {
@@ -93,10 +94,11 @@ const Product = () => {
     }, [])
 
     const addtocart = async () => {
+        if (!user) return dispatch(setNotification({ message: "Please Login to add to Wishlist", type: "none", logo: "user" }))
         try {
             const API = import.meta.env.VITE_REACT_APP_API
             const SERVER_SECRET = import.meta.env.VITE_REACT_APP_SERVER_SECRET
-            await fetch(`${API}/api/user/addtocart`, {
+            const response = await fetch(`${API}/api/user/addtocart`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -106,17 +108,26 @@ const Product = () => {
                 },
                 body: JSON.stringify({ id: id })
             })
+            const p = await response.json();
+            if (p.message === "Item added to cart") dispatch(setNotification({ message: "Product added to Cart", type: "success", logo: "cart" }))
             autoLogin();
         } catch (err) {
             console.log(" Unable to add product to cart")
+            dispatch(setNotification({ message: "Unable to add product to Cart", type: "error", logo: "cart" }))
         }
     }
 
+    const buynow = () => {
+        if (!user) return dispatch(setNotification({ message: "Please Login to add to Wishlist", type: "none", logo: "user" }))
+        else dispatch(setNotification({ message: "Sorry, Unavailable right now", type: "yellow", logo: "error" }))
+    }
+
     const addtowishlist = async () => {
+        if (!user) return dispatch(setNotification({ message: "Please Login to add to Wishlist", type: "none", logo: "user" }))
         try {
             const API = import.meta.env.VITE_REACT_APP_API
             const SERVER_SECRET = import.meta.env.VITE_REACT_APP_SERVER_SECRET
-            await fetch(`${API}/api/user/wishlist`, {
+            const response = await fetch(`${API}/api/user/wishlist`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -127,9 +138,18 @@ const Product = () => {
                 body: JSON.stringify({ id: id })
             })
             autoLogin();
+            const p = await response.json();
+            if (p.message === "Item added to wishlist") dispatch(setNotification({ message: "Product added to Wishlist", type: "success", logo: "heart" }))
+            else dispatch(setNotification({ message: "Product removed from Wishlist", type: "error", logo: "brokenheart" }))
         } catch (err) {
             console.log(" Unable to add product to wishlist")
+            dispatch(setNotification({ message: "Unable to add product to Wishlist", type: "error", logo: "brokenheart" }))
         }
+    }
+
+    const shareLink = () => {
+        navigator.clipboard.writeText(window.location.href)
+        dispatch(setNotification({ message: "Link Copied to Clipboard", type: "none", logo: "tick" }))
     }
 
     const autoLogin = async () => {
@@ -198,18 +218,20 @@ const Product = () => {
 
     // Stars for the product
     const starrs = () => {
+        if (ratings.length === 0) return <h2 className="font-bold text-lg md:text:xl lg:text-2xl">No Ratings Yet</h2>
+        let stars = averageRating();
         return <div className="flex items-center">
-            <h2 className="font-bold text-lg md:text:xl lg:text-2xl mr-4">Ratings: </h2>
+            {/* <h2 className="font-bold text-lg md:text:xl lg:text-2xl mr-4">Ratings: </h2> */}
             <img src={stars - 1 <= 0 ? stars - 1 > (-1) ? halfstar : nostar : fullstar} alt="star" className="h-6 w-6" />
             <img src={stars - 2 <= 0 ? stars - 2 > (-1) ? halfstar : nostar : fullstar} alt="star" className="h-6 w-6" />
             <img src={stars - 3 <= 0 ? stars - 3 > (-1) ? halfstar : nostar : fullstar} alt="star" className="h-6 w-6" />
             <img src={stars - 4 <= 0 ? stars - 4 > (-1) ? halfstar : nostar : fullstar} alt="star" className="h-6 w-6" />
             <img src={stars - 5 <= 0 ? stars - 5 > (-1) ? halfstar : nostar : fullstar} alt="star" className="h-6 w-6" />
-            <h2 className="ml-2 md:text-lg xl:text-xl font-bold"> ({averageRating()})</h2>
+            <h2 className="ml-2 text-lg md:text-xl xl:text-2xl text-brown font-medium"> ({averageRating()})</h2>
         </div>
     }
 
-    const { name, details, images, stars, seller, ratings, reviews, rrlink } = product;
+    const { name, details, images, seller, ratings, reviews, rrlink } = product;
 
     return (
         mainLoader ? <div className="flex justify-center items-center h-screen">
@@ -244,7 +266,7 @@ const Product = () => {
                             <div className="flex md:my-2 z-[3]">
                                 <h1 className="text-center font-bold text-2xl md:text-3xl lg:text-4xl my-4">{name}</h1>
                                 <div onClick={addtowishlist} className="translate-y-2 ml-4 h-10 md:h-14 lg:h-18 m-2 cursor-pointer hover:scale-115 transition-all hover:-translate-y-1 rounded-full w-fit mb-4" ><img src={love} alt="" className="h-8 md:h-10 lg:h-12 " /></div>
-                                <div onClick={() => navigator.clipboard.writeText(window.location.href)} className="translate-y-2 h-10 md:h-14 lg:h-16 m-2 cursor-pointer hover:scale-115 transition-all hover:translate-x-2  rounded-full w-fit" ><img src={share} alt="" className="h-8 md:h-10 lg:h-12 fill-brown" /></div>
+                                <div onClick={shareLink} className="translate-y-2 h-10 md:h-14 lg:h-16 m-2 cursor-pointer hover:scale-115 transition-all hover:translate-x-2  rounded-full w-fit" ><img src={share} alt="" className="h-8 md:h-10 lg:h-12 fill-brown" /></div>
                             </div>
                         </div>
                     </div>
@@ -259,19 +281,17 @@ const Product = () => {
                 </div>
             </div>
 
-
             {/* BUY NOW PART */}
             <div className="flex justify-around rounded-3xl py-2 lg:py-4 m-2 mb-4 px-2 md:px-6 gap-4 w-[95vw] md:w-[80vw] font-semibold">
-                <Link to="/checkout" className="min-w-[20vw] flex-center px-2 md:px-4 lg:px-6 py-1 md:py-2 lg:py-4 group/1 bg-green-500 shadow-sm shadow-green-300 hover:scale-105 transition-all text-gray-50 rounded-2xl">
+                <Link to="/checkout" onClick={buynow} className="min-w-[20vw] flex-center px-2 md:px-4 lg:px-6 py-1 md:py-2 lg:py-4 group/1 bg-green-500 shadow-sm shadow-green-300 hover:scale-105 transition-all text-gray-50 rounded-2xl">
                     <h1 className="text-xl md:text-2xl lg:text-3xl mr-2">Buy Now! </h1>
                     <img src={tick} alt="BUY" className="h-6 w-6 md:h-8 md:w-8 md:ml-2 lg:h-12 lg:w-12 group-hover/1:scale-[118%] group-hover/1:translate-x-2 transition-all" />
                 </Link>
-                <Link to="/cart" onClick={addtocart} className="min-w-[20vw] flex-center px-4 lg:px-6 py-4 lg:py-4 bg-yellow-500 shadow-sm shadow-yellow-300 rounded-2xl hover:scale-105 transition-all group/2">
+                <div onClick={addtocart} className="cursor-pointer min-w-[20vw] flex-center px-4 lg:px-6 py-4 lg:py-4 bg-yellow-500 shadow-sm shadow-yellow-300 rounded-2xl hover:scale-105 transition-all group/2">
                     <h1 className="text-xl md:text-2xl lg:text-3xl mr-2">Add to Cart </h1>
                     <img src={cartadd} alt="BUY" className="h-6 w-6 md:h-8 md:w-8 md:ml-2 lg:h-12 lg:w-12 group-hover/2:scale-[118%] transition-all" />
-                </Link>
+                </div>
             </div>
-
 
             {/* PRODUCT DETAILS PART */}
             <div className="border-2 w-[90vw] mx-auto rounded-2xl p-2 text-xl md:text:2xl lg:text-3xl text-balance">
@@ -318,7 +338,6 @@ const Product = () => {
                 </div>
             </div>
 
-
             {/* DELIVERY PART */}
             <div className="w-[90vw] md:w-[80vw] rounded-2xl m-8 p-4 border-2 ">
                 <div className="flex items-center mx-auto">
@@ -333,10 +352,9 @@ const Product = () => {
                             <input type="text" id="1" className="border-2 p-1 m-2 rounded-xl border-black font-bold text-center" ref={ref} value={pinc} onChange={() => { setPincode(ref.current.value); setVisible(false) }} onKeyDown={(e) => { valid() && e.key == "Enter" && submitPincode() }} />
                             <div className="flex justify-center">
                                 <button className={`ml-2 bg-blue-700 hover:bg-violet-600 hover:shadow-md hover:shadow-purple-500 transition-all active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300 text-lg lg:text-xl text-white px-4 py-1 rounded-2xl  ${valid() ? '' : 'hidden'}`} onClick={submitPincode}>SUBMIT</button>
-                                <button className="text-2xl bg-gray-200 hover:bg-gray-300 active:bg-gray-400 focus:outline-none focus:ring focus:ring-violet-300 text-black px-2 pb-1 lg:px-4 ml-4 rounded-2xl font-bold" onClick={() => { setPincode(''); setVisible(false) }}>x</button>
+                                <button className="md:text-xl bg-gray-200 hover:bg-gray-300 active:bg-gray-400 focus:outline-none focus:ring focus:ring-violet-300 text-base px-2 pb-1 lg:px-4 ml-4 rounded-2xl font-bold" onClick={() => { setPincode(''); setVisible(false) }}>❌</button>
                             </div>
                         </div>
-
 
 
                         <div className={`${!valid() && pincode !== '' ? 'flex' : 'hidden'} items-center ml-4`}>
@@ -352,12 +370,12 @@ const Product = () => {
 
                 <div className={`${visible ? '' : 'hidden'} ml-6 items-center shadow-md ${deliverable ? 'shadow-blue-600' : 'shadow-red-600'} p-4 rounded-2xl`}>
                     <div className={`${!deliverable && 'hidden'}`}>
-                        <div className="flex items-center">
-                            <img src={bolt} alt="bolt" className="h-8 w-8 lg:h-12 lg:w-12" />
-                            <div className="ml-4">
-                                <h2 className="font-bold text-md md:text-xl">Faster Delivery by 10 PM, within <p className="inline text-gray-50 bg-blue-700 px-2 py-1 rounded-2xl mx-1">{Math.floor(Math.random() * 3) + 1}</p> days</h2>
-                                <h2 className="font-bold mt-2">Deliver to {address.city}, {address.district}, {address.state} ✔️</h2>
+                        <div className="flex-col items-center pt-2">
+                            <div className="ml-1 flex-center gap-2">
+                                <img src={bolt} alt="bolt" className="h-8 w-8 lg:h-12 lg:w-12" />
+                                <h2 className="font-semibold text-md md:text-xl">Faster Delivery by 10 PM, within <p className="inline text-gray-50 bg-blue-700 px-2 py-1 rounded-2xl mx-1">{Math.floor(Math.random() * 3) + 1}</p> days</h2>
                             </div>
+                            <h2 className="mt-2 text-center">Deliver to {address.city}, {address.district}, {address.state} ✔️</h2>
                         </div>
                     </div>
                     <div className={`${deliverable && 'hidden'}`}>

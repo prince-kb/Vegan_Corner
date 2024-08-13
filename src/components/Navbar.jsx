@@ -8,8 +8,10 @@ import logoutsvg from '../assets/svgs/navbar/logout.svg'
 import usersvg from '../assets/svgs/navbar/user.svg'
 import { useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useSelector,useDispatch } from 'react-redux'
 import gsap from 'gsap'
+import { setUser } from '../redux/slices/userSlice'
+import { setNotification } from '../redux/slices/notificationSlice'
 
 
 const Navbar = () => {
@@ -18,6 +20,8 @@ const Navbar = () => {
 
     const navigate = useNavigate();
     const location = useLocation();
+    const dispatch = useDispatch();
+
     const ref = useRef();
     const ref1 = useRef();
     const rotate = () => ref.current.classList.toggle('rotate-[-90deg]')
@@ -40,6 +44,7 @@ const Navbar = () => {
             }, 3000)
         }
     })
+
     useEffect(() => {
         gsap.from("#tool2", { x: '-50vw', duration: 2, delay: 1, ease: 'power2.out' })
         gsap.from("#tool1", { x: '-100%', duration: 2, delay: 1, ease: 'power2.out' })
@@ -47,6 +52,12 @@ const Navbar = () => {
         startAnim.from('#wheel', { rotate: '-300deg', duration: 2, ease: 'cubic-bezier(0.12, 0, 0.39, 0)' }, '<')
     }, [window.onload])
 
+    const logout=()=>{
+        localStorage.removeItem('authy');
+        dispatch(setUser(null));
+        dispatch(setNotification({message:'Logged out successfully',type:'success',logo:'tick'}))
+        // window.location.reload(false);
+    }
 
     return (
         <div className="flex select-none " onClick={() => opened && setOpened(false)}>
@@ -70,7 +81,7 @@ const Navbar = () => {
                             {user?.name && <div className='h-2 w-2 bg-transparent' />}
                             <div className='font font-bubble text-white tracking-wider text-xl md:text-2xl'>{user?.name ? user.name.split(' ')[0] : 'WELCOME'}</div>
                             {user?.name &&
-                                <img src={logoutsvg} alt="user" className='cursor-pointer hover:scale-110  transition-all hover:translate-x-1 h-8 w-8 stroke-white fill-white' onClick={() => { localStorage.removeItem('authy'); window.location.reload(false); }} />
+                                <img src={logoutsvg} alt="user" className='cursor-pointer hover:scale-110  transition-all hover:translate-x-1 h-8 w-8 stroke-white fill-white' onClick={logout} />
                             }
                         </div>
 

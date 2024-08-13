@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { updateCatalogue } from "./redux/slices/catalogueSlice";
 import { useEffect } from "react";
 import { setUser } from "./redux/slices/userSlice";
+import Notification from "./components/Notification";
 
 function App() {
 
@@ -69,8 +70,9 @@ function App() {
 
 
   return (
-    <div className="">
+    <div className="relative">
       <Navbar />
+      <Notification />
       <Outlet />
     </div>
   )
