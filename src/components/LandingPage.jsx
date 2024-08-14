@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateMain } from "../redux/slices/mainSlice";
 
 import Category from "./Category"
@@ -9,9 +9,10 @@ const LandingPage = () => {
 
   const ref = useRef(null);
   const dispatch = useDispatch()
+  
+  // const [category, setCategory] = useState(useSelector(state => state.home.home))
   const [n, setN] = useState(0);
   const [banners, setBanners] = useState([]);
-
   const [x1, setX1] = useState(0) //To hold the value of touch start
 
   const startAnim2 = gsap.timeline({});

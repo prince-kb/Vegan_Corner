@@ -1,21 +1,33 @@
 import { useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux"
 import bolt1 from '../assets/svgs/bolt1.svg'
+import { useEffect, useState } from "react";
 
 const Category = (props) => {
     const navigate = useNavigate();
     const catalogue = useSelector(state => state.catalogue.Catalogue)
-    const all = catalogue && catalogue.length > 0 && catalogue.filter(item => item.type === props.type)
+    const user = useSelector(state => state.user.user)
+    const [all, setAll] = useState(null)
+
+    useEffect(() => {
+        if (props.type === 'recent' && user && catalogue.length > 1) {
+            setAll(catalogue.filter((item) => {
+                return user.frequentItems.filter(function (frequentItem) {
+                    return frequentItem.id === item.id
+                }).length !== 0;
+            }).reverse())
+        } else setAll(catalogue && catalogue.length > 0 && catalogue.filter(item => item.type === props.type))
+    }, [user, catalogue])
 
     return (
         <div>
             {all && all.length > 0 &&
-                <div className={`m-4 lg:m-8 mt-8`} >
+                <div className={`m-4 lg:m-8 mt-12`} >
 
-                    <h1 className="font-bold font-bubble text-xl md:text-2xl lg:text-3xl text-brown mb-2 ml-6 lg:ml-8">{props.type.toUpperCase()}</h1>
+                    <h1 className="font-bold font-bubble text-xl md:text-2xl lg:text-3xl text-brown mb-2 ml-6 lg:ml-8">{props.type==='recent' ? 'RECENTLY VIEWED' : props.type.toUpperCase()}</h1>
                     <div className={`flex gap-4 overflow-auto pl-2 lg:pl-6`}>
                         {all.map((item, i) => (
-                            <div onClick={()=>navigate(`/product/${item.id}`)} key={i} className="cursor-pointer relative mb-4 min-w-[160px] md:min-w-[200px] lg:min-w-[240px] hover:neu2 border rounded-2xl transition-all shadow-lg flex flex-col items-center justify-around">
+                            <div onClick={() => navigate(`/product/${item.id}`)} key={i} className="cursor-pointer relative mb-4 min-w-[160px] md:min-w-[200px] lg:min-w-[240px] hover:neu2 border rounded-2xl transition-all shadow-lg flex flex-col items-center justify-around">
 
                                 {/* Priority Part */}
                                 <div className="w-full flex justify-end absolute right-2 top-2">
@@ -34,7 +46,7 @@ const Category = (props) => {
                                     </div>
                                     <div className="text-end flex-col justify-center">
                                         <h2 className="font-medium mr-1">{item.quantity}</h2>
-                                        <h2 className="text-base md:text-xl font-normal text-center mb-2">{item.rating}<span className="text-sm md:text-base">⭐<span/></span></h2>
+                                        <h2 className="text-base md:text-xl font-normal text-center mb-2">{item.rating}<span className="text-sm md:text-base">⭐<span /></span></h2>
                                     </div>
 
                                 </div>
