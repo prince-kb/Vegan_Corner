@@ -9,18 +9,18 @@ const LandingPage = () => {
 
   const ref = useRef(null);
   const dispatch = useDispatch()
-  
-  // const [category, setCategory] = useState(useSelector(state => state.home.home))
+
+  const c = useSelector(state => state.home.home)
   const [n, setN] = useState(0);
   const [banners, setBanners] = useState([]);
   const [x1, setX1] = useState(0) //To hold the value of touch start
 
   const startAnim2 = gsap.timeline({});
-  
+
   useEffect(() => {
-    startAnim2.from('.bannerss', { scale : 0, translateX : "-100%",translateY : "100%",opacity:0, duration: 1,delay: 0.5, ease: 'power2.out' })
-    startAnim2.from('.intro', { y: '70', duration: 1,delay:0.7,opacity : 0, ease: 'power2.out' })
-    gsap.from('#categories', { y: '70vh',opacity:0.5, duration: 1,delay:0 })
+    startAnim2.from('.bannerss', { scale: 0, translateX: "-100%", translateY: "100%", opacity: 0, duration: 1, delay: 0.5, ease: 'power2.out' })
+    startAnim2.from('.intro', { y: '70', duration: 1, delay: 0.7, opacity: 0, ease: 'power2.out' })
+    gsap.from('#categories', { y: '70vh', opacity: 0.5, duration: 1, delay: 0 })
   }, [window.onload])
 
   useEffect(() => {
@@ -110,13 +110,28 @@ const LandingPage = () => {
           </div>
         </div>
       </div>
-
       <div id="categories">
-      <Category type="milk" />
-      <Category type="snacks" />
-      <Category type="quick foods" />
-      <Category type="grocery" />
-      <Category type="munchies" />
+        {
+          c === 'quick foods' ?
+
+            <Category type="quick foods" />
+            : c === 'cooked' ?
+
+              <div>
+                <Category type="snacks" />
+                <Category type="milk" />
+                <Category type="munchies" />
+              </div> :
+
+              <div>
+                <Category type="milk" />
+                <Category type="snacks" />
+                <Category type="quick foods" />
+                <Category type="grocery" />
+                <Category type="munchies" />
+                <Category type="recent" />
+              </div>
+        }
       </div>
 
 

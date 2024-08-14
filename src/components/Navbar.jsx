@@ -12,6 +12,7 @@ import { useSelector,useDispatch } from 'react-redux'
 import gsap from 'gsap'
 import { setUser } from '../redux/slices/userSlice'
 import { setNotification } from '../redux/slices/notificationSlice'
+import { setHome } from '../redux/slices/homeSlice'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger) 
 
@@ -121,17 +122,17 @@ const Navbar = () => {
 
                             <img src={wheel} alt="market" className='sunImage h-64 w-64' id="wheel" />
 
-                            <div onClick={()=>{navigate('/'); rotate1()}} className="cursor-pointer stars flex-center rounded-full absolute w-[48px] h-[48px] bg-brown left-[72px] top-[-48px] hover:scale-150 transition-all group/1" >
+                            <div onClick={()=>{dispatch(setHome('')); navigate('/'); rotate1()}} className="cursor-pointer stars flex-center rounded-full absolute w-[48px] h-[48px] bg-brown left-[72px] top-[-48px] hover:scale-150 transition-all group/1" >
                                 <h2 className='bg-brown text-white font-bold text-sm px-2 py-1 rotate-90 rounded-2xl absolute -translate-y-[250%] hidden group-hover/1:block'>Categories</h2>
                                 <img src={shop} alt="❤️" className='h-8 w-8 rotate-90 ' />
                             </div>
 
-                            <div className="cursor-pointer stars flex-center rounded-full absolute w-[48px] h-[48px] bg-brown left-[-30px]  top-[12px]  hover:scale-150 transition-all group/2" onClick={rotate1}>
+                            <div onClick={()=>{dispatch(setHome('cooked')); rotate1()}} className="cursor-pointer stars flex-center rounded-full absolute w-[48px] h-[48px] bg-brown left-[-30px]  top-[12px]  hover:scale-150 transition-all group/2">
                                 <h2 className='bg-brown text-white font-bold text-sm px-2 py-1 rotate-90 rounded-2xl absolute -translate-y-[250%] hidden group-hover/2:block'>Cooked</h2>
                                 <img src={quick} alt="❤️" className='h-8 w-8 rotate-90 ' />
                             </div>
 
-                            <div className="cursor-pointer stars flex-center rounded-full absolute w-[48px] h-[48px] bg-brown left-[12px]   top-[-30px] hover:scale-150 transition-all group/3" onClick={rotate1}>
+                            <div onClick={()=>{dispatch(setHome('quick foods')); rotate1()}} className="cursor-pointer stars flex-center rounded-full absolute w-[48px] h-[48px] bg-brown left-[12px]   top-[-30px] hover:scale-150 transition-all group/3">
                                 <h2 className='bg-brown text-white font-bold text-sm px-2 py-1 rotate-90 rounded-2xl absolute -translate-y-[130%] hidden group-hover/3:block'>Quick food</h2>
                                 <img src={baked} alt="❤️" className='h-8 w-8 rotate-90 ' />
                             </div>

@@ -6,11 +6,11 @@ const homeSlice = createSlice({
         home: ''
     },
     reducers: {
-        updateHome: (state, action) => {
+        setHome: (state, action) => {
             state.home = action.payload;
         }
-    },
+    }
 })
 
 export const home = homeSlice.reducer;
-export const {updateHome} = homeSlice.actions;
+export const {setHome} = homeSlice.actions;

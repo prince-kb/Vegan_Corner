@@ -52,6 +52,7 @@ const Product = () => {
                         },
                         body: JSON.stringify({ id: id })
                     })
+                    console.log("fetched");
                 } catch (err) {
                     console.log(" Unable to add product to recents")
                 }

@@ -7,28 +7,28 @@ const Category = (props) => {
     const navigate = useNavigate();
     const catalogue = useSelector(state => state.catalogue.Catalogue)
     const user = useSelector(state => state.user.user)
-    const [all, setAll] = useState(null)
+    const [all, setAll] = useState(catalogue && catalogue.length > 0 && catalogue.filter(item => item.type === props.type))
 
     useEffect(() => {
         if (props.type === 'recent' && user && catalogue.length > 1) {
-            setAll(catalogue.filter((item) => {
+            const p = catalogue.filter((item) => {
                 return user.frequentItems.filter(function (frequentItem) {
                     return frequentItem.id === item.id
                 }).length !== 0;
-            }).reverse())
+            })
+            // console.log(user.recentItems)
+            setAll(p)
+            // console.log(p)
         } else setAll(catalogue && catalogue.length > 0 && catalogue.filter(item => item.type === props.type))
     }, [user, catalogue])
 
     return (
-        <div>
-            {all && all.length > 0 &&
+        all && all.length > 0 &&
                 <div className={`m-4 lg:m-8 mt-12`} >
-
                     <h1 className="font-bold font-bubble text-xl md:text-2xl lg:text-3xl text-brown mb-2 ml-6 lg:ml-8">{props.type==='recent' ? 'RECENTLY VIEWED' : props.type.toUpperCase()}</h1>
                     <div className={`flex gap-4 overflow-auto pl-2 lg:pl-6`}>
                         {all.map((item, i) => (
                             <div onClick={() => navigate(`/product/${item.id}`)} key={i} className="cursor-pointer relative mb-4 min-w-[160px] md:min-w-[200px] lg:min-w-[240px] hover:neu2 border rounded-2xl transition-all shadow-lg flex flex-col items-center justify-around">
-
                                 {/* Priority Part */}
                                 <div className="w-full flex justify-end absolute right-2 top-2">
                                     {item.offer ? <div className="flex items-center gap-1 bg-green-500 text-white z-[-1] px-2 py-1 animate-bounce rounded-full text-[10px] lg:text-sm"><img src={bolt1} alt="S" className="h-4 w-4" />SALE </div>
@@ -54,8 +54,6 @@ const Category = (props) => {
                         ))}
                     </div>
                 </div>
-            }
-        </div>
     )
 }
 
