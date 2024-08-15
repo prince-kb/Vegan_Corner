@@ -121,16 +121,19 @@ const LandingPage = () => {
                 <Category type="snacks" />
                 <Category type="milk" />
                 <Category type="munchies" />
-              </div> :
+              </div> : c === 'recent' ?
 
-              <div>
-                <Category type="milk" />
-                <Category type="snacks" />
-                <Category type="quick foods" />
-                <Category type="grocery" />
-                <Category type="munchies" />
-                <Category type="recent" />
-              </div>
+                <div>
+                  <Category type="recent" />
+                </div> :
+
+                <div>
+                  <Category type="milk" />
+                  <Category type="snacks" />
+                  <Category type="quick foods" />
+                  <Category type="grocery" />
+                  <Category type="munchies" />
+                </div>
         }
       </div>
 

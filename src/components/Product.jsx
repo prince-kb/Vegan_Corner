@@ -22,6 +22,7 @@ const Product = () => {
     const dispatch = useDispatch();
     const ref = useRef(null); // Ref for pincode input to set pincode after every input change
     const { id } = useParams(); // Getting the id of the product from the url
+    console.log(id)
 
     const [product, setProduct] = useState({}); // Product details
     const [mainLoader, setMainLoader] = useState(true); //To show product after fetching
@@ -52,7 +53,6 @@ const Product = () => {
                         },
                         body: JSON.stringify({ id: id })
                     })
-                    console.log("fetched");
                 } catch (err) {
                     console.log(" Unable to add product to recents")
                 }

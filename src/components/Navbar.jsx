@@ -29,7 +29,10 @@ const Navbar = () => {
     
     const rotate = () => ref.current.classList.toggle('rotate-[-90deg]')
     const rotate1 = () => ref.current.classList.add('rotate-[-90deg]')
-    const goToHomePage = () => location.pathname !== '/' && navigate('/');
+    const goToHomePage = () => {
+        dispatch(setHome(''));
+        navigate('/');
+    }
 
     const startAnim = gsap.timeline({
         onStart: () => {
@@ -122,17 +125,17 @@ const Navbar = () => {
 
                             <img src={wheel} alt="market" className='sunImage h-64 w-64' id="wheel" />
 
-                            <div onClick={()=>{dispatch(setHome('')); navigate('/'); rotate1()}} className="cursor-pointer stars flex-center rounded-full absolute w-[48px] h-[48px] bg-brown left-[72px] top-[-48px] hover:scale-150 transition-all group/1" >
-                                <h2 className='bg-brown text-white font-bold text-sm px-2 py-1 rotate-90 rounded-2xl absolute -translate-y-[250%] hidden group-hover/1:block'>Categories</h2>
+                            <div onClick={()=>{dispatch(setHome('recent')); navigate('/'); rotate1()}} className="cursor-pointer stars flex-center rounded-full absolute w-[48px] h-[48px] bg-brown left-[72px] top-[-48px] hover:scale-150 transition-all group/1" >
+                                <h2 className='bg-brown text-white font-bold text-sm px-2 py-1 rotate-90 rounded-2xl absolute -translate-y-[250%] hidden group-hover/1:block'>Recents</h2>
                                 <img src={shop} alt="❤️" className='h-8 w-8 rotate-90 ' />
                             </div>
 
-                            <div onClick={()=>{dispatch(setHome('cooked')); rotate1()}} className="cursor-pointer stars flex-center rounded-full absolute w-[48px] h-[48px] bg-brown left-[-30px]  top-[12px]  hover:scale-150 transition-all group/2">
-                                <h2 className='bg-brown text-white font-bold text-sm px-2 py-1 rotate-90 rounded-2xl absolute -translate-y-[250%] hidden group-hover/2:block'>Cooked</h2>
+                            <div onClick={()=>{dispatch(setHome('cooked')); navigate('/'); rotate1()}} className="cursor-pointer stars flex-center rounded-full absolute w-[48px] h-[48px] bg-brown left-[-30px]  top-[12px]  hover:scale-150 transition-all group/2">
+                                <h2 className='bg-brown text-white font-bold text-sm px-2 py-1 rotate-90 rounded-2xl absolute -translate-y-[250%] hidden group-hover/2:block'>Ready to eat</h2>
                                 <img src={quick} alt="❤️" className='h-8 w-8 rotate-90 ' />
                             </div>
 
-                            <div onClick={()=>{dispatch(setHome('quick foods')); rotate1()}} className="cursor-pointer stars flex-center rounded-full absolute w-[48px] h-[48px] bg-brown left-[12px]   top-[-30px] hover:scale-150 transition-all group/3">
+                            <div onClick={()=>{dispatch(setHome('quick foods')); navigate('/');  rotate1()}} className="cursor-pointer stars flex-center rounded-full absolute w-[48px] h-[48px] bg-brown left-[12px]   top-[-30px] hover:scale-150 transition-all group/3">
                                 <h2 className='bg-brown text-white font-bold text-sm px-2 py-1 rotate-90 rounded-2xl absolute -translate-y-[130%] hidden group-hover/3:block'>Quick food</h2>
                                 <img src={baked} alt="❤️" className='h-8 w-8 rotate-90 ' />
                             </div>
