@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 import { useEffect, useState, useRef } from "react";
 
 import nostar from "../assets/svgs/nostar.svg";
@@ -20,9 +20,9 @@ import { setNotification } from "../redux/slices/notificationSlice";
 
 const Product = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const ref = useRef(null); // Ref for pincode input to set pincode after every input change
     const { id } = useParams(); // Getting the id of the product from the url
-    console.log(id)
 
     const [product, setProduct] = useState({}); // Product details
     const [mainLoader, setMainLoader] = useState(true); //To show product after fetching
@@ -84,7 +84,6 @@ const Product = () => {
         fetchProduct();
     }, [id])
 
-
     useEffect(() => {
         localStorage.setItem('pincode', pincode);
         setPinc(pincode);
@@ -95,7 +94,7 @@ const Product = () => {
     }, [])
 
     const addtocart = async () => {
-        if (!user) return dispatch(setNotification({ message: "Please Login to add to Wishlist", type: "none", logo: "user" }))
+        if (!user) return dispatch(setNotification({ message: "Please Login to add to Cart", type: "none", logo: "user" }))
         try {
             const API = import.meta.env.VITE_REACT_APP_API
             const SERVER_SECRET = import.meta.env.VITE_REACT_APP_SERVER_SECRET
@@ -119,7 +118,11 @@ const Product = () => {
     }
 
     const buynow = () => {
-        if (!user) return dispatch(setNotification({ message: "Please Login to add to Wishlist", type: "none", logo: "user" }))
+        if (!user) {
+            dispatch(setNotification({ message: "Please Login to Buy Now", type: "none", logo: "user" }))
+            navigate('/signin');
+            return;
+        }
         else dispatch(setNotification({ message: "Sorry, Unavailable right now", type: "yellow", logo: "error" }))
     }
 

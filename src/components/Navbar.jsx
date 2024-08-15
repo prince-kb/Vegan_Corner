@@ -22,7 +22,6 @@ const Navbar = () => {
     const [opened, setOpened] = useState(false); //To check if toolbox is opened
 
     const navigate = useNavigate();
-    const location = useLocation();
     const dispatch = useDispatch();
     const ref = useRef();
     const ref1 = useRef();
@@ -80,6 +79,18 @@ const Navbar = () => {
         window.location.reload(false);
     }
 
+    const recents = ()=>{
+        if(user){
+        dispatch(setHome('recent'));
+        navigate('/');
+        rotate1();
+        }
+        else {
+            navigate('/signin');
+            setNotification({message:'Please login to view recents',type:'error',logo:'cross'})
+        }
+    }
+
     return (
         <div className="flex select-none" onClick={() => opened && setOpened(false)}>
 
@@ -125,7 +136,7 @@ const Navbar = () => {
 
                             <img src={wheel} alt="market" className='sunImage h-64 w-64' id="wheel" />
 
-                            <div onClick={()=>{dispatch(setHome('recent')); navigate('/'); rotate1()}} className="cursor-pointer stars flex-center rounded-full absolute w-[48px] h-[48px] bg-brown left-[72px] top-[-48px] hover:scale-150 transition-all group/1" >
+                            <div onClick={recents} className="cursor-pointer stars flex-center rounded-full absolute w-[48px] h-[48px] bg-brown left-[72px] top-[-48px] hover:scale-150 transition-all group/1" >
                                 <h2 className='bg-brown text-white font-bold text-sm px-2 py-1 rotate-90 rounded-2xl absolute -translate-y-[250%] hidden group-hover/1:block'>Recents</h2>
                                 <img src={shop} alt="❤️" className='h-8 w-8 rotate-90 ' />
                             </div>
