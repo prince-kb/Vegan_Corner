@@ -151,7 +151,7 @@ const Category2 = (props) => {
 
 
     return (
-        <div className='z-[3] mt-8 '>
+        <div className='z-[3] mt-8'>
             {all.length > 0 ? all.map((item, i) => {
                 return <div key={item.id} className=' relative flex items-center justify-center gap-4 my-2'>
                     <div className=' flex justify-around w-[80vw] md:w-[70vw] lg:w-[60vw] xl:w-[50vw] items-center my-2 border rounded-2xl'>
@@ -170,7 +170,7 @@ const Category2 = (props) => {
                         </div>
                     </div>
 
-                    <div onClick={() => { remove(item.id) }} className='absolute rounded-full p-0 md:p-1 right-0 top-0 -translate-y-2  -translate-x-[9vw] md:-translate-x-[13vw] lg:-translate-x-[27vw] hover:scale-110 transition-all cursor-pointer border-2 lg:border-4 border-red-600'>
+                    <div onClick={() => { remove(item.id) }} className='absolute rounded-full p-0 md:p-1 right-0 top-0 -translate-y-2  -translate-x-[9vw] md:-translate-x-[13vw] lg:-translate-x-[27vw] hover:scale-110 transition-all cursor-pointer border-2 lg:border-4 border-red-600 z-[4]'>
                         <h2 className='md:text-md lg:text-xl'>❌</h2>
                     </div>
 

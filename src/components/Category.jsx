@@ -10,18 +10,19 @@ const Category = (props) => {
     const [all, setAll] = useState(catalogue && catalogue.length > 0 && catalogue.filter(item => item.type === props.type))
 
     useEffect(() => {
-        if (props.type === 'recent' && user && catalogue.length > 1) {
-            let p = [];
-            user.frequentItems.map((item, i) => {
-                catalogue.reduce((x, y) => {
-                    if (x.id === item.id) p.push(x)
-                    return y
+        if (props.type === 'recent') {
+            if (user && catalogue?.length > 0) {
+                let p = [];
+                user.frequentItems.map((item, i) => {
+                    catalogue.reduce((x, y) => {
+                        if (x.id === item.id) p.push(x)
+                        return y
+                    })
                 })
-            })
-            setAll(p.reverse());
-
+                setAll(p.reverse());
+            }
         } else setAll(catalogue && catalogue.length > 0 && catalogue.filter(item => item.type === props.type))
-    }, [user, catalogue])
+    }, [props])
 
     return (
         all && all.length > 0 &&

@@ -7,7 +7,7 @@ import love from '../assets/svgs/navbar/love.svg'
 import logoutsvg from '../assets/svgs/navbar/logout.svg'
 import usersvg from '../assets/svgs/navbar/user.svg'
 import { useEffect, useRef, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useSelector,useDispatch } from 'react-redux'
 import gsap from 'gsap'
 import { setUser } from '../redux/slices/userSlice'
@@ -18,16 +18,18 @@ gsap.registerPlugin(ScrollTrigger)
 
 
 const Navbar = () => {
-    const user = useSelector(state => state.user.user);
-    const [opened, setOpened] = useState(false); //To check if toolbox is opened
-
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const ref = useRef();
     const ref1 = useRef();
+
+    const user = useSelector(state => state.user.user);
+    const [opened, setOpened] = useState(false); //To check if toolbox is opened
+
     
     const rotate = () => ref.current.classList.toggle('rotate-[-90deg]')
     const rotate1 = () => ref.current.classList.add('rotate-[-90deg]')
+
     const goToHomePage = () => {
         dispatch(setHome(''));
         navigate('/');
@@ -81,9 +83,9 @@ const Navbar = () => {
 
     const recents = ()=>{
         if(user){
-        dispatch(setHome('recent'));
-        navigate('/');
-        rotate1();
+            dispatch(setHome('recent'));
+            navigate('/');
+            rotate1();
         }
         else {
             navigate('/signin');

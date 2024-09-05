@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { setNotification,deleteNotification } from '../redux/slices/notificationSlice'
+import { deleteNotification } from '../redux/slices/notificationSlice'
 import gsap from 'gsap'
 
 import heart from "../assets/svgs/heart2.svg"
