@@ -10,6 +10,7 @@ import Cart from './components/Cart'
 import SignIn from './components/SignIn'
 import SignUp from './components/SignUp'
 
+import { Analytics } from "@vercel/analytics/react"
 import { store } from './redux/store/store.js'
 import { Provider } from 'react-redux'
 import Wishlist from './components/Wishlist.jsx'
@@ -62,5 +63,6 @@ const router = createHashRouter([
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
       <RouterProvider router={router} />
+      <Analytics/>
   </Provider>
 )

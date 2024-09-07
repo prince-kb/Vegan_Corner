@@ -1,5 +1,5 @@
-import { Outlet } from "react-router-dom"
 import Navbar from "./components/Navbar"
+import { Outlet } from "react-router-dom"
 import { useDispatch } from "react-redux";
 import { updateCatalogue } from "./redux/slices/catalogueSlice";
 import { useEffect } from "react";
