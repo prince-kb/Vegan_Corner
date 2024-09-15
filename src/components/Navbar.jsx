@@ -60,18 +60,14 @@ const Navbar = () => {
 
         gsap.to('.sunImage',{
             scrollTrigger: {
-                trigger: '#sun',
-                start: 'top center',
-                end: 'bottom center',
+                trigger: 'body',
+                start: 'top top',
+                end: 'bottom bottom',
                 scrub: 1,
             },
             rotate: '180deg',
-            duration: 5,
             ease: 'linear'
         })
-        
-
-
     }, [window.onload])
 
     const logout=()=>{
