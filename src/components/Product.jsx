@@ -16,6 +16,7 @@ import loaderSpinner from "../assets/svgs/loader.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../redux/slices/userSlice";
 import { setNotification } from "../redux/slices/notificationSlice";
+import { updateBuyNow } from "../redux/slices/buyNowSlice";
 
 
 const Product = () => {
@@ -123,7 +124,10 @@ const Product = () => {
             navigate('/signin');
             return;
         }
-        else dispatch(setNotification({ message: "Sorry, Unavailable right now", type: "yellow", logo: "error" }))
+        else {
+            dispatch(updateBuyNow({ id: id, quantity: 1 }))
+            navigate('/buynow')
+        }
     }
 
     const addtowishlist = async () => {
@@ -287,7 +291,7 @@ const Product = () => {
 
             {/* BUY NOW PART */}
             <div className="flex justify-around rounded-3xl py-2 lg:py-4 m-2 mb-4 px-2 md:px-6 gap-4 w-[95vw] md:w-[80vw] font-semibold">
-                <Link to="/checkout" onClick={buynow} className="min-w-[20vw] flex-center px-2 md:px-4 lg:px-6 py-1 md:py-2 lg:py-4 group/1 bg-green-500 shadow-sm shadow-green-300 hover:scale-105 transition-all text-gray-50 rounded-2xl">
+                <Link to="/buynow" onClick={buynow} className="min-w-[20vw] flex-center px-2 md:px-4 lg:px-6 py-1 md:py-2 lg:py-4 group/1 bg-green-500 shadow-sm shadow-green-300 hover:scale-105 transition-all text-gray-50 rounded-2xl">
                     <h1 className="text-xl md:text-2xl lg:text-3xl mr-2">Buy Now! </h1>
                     <img src={tick} alt="BUY" className="h-6 w-6 md:h-8 md:w-8 md:ml-2 lg:h-12 lg:w-12 group-hover/1:scale-[118%] group-hover/1:translate-x-2 transition-all" />
                 </Link>

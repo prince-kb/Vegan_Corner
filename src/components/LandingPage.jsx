@@ -4,6 +4,7 @@ import { updateMain } from "../redux/slices/mainSlice";
 
 import Category from "./Category"
 import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 
 const LandingPage = () => {
 
@@ -15,13 +16,14 @@ const LandingPage = () => {
   const [banners, setBanners] = useState([]);
   const [x1, setX1] = useState(0) //To hold the value of touch start
 
-  const startAnim2 = gsap.timeline({});
-
-  useEffect(() => {
-    startAnim2.from('.bannerss', { scale: 0, translateX: "-100%", translateY: "100%", opacity: 0, duration: 1, delay: 0.5, ease: 'power2.out' })
-    startAnim2.from('.intro', { y: '70', duration: 1, delay: 0.7, opacity: 0, ease: 'power2.out' })
-    gsap.from('#categories', { y: '70vh', opacity: 0.5, duration: 1, delay: 0 })
-  }, [window.onload])
+  
+  useGSAP(()=>{
+    const tl = gsap.timeline();
+    tl.from('.bannerss', { translateX: "-100%", translateY: "100%", opacity: 0, duration: 1, delay: 0.5, ease: 'power2.out' })
+    tl.from('.intro', { y: '70', duration: 1, delay: 0.7, opacity: 0, ease: 'power2.out' })
+    gsap.from('#categories', { y: '70vh', opacity: 0, duration: 1, delay: 1 })
+    
+  })
 
   useEffect(() => {
     const mainData = async () => {

@@ -14,6 +14,7 @@ import { setUser } from '../redux/slices/userSlice'
 import { setNotification } from '../redux/slices/notificationSlice'
 import { setHome } from '../redux/slices/homeSlice'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useGSAP } from '@gsap/react'
 gsap.registerPlugin(ScrollTrigger) 
 
 
@@ -52,23 +53,26 @@ const Navbar = () => {
         }
     })
 
-    useEffect(() => {
+    useGSAP(() => {
         gsap.from("#tool2", { x: '-50vw', duration: 2, delay: 1, ease: 'power2.out' })
         gsap.from("#tool1", { x: '-100%', duration: 2, delay: 1, ease: 'power2.out' })
         startAnim.from('#sun', { x: '-100%', y: '60vh', duration: 2, ease: 'power2.out' })
         startAnim.from('#wheel', { rotate: '-300deg', duration: 2, ease: 'cubic-bezier(0.12, 0, 0.39, 0)' }, '<')
 
-        gsap.to('.sunImage',{
+        const tl = gsap.timeline({ 
             scrollTrigger: {
                 trigger: 'body',
                 start: 'top top',
                 end: 'bottom bottom',
                 scrub: 1,
-            },
-            rotate: '180deg',
+            }
+        })
+        
+        tl.to('.sunImage',{
+            rotate: '360deg',
             ease: 'linear'
         })
-    }, [window.onload])
+    })
 
     const logout=()=>{
         localStorage.removeItem('authy');
@@ -90,14 +94,14 @@ const Navbar = () => {
     }
 
     return (
-        <div className="flex select-none" onClick={() => opened && setOpened(false)}>
+        <div className="flex  select-none" onClick={() => opened && setOpened(false)}>
 
-            <div id="tool1"  onClick={goToHomePage} className=" w-fit px-4 cursor-pointer md:pr-6 lg:pr-10 h-[64px] lg:h-[92px] bg-orange rounded-br-full flex items-center relative z-[3]">
+            <div id="tool1"  onClick={goToHomePage} className="w-fit px-4 cursor-pointer md:pr-6 lg:pr-10 h-[64px] lg:h-[92px] bg-orange rounded-br-full flex items-center relative z-[3]">
                 <img src={logo} alt="Vegan" className='h-8 md:h-12 lg:h-16' />
                 <h1 className="font-bold font-janime tracking-wider text-xl md:text-2xl lg:text-3xl xl:text-4xl ml-2 lg:ml-4">Vegan's Corner</h1>
             </div>
 
-            <div id="tool2" className="group/xx relative h-fit w-fit z-[3] flex justify-center">
+            <div id="tool2" className="group/xx  relative h-fit w-fit z-[3] flex justify-center">
                 <div className={`h-[64px] w-[64px] lg:h-[92px] lg:w-[92px] flex rounded-full bg-orange justify-center cursor-pointer items-center `} onMouseEnter={() => { if (!opened) setOpened(!opened) }} onClick={() => setOpened(!opened)}  >
                     <div className='h-[80%] w-[80%] bg-brown rounded-full flex-center'>
                         {user?.name ? <h2 className='text-yellow-300 font-peach text-4xl md:text-3xl lg:text-4xl'>{user.name.slice(0, 1)}</h2> :

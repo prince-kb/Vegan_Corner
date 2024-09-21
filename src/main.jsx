@@ -9,11 +9,12 @@ import CheckOut from './components/CheckOut'
 import Cart from './components/Cart'
 import SignIn from './components/SignIn'
 import SignUp from './components/SignUp'
+import BuyNow from './components/BuyNow.jsx'
+import Wishlist from './components/Wishlist.jsx'
 
 import { Analytics } from "@vercel/analytics/react"
 import { store } from './redux/store/store.js'
 import { Provider } from 'react-redux'
-import Wishlist from './components/Wishlist.jsx'
 
 const router = createHashRouter([
   {
@@ -55,6 +56,10 @@ const router = createHashRouter([
       {
         path: "wishlist",
         element: <Wishlist />
+      },
+      {
+        path: "buynow",
+        element: <BuyNow />
       },
     ]
   }
