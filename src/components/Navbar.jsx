@@ -118,6 +118,9 @@ const Navbar = () => {
                                 <img src={logoutsvg} alt="user" className='cursor-pointer hover:scale-110  transition-all hover:translate-x-1 h-8 w-8 stroke-white fill-white' onClick={logout} />
                             }
                         </div>
+                        <div className='bg-brown text-white text-2xl px-4 py-2 font-bold rounded-2xl transition-all hover:bg-darkbrown cursor-pointer'>
+                            My Orders
+                        </div>
 
                         {user?.name ? <div className='mx-auto flex mb-4 items-center w-fit'>
                             <div className='text-sm md:text-base bg-darkbrown hover:scale-105 cursor-pointer transition-all hover:bg-brown mx-1 rounded-xl px-2 py-1 md:px-4 md:py-2 text-white font-bold' onClick={() => navigate('cart')}>CART ({user?.cart?.length ? user.cart.length : 0})</div>

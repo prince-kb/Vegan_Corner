@@ -3,7 +3,10 @@ import { createSlice } from "@reduxjs/toolkit";
 const buyNowSlice = createSlice({
     name: "buynow",
     initialState: {
-        buynow : {}
+        buynow : {
+            id : null,
+            quantity : 0,
+        }
     },
     reducers: {
         updateBuyNow: (state, action) => {
