@@ -64,6 +64,8 @@ const LandingPage = () => {
         console.log(" Unable to fetch banners data")
       }
     }
+
+
     mainData();
     fetchBanners();
   }, [window.onload])
@@ -93,7 +95,6 @@ const LandingPage = () => {
       setX1(0);
     })
   })
-
 
   return (
     <div className=" hover:love" ref={ref}  >

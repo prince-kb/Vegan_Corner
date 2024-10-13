@@ -118,7 +118,7 @@ const Navbar = () => {
                                 <img src={logoutsvg} alt="user" className='cursor-pointer hover:scale-110  transition-all hover:translate-x-1 h-8 w-8 stroke-white fill-white' onClick={logout} />
                             }
                         </div>
-                        <div className='bg-brown text-white text-2xl px-4 py-2 font-bold rounded-2xl transition-all hover:bg-darkbrown cursor-pointer'>
+                        <div onClick={()=>navigate('/orders')} className='bg-brown text-white text-2xl px-4 py-2 font-bold rounded-2xl transition-all hover:bg-darkbrown cursor-pointer'>
                             My Orders
                         </div>
 
@@ -134,8 +134,8 @@ const Navbar = () => {
                 </div>
             </div>
 
-            <div id="sun" className='fixed h-[92px] md:h-[164px] lg:h-[256px] w-[100vw] flex justify-end '>
-                <div className='flex absolute transition-all translate-x-1/2 -translate-y-1/2 scale-50 md:scale-75 lg:scale-100 xl:scale-110'>
+            <div id="sun" className='pointer-events-none fixed h-[92px] md:h-[164px] lg:h-[256px] w-[100vw] flex justify-end '>
+                <div className='pointer-events-auto flex absolute transition-all translate-x-1/2 -translate-y-1/2 scale-50 md:scale-75 lg:scale-100 xl:scale-110'>
                     <div ref={ref1} className='group flex transition-all rounded-full duration-1000' onClick={rotate}>
                         <div  className=" w-[256px] h-[256px] bg-orange relative rounded-full md:group-hover:rotate-[-90deg] transition-all duration-300 flex justify-center items-center " ref={ref}>
 

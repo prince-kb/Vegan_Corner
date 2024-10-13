@@ -9,15 +9,25 @@ import Notification from "./components/Notification";
 function App() {
 
   const dispatch = useDispatch();
-  
+
   const autoLogin = async () => {
     const API = import.meta.env.VITE_REACT_APP_API
     const SERVER_SECRET = import.meta.env.VITE_REACT_APP_SERVER_SECRET
 
     const token = localStorage.getItem('authy');
+    console.log(token)
     if (token) {
-      const response = await fetch(`${API}/api/user/getuser`, {
+      await fetch(`${API}/api/user/updateorder`, {
         method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'secret': SERVER_SECRET,
+          'authToken': token
+        }
+      })
+      const response = await fetch(`${API}/api/user/getuser`, {
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -29,8 +39,9 @@ function App() {
       if (data.success === false) {
         dispatch(setUser({}));
         return;
+      } else {
+        dispatch(setUser(data));
       }
-      dispatch(setUser(data));
     }
   }
 

@@ -15,6 +15,7 @@ import Wishlist from './components/Wishlist.jsx'
 import { Analytics } from "@vercel/analytics/react"
 import { store } from './redux/store/store.js'
 import { Provider } from 'react-redux'
+import Orders from './components/Orders.jsx'
 
 const router = createHashRouter([
   {
@@ -61,6 +62,10 @@ const router = createHashRouter([
         path: "buynow",
         element: <BuyNow />
       },
+      {
+        path : "orders",
+        element : <Orders/>
+      }
     ]
   }
 ])

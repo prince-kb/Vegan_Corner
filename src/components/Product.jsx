@@ -54,6 +54,22 @@ const Product = () => {
                         },
                         body: JSON.stringify({ id: id })
                     })
+
+                    const token = localStorage.getItem('authy')
+                    if (!token) return;
+                    const response = await fetch(`${API}/api/user/getuser`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'secret': SERVER_SECRET,
+                            'authToken': token
+                        }
+                    })
+                    const data = await response.json();
+                    if (data.success === false) return;
+                    else dispatch(setUser(data));
+
                 } catch (err) {
                     console.log(" Unable to add product to recents")
                 }
