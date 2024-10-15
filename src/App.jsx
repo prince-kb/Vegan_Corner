@@ -13,9 +13,8 @@ function App() {
   const autoLogin = async () => {
     const API = import.meta.env.VITE_REACT_APP_API
     const SERVER_SECRET = import.meta.env.VITE_REACT_APP_SERVER_SECRET
-
     const token = localStorage.getItem('authy');
-    console.log(token)
+
     if (token) {
       await fetch(`${API}/api/user/updateorder`, {
         method: 'PUT',
@@ -26,6 +25,7 @@ function App() {
           'authToken': token
         }
       })
+
       const response = await fetch(`${API}/api/user/getuser`, {
         method: 'GET',
         headers: {
@@ -46,6 +46,7 @@ function App() {
   }
 
   useEffect(() => {
+
     const fetchCatalogue = async () => {
       try {
         const API = import.meta.env.VITE_REACT_APP_API
@@ -69,6 +70,7 @@ function App() {
         console.log(err, " Unable to fetch data")
       }
     }
+
     fetchCatalogue();
     autoLogin();
   }, [window.onload])

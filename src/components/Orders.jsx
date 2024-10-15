@@ -24,11 +24,11 @@ const Orders = () => {
                 <h1 className="font-bubble text-2xl md:text-3xl lg:text-4xl text-brown ml-6 lg:ml-8 tracking-widest text-center my-4 mb-8">My Orders</h1>
                 <div className={`flex-col items-center justify-center px-2 lg:px-6 z-[10]`}>
                     {user.orders.map((item, i) => (
-                        <div key={i} className={`cursor-pointer mx-auto w-[80vw] md:w-[70vw] lg:[50vw] border rounded-2xl shadow-lg flex flex-col items-center justify-around mb-6 hover:bg-orange transition-all duration-200 hover:bg-opacity-25`}>
-                            <div className="flex justify-around w-full">
+                        <div key={i} onClick={()=>navigate(`/order/${item.orderId}`)} className={`cursor-pointer mx-auto w-[80vw] md:w-[70vw] lg:[50vw] border rounded-2xl shadow-lg flex flex-col items-center justify-around mb-6 hover:bg-orange transition-all duration-200 hover:bg-opacity-25`}>
+                            <div className="flex justify-around w-full ">
                                 {catalogue && catalogue?.filter((i => item.id === i.id)) ?
                                     catalogue?.filter((i => item.id === i.id))?.map((item, i) => (
-                                        <div key={i} onClick={() => navigate(`/product/${item.id}`)} className="cursor-pointer mb-4 min-w-[60vw] md:min-w-[40] lg:min-w-[30vw] flex flex-col items-center justify-around">
+                                        <div key={i} onClick={() => navigate(`/product/${item.id}`)} className="cursor-pointer mb-4 flex flex-col items-center justify-around">
                                             <h2 className="lg:px-2 text-center font-semibold text-md md:text-xl lg:text-2xl mt-4 lg:mt-6 mb-2">{item.name}</h2>
                                             <img src={item.image} alt={item.name} className="w-[60vw] md:w-[30vw] lg:w-[20vw] mb-2 rounded-md transition-all hover:-translate-y-2 hover:scale-105" />
                                         </div>
