@@ -14,7 +14,7 @@ import transport from "../assets/svgs/transport.svg";
 import errorimg from "../assets/svgs/error.svg";
 import loaderSpinner from "../assets/svgs/loader.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "../redux/slices/userSlice";
+import { setUser, updateUser } from "../redux/slices/userSlice";
 import { setNotification } from "../redux/slices/notificationSlice";
 import { updateBuyNow } from "../redux/slices/buyNowSlice";
 
@@ -55,20 +55,7 @@ const Product = () => {
                         body: JSON.stringify({ id: id })
                     })
 
-                    const token = localStorage.getItem('authy')
-                    if (!token) return;
-                    const response = await fetch(`${API}/api/user/getuser`, {
-                        method: 'GET',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json',
-                            'secret': SERVER_SECRET,
-                            'authToken': token
-                        }
-                    })
-                    const data = await response.json();
-                    if (data.success === false) return;
-                    else dispatch(setUser(data));
+                    useDispatch(updateUser());
 
                 } catch (err) {
                     console.log(" Unable to add product to recents")
@@ -127,7 +114,7 @@ const Product = () => {
             })
             const p = await response.json();
             if (p.message === "Item added to cart") dispatch(setNotification({ message: "Product added to Cart", type: "success", logo: "cart" }))
-            autoLogin();
+            useDispatch(updateUser());
         } catch (err) {
             console.log(" Unable to add product to cart")
             dispatch(setNotification({ message: "Unable to add product to Cart", type: "error", logo: "cart" }))
@@ -161,10 +148,11 @@ const Product = () => {
                 },
                 body: JSON.stringify({ id: id })
             })
-            autoLogin();
+            useDispatch(updateUser());
             const p = await response.json();
             if (p.message === "Item added to wishlist") dispatch(setNotification({ message: "Product added to Wishlist", type: "success", logo: "heart" }))
             else dispatch(setNotification({ message: "Product removed from Wishlist", type: "error", logo: "brokenheart" }))
+
         } catch (err) {
             console.log(" Unable to add product to wishlist")
             dispatch(setNotification({ message: "Unable to add product to Wishlist", type: "error", logo: "brokenheart" }))
@@ -174,24 +162,6 @@ const Product = () => {
     const shareLink = () => {
         navigator.clipboard.writeText(window.location.href)
         dispatch(setNotification({ message: "Link Copied to Clipboard", type: "none", logo: "tick" }))
-    }
-
-    const autoLogin = async () => {
-        const API = import.meta.env.VITE_REACT_APP_API
-        const SERVER_SECRET = import.meta.env.VITE_REACT_APP_SERVER_SECRET
-
-        const response = await fetch(`${API}/api/user/getuser`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'secret': SERVER_SECRET,
-                'authToken': localStorage.getItem('authy')
-            }
-        })
-        const data = await response.json();
-        if (data.success === false) return;
-        dispatch(setUser(data));
     }
 
     // Checking Valid Pincode

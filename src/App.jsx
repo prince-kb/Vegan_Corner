@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom"
 import { useDispatch } from "react-redux";
 import { updateCatalogue } from "./redux/slices/catalogueSlice";
 import { useEffect } from "react";
-import { setUser } from "./redux/slices/userSlice";
+import { setUser,updateUser } from "./redux/slices/userSlice";
 import Notification from "./components/Notification";
 
 function App() {
@@ -25,23 +25,7 @@ function App() {
           'authToken': token
         }
       })
-
-      const response = await fetch(`${API}/api/user/getuser`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'secret': SERVER_SECRET,
-          'authToken': token
-        }
-      })
-      const data = await response.json();
-      if (data.success === false) {
-        dispatch(setUser({}));
-        return;
-      } else {
-        dispatch(setUser(data));
-      }
+      dispatch(updateUser());
     }
   }
 
