@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import Category from './Category'
 import { useNavigate } from 'react-router-dom';
 import { setNotification } from '../redux/slices/notificationSlice';
+import { updateUser } from '../redux/slices/userSlice';
+import { order, updateOrderList } from '../redux/slices/orderSlice';
 
 const Category2 = (props) => {
     const dispatch = useDispatch();
@@ -10,14 +12,36 @@ const Category2 = (props) => {
     const catalogue = useSelector(state => state.catalogue.Catalogue)
     const user = useSelector(state => state.user.user)
     const [all, setAll] = useState([])
+    const [orderList, setOrderList] = useState([])
+
+    useEffect(() => {
+        if (user && user.cart && catalogue) {
+            let updatedCart = user.cart;
+            setOrderList([]);
+            
+            updatedCart.map(cartItem => {
+                const item = catalogue.find(item => item.id === cartItem.id);
+                if (item) {
+                    const p = {...cartItem,price : item.price};
+                    setOrderList(prev => [...prev,p]);
+                }
+            })
+        }
+        
+    }, [user])
+
+    useEffect(() => {
+        if(orderList.length) dispatch(updateOrderList(orderList));
+    }, [orderList])
 
     useEffect(() => {
         if (props.type === 'cart' && user && catalogue.length > 1) {
-            setAll(catalogue.filter((item) => {
+            const alll = catalogue.filter((item) => {
                 return user.cart.filter(function (cartItem) {
                     return cartItem.id === item.id
                 }).length !== 0;
-            }))
+            })
+            setAll(alll);
         } else if (props.type === 'wishlist' && user && catalogue.length > 1) {
             setAll(catalogue.filter((item) => {
                 return user.wishlist.filter(function (wishlistItem) {
@@ -50,7 +74,7 @@ const Category2 = (props) => {
                     dispatch(setNotification({ message: data.message, type: 'success', logo: 'brokenheart' }))
                 }
                 else dispatch(setNotification({ message: data.message, type: 'error', logo: 'heart' }))
-                useDispatch(updateUser());
+                dispatch(updateUser());
             } else dispatch(setNotification({ message: data.message, type: 'warning', logo: 'brokenheart' }))
 
 
@@ -69,7 +93,7 @@ const Category2 = (props) => {
             if (data.success) {
                 if (data.message === 'Item removed from wishlist') dispatch(setNotification({ message: data.message, type: 'success', logo: 'brokenheart' }))
                 else dispatch(setNotification({ message: data.message, type: 'error', logo: 'heart' }))
-                useDispatch(updateUser());
+                dispatch(updateUser());
             } else dispatch(setNotification({ message: data.message, type: 'warning', logo: 'brokenheart' }))
         }
     }
@@ -92,7 +116,7 @@ const Category2 = (props) => {
         if (data.success) {
             if (data.message === 'Item added to cart') dispatch(setNotification({ message: data.message, type: 'success', logo: 'cart' }))
             else dispatch(setNotification({ message: data.message, type: 'error', logo: 'cart' }))
-            useDispatch(updateUser());
+            dispatch(updateUser());
         } else dispatch(setNotification({ message: 'Unavailable, try again', type: 'warning', logo: 'cart' }))
 
     }
@@ -119,7 +143,7 @@ const Category2 = (props) => {
             } else if (data.message === 'Item removed from cart') {
                 dispatch(setNotification({ message: data.message, type: 'success', logo: 'cart' }))
             } else if (data) dispatch(setNotification({ message: data.message, type: 'error', logo: 'cart' }))
-            useDispatch(updateUser());
+            dispatch(updateUser());
         } else {
             dispatch(setNotification({ message: 'Unavailable, try again', type: 'warning', logo: 'cart' }))
         }

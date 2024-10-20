@@ -55,7 +55,7 @@ const Product = () => {
                         body: JSON.stringify({ id: id })
                     })
 
-                    useDispatch(updateUser());
+                    dispatch(updateUser());
 
                 } catch (err) {
                     console.log(" Unable to add product to recents")
@@ -114,8 +114,9 @@ const Product = () => {
             })
             const p = await response.json();
             if (p.message === "Item added to cart") dispatch(setNotification({ message: "Product added to Cart", type: "success", logo: "cart" }))
-            useDispatch(updateUser());
+            dispatch(updateUser());
         } catch (err) {
+            console.log(err)
             console.log(" Unable to add product to cart")
             dispatch(setNotification({ message: "Unable to add product to Cart", type: "error", logo: "cart" }))
         }
@@ -148,7 +149,7 @@ const Product = () => {
                 },
                 body: JSON.stringify({ id: id })
             })
-            useDispatch(updateUser());
+            dispatch(updateUser());
             const p = await response.json();
             if (p.message === "Item added to wishlist") dispatch(setNotification({ message: "Product added to Wishlist", type: "success", logo: "heart" }))
             else dispatch(setNotification({ message: "Product removed from Wishlist", type: "error", logo: "brokenheart" }))

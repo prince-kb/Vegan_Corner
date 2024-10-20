@@ -1,17 +1,27 @@
-import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect, useId, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import debitIcon from "../assets/icons/debit.svg"
 import upiIcon from "../assets/icons/upi.svg"
 import creditIcon from "../assets/icons/credit.svg"
 import codIcon from "../assets/icons/cod.svg"
+import { updateMethod, updateTransactionId } from '../redux/slices/orderSlice'
+import { setNotification } from '../redux/slices/notificationSlice'
+import { updateUser } from '../redux/slices/userSlice'
 
 const CheckOut = () => {
 
   const user = useSelector(state => state.user.user)
   const catalogue = useSelector(state => state.catalogue.Catalogue)
+  const order = useSelector(state => state.order.order)
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [checked, setChecked] = useState(1);
+
+  useEffect(() => {
+    dispatch(updateMethod(checked === 1 ? 'COD' : checked === 2 ? 'DEBIT' : checked === 3 ? 'UPI' : 'CREDIT'));
+  }, [checked])
 
   const findPrice = (item) => {
     if (!catalogue) return 999999999;
@@ -19,16 +29,49 @@ const CheckOut = () => {
     return productPrice * item.quantity;
   }
 
-  const balance = user?.cart?.reduce((acc, item) => acc + findPrice(item), 0) ;
-  const totalBalance = balance + (balance < 399 ? 39 : 0);
+  const balance = user?.cart?.reduce((acc, item) => acc + findPrice(item), 0);
+  const totalBalance = balance + (balance < 399 ? 49 : 0);
   const deliveryDate = new Date(Date.now() + 1000 * 60 * 60 * 24 * 3).toDateString();
 
-  const placeOrder = () => {
-    alert('Order Placed Successfully');
-    navigate('/')
+  const placeOrder = async () => {
+
+    const transactionIdd = Math.floor(Math.random() * 1000000000000000);
+    dispatch(updateTransactionId(transactionIdd));
+
+    const { orderList, method, transactionId, deliveryCharges, totalPrice } = order;
+    if (!orderList.length || !method || !transactionId || !totalPrice) {
+      navigate('/cart');
+      console.log(orderList.length, method, transactionId, totalPrice)
+    }
+    console.log(deliveryCharges)
+
+    const API = import.meta.env.VITE_REACT_APP_API;
+    const SERVER_SECRET = import.meta.env.VITE_REACT_APP_SERVER_SECRET;
+    const token = localStorage.getItem('authy');
+    const response = await fetch(`${API}/api/user/order`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'secret': SERVER_SECRET,
+        'authToken': token
+      },
+      body: JSON.stringify({ orderList, method, transactionId, deliveryCharges, totalPrice })
+    })
+    const data = await response.json();
+    if (data.success) {
+      dispatch(setNotification({ message: data.message, type: "", logo: "heart" }));
+      dispatch(updateUser());
+      navigate('/orders');
+    }
+    else {
+      console.log(data);
+      dispatch(setNotification({ message: "Order not placed, TRY AGAIN", type: "error", logo: "brokenheart" }));
+    }
+
+
   }
 
-  const [checked, setChecked] = useState(1);
 
   return (
     <div>{

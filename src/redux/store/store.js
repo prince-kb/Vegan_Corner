@@ -5,6 +5,7 @@ import { user } from "../slices/userSlice";
 import { notification } from "../slices/notificationSlice";
 import { home } from "../slices/homeSlice";
 import { buyNow } from "../slices/buyNowSlice";
+import { order } from "../slices/orderSlice";
 
 export const store = configureStore({
     reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
         user : user,
         notification : notification,
         home : home,
-        buyNow : buyNow
+        buyNow : buyNow,
+        order : order
     }
 });

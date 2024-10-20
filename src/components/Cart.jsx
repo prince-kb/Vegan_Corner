@@ -1,11 +1,15 @@
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import Category2 from "./Category2"
 import { useNavigate } from "react-router-dom";
+import { updateTotalPrice } from "../redux/slices/orderSlice";
+import { useEffect } from "react";
 
 const Cart = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const user = useSelector(state => state.user.user);
   const catalogue = useSelector(state => state.catalogue.Catalogue)
+  const order = useSelector(state => state.order.order);
 
   const findPrice = (item) => {
     const product = catalogue?.find((product) => product.id === item.id);
@@ -13,6 +17,16 @@ const Cart = () => {
   }
 
   const totalBalance = user?.cart?.reduce((acc, item) => acc + findPrice(item), 0);
+
+  const placeOrder = () => {
+    console.log(order)
+
+    navigate('/checkout');
+  }
+
+  useEffect(() => {
+    dispatch(updateTotalPrice(totalBalance));
+  }, [totalBalance])
 
   return (
     <div>
@@ -28,7 +42,7 @@ const Cart = () => {
           <hr />
           <div className="flex flex-col justify-center gap-2 mt-8 mb-4">
             <h3 className="text-2xl md:text-3xl  font-bold text-center my-4 font-cavo tracking-tighter">TOTAL AMOUNT TO PAY : &#8377; {totalBalance > 499 ? totalBalance : totalBalance + 49}.00</h3>
-            <button className="bg-green-600 text-gray-100 font-bold font-cav tracking-tight text-2xl min-w-1/2 rounded-2xl px-6 py-4 max-w-[400px] mx-auto active:ring-4 hover:bg-green-700 transition-colors" onClick={()=>navigate("/checkout")}>PROCEED TO CHECKOUT {"->"} </button>
+            <button className="bg-green-600 text-gray-100 font-bold font-cav tracking-tight text-2xl min-w-1/2 rounded-2xl px-6 py-4 max-w-[400px] mx-auto active:ring-4 hover:bg-green-700 transition-colors" onClick={placeOrder}>PROCEED TO CHECKOUT {"->"} </button>
           </div>
         </div>
       )}

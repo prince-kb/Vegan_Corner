@@ -19,4 +19,4 @@ const buyNowSlice = createSlice({
 })
 
 export const buyNow = buyNowSlice.reducer;
-export const {updateBuyNow,updateQuantity}   = buyNowSlice.actions;
+export const {updateBuyNow,updateQuantity} = buyNowSlice.actions;

@@ -1,10 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
+const API = import.meta.env.VITE_REACT_APP_API;
+const SERVER_SECRET = import.meta.env.VITE_REACT_APP_SERVER_SECRET;
+const token = localStorage.getItem("authy");
+
+
 export const updateUser = createAsyncThunk("updateUser", async () => {
-  const API = import.meta.env.VITE_REACT_APP_API;
-  const SERVER_SECRET = import.meta.env.VITE_REACT_APP_SERVER_SECRET;
-  const token = localStorage.getItem("authy");
-  if (!token) return;
+  if (!token) return null;
   const response = await fetch(`${API}/api/user/getuser`, {
     headers: {
       "Content-Type": "application/json",
@@ -14,7 +16,8 @@ export const updateUser = createAsyncThunk("updateUser", async () => {
     },
   });
   const data = await response.json();
-  return data;
+  if(data) return data;
+  return null;
 });
 
 const userSlice = createSlice({
