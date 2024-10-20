@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams, useNavigate } from 'react-router-dom';
+import { setNotification } from '../redux/slices/notificationSlice';
+import { updateUser } from '../redux/slices/userSlice';
 
 const MyOrder = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const orderId = useParams().id;
   const [order, setOrder] = useState(null);
   const [product, setProduct] = useState(null);
@@ -18,77 +22,179 @@ const MyOrder = () => {
     if (order && catalogue) setProduct(catalogue.find((item) => item.id === order.id))
     const st = order?.status?.toLowerCase();
     if (st) {
-      if (st === 'processed') setStatus(1);
+      if (st === 'processing') setStatus(0);
+      else if (st === 'processed') setStatus(1);
       else if (st === 'in transit') setStatus(2);
       else if (st === 'dispatched') setStatus(3);
       else if (st === 'shipped') setStatus(4);
       else if (st === 'out for delivery') setStatus(5);
       else if (st === 'delivered') setStatus(6);
+      else setStatus(7);
     }
   }, [order])
 
   const showDate = (da) => {
-    const d = new Date(da);
-    return `${d.getDate()}/${d.getMonth()}/${d.getFullYear()}`
+    return new Date(new Date(da).getTime()).toString().slice(0, 16);
   }
 
   const showTime = (da) => {
     const d = new Date(da);
-    return `${d.getHours()}:${d.getMinutes()}`
+    const x = d.toLocaleString();
+    return x.slice(x.length - 11, x.length - 6) + ' ' + x.slice(x.length - 2);
+  }
+
+  const deliveryDate = (date) => {
+    return new Date(new Date(date).getTime() + 60 * 60 * 24 * 1000).toString().slice(0, 16);
+  }
+
+  const cancelOrder = async()=>{
+    console.log(orderId)
+    const API = import.meta.env.VITE_REACT_APP_API;
+    const SERVER_SECRET = import.meta.env.VITE_REACT_APP_SERVER_SECRET;
+    const token = localStorage.getItem('authy');
+    const response = await fetch(`${API}/api/user/cancelorder`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'secret': SERVER_SECRET,
+        'authToken': token
+      },
+      body: JSON.stringify({ orderId: orderId })
+    })
+
+    const data = await response.json();
+    if (data.success) {
+      dispatch(setNotification({ message: data.message, type: "success", logo: "heart" }));
+      navigate('/orders');
+      dispatch(updateUser());
+    }
+    else {
+      dispatch(setNotification({ message: data.message, type: "error", logo: "brokenHeart" }));
+      console.log("Order not cancelled")
+    }
   }
 
   return (
-    !order || !product ? <div className='mt-10'>
+    !order ? <div className='mt-10'>
       <h1 className="font-bold font-bubble text-2xl md:text-3xl lg:text-4xl text-brown ml-6 lg:ml-8 tracking-widest text-center my-4 mb-8">Order not found!</h1>
-      <h2 className="font-bold font-bubble text-xl md:text-2xl lg:text-3xl text-orange mb-2 ml-6 lg:ml-8 tracking-wider text-center">Please check your order id.</h2>
+      <h2 className="font-bold font-bubble text-xl md:text-2xl lg:text-3xl text-orange mb-2 ml-6 lg:ml-8 tracking-widest text-center">Order details unavailable!</h2>
     </div> :
-      <div className='flex-center flex-col mt-10'>
-        <h1 className='text-center text-xl font-semibold'>Order #{order.orderId}</h1>
+      <div className='flex-center flex-col mt-10 mb-4'>
+        <h1 className='text-center text-2xl my-4 font-semibold'>Order #{order.orderId}</h1>
         <div className='w-[90vw] border py-4 rounded-xl  '>
-          <h2 className=' font-bold my-2 text-center mb-4 text-2xl'>{product?.name}</h2>
-          <div className='flex-col flex-center md:flex-row'>
-            <img src={product?.image} alt={product?.name} className='w-40 h-40 rounded-lg' />
-            <div className='md:ml-3'>
-              <h2 className='text-xl text-brown font-medium'>Price: <span className='text-green-600 font-bubble'>{order.price}</span></h2>
-              <h2 className='text-xl text-brown font-medium'>Quantity: <span className='font-bold'>{order.quantity}</span></h2>
-              <h2 className='text-xl text-brown font-medium'>Date: <span className='font-bold'>{showDate(order.date)} at {showTime(order.date)}</span></h2>
-              {order.payment && <h2 className='text-xl font-medium'>Payment mode: <span className='font-bold'>{order.payment}</span></h2>}
-              {order.transaction && <h2 className='text-xl font-medium'>Quantity: <span className='font-bold'>{order.transactionId}</span></h2>}
-            </div>
-          </div>
-          <h2 className='text-xl text-center my-4 font-semibold '>Order Status</h2>
-          <div className={`hidden md:block h-6 bg-green-200 rounded-xl absolute z-[0] ${status === 0 ? 'w-[7%]' : status === 1 ? 'w-[21%]' : status === 2 ? 'w-[35%]' : status === 3 ? 'w-[49%]' : status === 4 ? 'w-[63%]' : status === 5 ? 'w-[77%]' : 'w-[100%]'} `}></div>
-          <div className='flex flex-col gap-3 md:gap-0 md:flex-row justify-between '>
+          <div className=' md:ml-3 mb-4 w-full flex flex-col justify-center md:justify-around items-center'>
 
-            <div className='md:items-center ml-[20vw] md:ml-0 flex md:flex-col md:w-[14%] gap-4 z-[1]'>
-              <div className={` ${status === 0 && 'animate-ping'} h-4 w-4 md:h-6 md:w-6 rounded-full border border-black flex-center`}><div className={` bg-green-700                                   h-2 w-2 md:h-4 md:w-4 rounded-full`}></div></div>
-              <h2 className='text-center text-sm md:text-lg lg:text-xl'>Order processing</h2>
+            <div className='flex mx-2 gap-2 overflow-auto w-full px-2'>
+              {order?.orderList.map((item) => {
+                const product = catalogue.find((product) => product.id === item.id);
+                return (
+                  <div onClick={() => navigate(`/product/${product.id}`)} key={product.id} className='mb-3 mx-auto cursor-pointer relative px-1 w-[240px] min-w-[160px] md:min-w-[200px] lg:min-w-[240px] hover:neu2 border rounded-2xl transition-all shadow-lg flex flex-col items-center justify-around'>
+                    <div className=' py-2 md:py-4 rounded-xl  '>
+                      <h2 className=' font-bold my-2 text-center mb-4 text-xl md:text-2xl text-brown'>{product?.name}</h2>
+                      <div className='flex-col flex-center md:flex-row'>
+                        <img src={product?.image} alt={product?.name} className='max-w-[100%] h-[120px] lg:h-[180px] mb-2 rounded-md' />
+                      </div>
+                    </div>
+                    <div className='text-2xl text-brown font-bold mb-2'>x {item.quantity}</div>
+                  </div>
+                )
+              })
+              }
             </div>
-            <div className='md:items-center ml-[20vw] md:ml-0 flex md:flex-col md:w-[14%] gap-4 z-[1]'>
-              <div className={` ${status === 1 && 'animate-ping'} h-4 w-4 md:h-6 md:w-6 rounded-full border border-black flex-center`}><div className={` ${status >= 1 ? 'bg-green-700' : 'bg-black'} h-2 w-2 md:h-4 md:w-4 rounded-full`}></div></div>
-              <h2 className='text-center text-sm md:text-lg lg:text-xl'>Processed</h2>
-            </div>
-            <div className='md:items-center ml-[20vw] md:ml-0 flex md:flex-col md:w-[14%] gap-4 z-[1]'>
-              <div className={` ${status === 2 && 'animate-ping'} h-4 w-4 md:h-6 md:w-6 rounded-full border border-black flex-center`}><div className={` ${status >= 2 ? 'bg-green-700' : 'bg-black'} h-2 w-2 md:h-4 md:w-4 rounded-full`}></div></div>
-              <h2 className='text-center text-sm md:text-lg lg:text-xl'>In transit</h2>
-            </div>
-            <div className='md:items-center ml-[20vw] md:ml-0 flex md:flex-col md:w-[14%] gap-4 z-[1]'>
-              <div className={` ${status === 3 && 'animate-ping'} h-4 w-4 md:h-6 md:w-6 rounded-full border border-black flex-center`}><div className={` ${status >= 3 ? 'bg-green-700' : 'bg-black'} h-2 w-2 md:h-4 md:w-4 rounded-full`}></div></div>
-              <h2 className='text-center text-sm md:text-lg lg:text-xl'>Dispatched</h2>
-            </div>
-            <div className='md:items-center ml-[20vw] md:ml-0 flex md:flex-col md:w-[14%] gap-4 z-[1]'>
-              <div className={` ${status === 4 && 'animate-ping'} h-4 w-4 md:h-6 md:w-6 rounded-full border border-black flex-center`}><div className={` ${status >= 4 ? 'bg-green-700' : 'bg-black'} h-2 w-2 md:h-4 md:w-4 rounded-full`}></div></div>
-              <h2 className='text-center text-sm md:text-lg lg:text-xl'>Shipped</h2>
-            </div>
-            <div className='md:items-center ml-[20vw] md:ml-0 flex md:flex-col md:w-[14%] gap-4 z-[1]'>
-              <div className={` ${status === 5 && 'animate-ping'} h-4 w-4 md:h-6 md:w-6 rounded-full border border-black flex-center`}><div className={` ${status >= 5 ? 'bg-green-700' : 'bg-black'} h-2 w-2 md:h-4 md:w-4 rounded-full`}></div></div>
-              <h2 className='text-center text-sm md:text-lg lg:text-xl'>Out for delivery</h2>
-            </div>
-            <div className='md:items-center ml-[20vw] md:ml-0 flex md:flex-col md:w-[14%] gap-4 z-[1]'>
-              <div className={` ${status === 6 && 'animate-ping'} h-4 w-4 md:h-6 md:w-6 rounded-full border border-black flex-center`}><div className={` ${status >= 6 ? 'bg-green-700' : 'bg-black'} h-2 w-2 md:h-4 md:w-4 rounded-full`}></div></div>
-              <h2 className='text-center text-sm md:text-lg lg:text-xl'>Delivered</h2>
+
+            <div className='  text-center md:ml-3 mb-4 w-full flex flex-col justify-center md:flex-row md:justify-around items-center'>
+              <div className="">
+                <h2 className='text-xl text-center text-orange font-bold mt-4'>
+                  Total Price: <span className='text-green-600 font-bubble'>&#8377; {order.totalPrice}</span>
+                  {order.deliveryCharges >= 0 && <span className='text-base font-medium ml-3'>
+                    <span className='text-brown'>(Delivery :
+                      <span className='text-green-600 font-bubble'>&#8377; {order.deliveryCharges} </span>
+                      included)
+                    </span>
+                  </span>}
+                </h2>
+                <h2 className='mt-2 text-xl text-orange font-bold'>Date: <span className='text-brown font-bold'>{showDate(order.date)} at {showTime(order.date)}</span></h2>
+              </div>
+
+              <div className='mt-4 lg:mt-6'>
+                <h2 className='text-xl text-orange font-bold'>Payment mode: <span className='font-bold text-brown'>{order.method === 'COD' ? 'Cash on Delivery' : order.method === 'UPI' ? 'UPI' : order.method + ' CARD'}</span></h2>
+                <h2 className='text-xl text-orange font-bold mt-2'>Order Status : <span className='font-bold text-brown'>{order.status.toUpperCase()}</span></h2>
+              </div>
             </div>
           </div>
+
+          <div className='relative'>
+            <h2 className='text-2xl bg-orange min-w-fit w-[60%] md:w-[40%] xl:w-[30%] mb-3 mx-auto text-white px-4 py-2 rounded-2xl md:my-auto font-bold text-center'>Delivery to</h2>
+            <div className='flex flex-col gap-2 ml-4 border-2 py-6 rounded-3xl px-4 my-2 mb-8'>
+              <div className='md:flex md:gap-2'>
+                <h3 className='text-xl font-bold'>{user?.name}, </h3>
+                <h3 className='text-xl font-bold'>{user?.mobile}</h3>
+              </div>
+              <div className='md:flex md:gap-4'>
+                <h3 className='text-xl font-bold'>Address:</h3>
+                <h3 className='text-xl font-semibold'>{user?.address?.line1}, {user?.address?.line2},</h3>
+              </div>
+              <div className='md:flex md:gap-2 '>
+                <h3 className='text-xl font-semibold'>{user?.address?.city}, {user?.address?.state}</h3>
+                <h3 className='text-xl font-bold'>{user?.address?.pincode}</h3>
+              </div>
+              {status <7 && <div className='absolute bottom-0 right-0 -translate-x-full -translate-y-full font-bold bg-orange md:px-2 md:py-1 px-1 rounded-md hover:bg-brown hover:text-white transition-all cursor-pointer'>CHANGE</div>}
+            </div>
+          </div>
+
+          <div className='border p-4 m-4 rounded-2xl'>
+            <h2 className='text-2xl bg-orange min-w-fit w-[60%] md:w-[40%] xl:w-[30%] mb-8 mx-auto text-white px-4 py-2 rounded-2xl font-bold text-center'>Order Status</h2>
+
+            <div className={`mx-2 hidden md:block h-6 bg-green-200 rounded-xl absolute z-[0] ${status === 0 ? 'w-[7%]' : status === 1 ? 'w-[21%]' : status === 2 ? 'w-[35%]' : status === 3 ? 'w-[49%]' : status === 4 ? 'w-[63%]' : status === 5 ? 'w-[77%]' : 'w-[100%]'} `} />
+            {status === 7 ? <div className='mx-auto'>
+              <h2 className='text-xl text-center text-brown font-bold mt-4'>Order is cancelled by the user</h2>
+            </div> :
+              <div className='flex flex-col gap-3 md:gap-0 md:flex-row justify-between '>
+
+                <div className='md:items-center ml-[20vw] md:ml-0 flex md:flex-col md:w-[14%] gap-4 z-[1]'>
+                  <div className={` ${status === 0 && 'animate-ping'} h-4 w-4 md:h-6 md:w-6 rounded-full border border-black flex-center`}><div className={` bg-orange                                   h-2 w-2 md:h-4 md:w-4 rounded-full`}></div></div>
+                  <h2 className='text-center text-sm md:text-lg lg:text-xl'>Order processing</h2>
+                </div>
+                <div className='md:items-center ml-[20vw] md:ml-0 flex md:flex-col md:w-[14%] gap-4 z-[1]'>
+                  <div className={` ${status === 1 && 'animate-ping'} h-4 w-4 md:h-6 md:w-6 rounded-full border border-black flex-center`}><div className={` ${status >= 1 ? 'bg-orange' : 'bg-brown'} h-2 w-2 md:h-4 md:w-4 rounded-full`}></div></div>
+                  <h2 className='text-center text-sm md:text-lg lg:text-xl'>Processed</h2>
+                </div>
+                <div className='md:items-center ml-[20vw] md:ml-0 flex md:flex-col md:w-[14%] gap-4 z-[1]'>
+                  <div className={` ${status === 2 && 'animate-ping'} h-4 w-4 md:h-6 md:w-6 rounded-full border border-black flex-center`}><div className={` ${status >= 2 ? 'bg-orange' : 'bg-brown'} h-2 w-2 md:h-4 md:w-4 rounded-full`}></div></div>
+                  <h2 className='text-center text-sm md:text-lg lg:text-xl'>In transit</h2>
+                </div>
+                <div className='md:items-center ml-[20vw] md:ml-0 flex md:flex-col md:w-[14%] gap-4 z-[1]'>
+                  <div className={` ${status === 3 && 'animate-ping'} h-4 w-4 md:h-6 md:w-6 rounded-full border border-black flex-center`}><div className={` ${status >= 3 ? 'bg-orange' : 'bg-brown'} h-2 w-2 md:h-4 md:w-4 rounded-full`}></div></div>
+                  <h2 className='text-center text-sm md:text-lg lg:text-xl'>Dispatched</h2>
+                </div>
+                <div className='md:items-center ml-[20vw] md:ml-0 flex md:flex-col md:w-[14%] gap-4 z-[1]'>
+                  <div className={` ${status === 4 && 'animate-ping'} h-4 w-4 md:h-6 md:w-6 rounded-full border border-black flex-center`}><div className={` ${status >= 4 ? 'bg-orange' : 'bg-brown'} h-2 w-2 md:h-4 md:w-4 rounded-full`}></div></div>
+                  <h2 className='text-center text-sm md:text-lg lg:text-xl'>Shipped</h2>
+                </div>
+                <div className='md:items-center ml-[20vw] md:ml-0 flex md:flex-col md:w-[14%] gap-4 z-[1]'>
+                  <div className={` ${status === 5 && 'animate-ping'} h-4 w-4 md:h-6 md:w-6 rounded-full border border-black flex-center`}><div className={` ${status >= 5 ? 'bg-orange' : 'bg-brown'} h-2 w-2 md:h-4 md:w-4 rounded-full`}></div></div>
+                  <h2 className='text-center text-sm md:text-lg lg:text-xl'>Out for delivery</h2>
+                </div>
+                <div className='md:items-center ml-[20vw] md:ml-0 flex md:flex-col md:w-[14%] gap-4 z-[1]'>
+                  <div className={` ${status === 6 && 'animate-ping'} h-4 w-4 md:h-6 md:w-6 rounded-full border border-black flex-center`}><div className={` ${status >= 6 ? 'bg-orange' : 'bg-brown'} h-2 w-2 md:h-4 md:w-4 rounded-full`}></div></div>
+                  <h2 className='text-center text-sm md:text-lg lg:text-xl'>Delivered</h2>
+                </div>
+              </div>
+            }
+
+          </div>
+
+          <div className='flex flex-col md:flex-row my-4 justify-center items-center'>
+            <h1 className=' text-brown text-xl md:text-2xl  font-semibold ' >Expected delivery date: </h1>
+            <h1 className=' text-brown text-xl md:text-2xl ml-4 font-bold ' >{deliveryDate(order.date)} within 9 PM</h1>
+          </div>
+
+          {status < 6 && <div>
+            <h2 onClick={cancelOrder} className='text-xl bg-brown min-w-fit w-[40%] md:w-[30%] xl:w-[20%] cursor-pointer hover:bg-darkbrown hover:font-bold mb-3 mx-auto mt-6 text-white px-4 py-2 rounded-2xl md:my-auto font-semibold text-center'>Cancel order</h2>
+
+          </div>}
+
         </div>
       </div>
   )

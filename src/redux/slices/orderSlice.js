@@ -19,7 +19,10 @@ const orderSlice = createSlice({
             if(action.payload < 349){
                 state.order.deliveryCharges = 49;
                 state.order.totalPrice = (action.payload+49);
-            } else state.order.totalPrice = action.payload;
+            } else {
+                state.order.totalPrice = action.payload;
+                state.order.deliveryCharges = 0;
+            }
         },
         updateMethod : (state, action) => {
             state.order.method = action.payload;

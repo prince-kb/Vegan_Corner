@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import debitIcon from "../assets/icons/debit.svg"
@@ -6,26 +6,26 @@ import upiIcon from "../assets/icons/upi.svg"
 import creditIcon from "../assets/icons/credit.svg"
 import codIcon from "../assets/icons/cod.svg"
 import { useEffect, useState } from 'react'
+import { updateMethod, updateOrderList, updateTotalPrice, updateTransactionId } from '../redux/slices/orderSlice'
+import { setNotification } from '../redux/slices/notificationSlice'
+import { updateUser } from '../redux/slices/userSlice'
+
 
 const BuyNow = () => {
 
     const user = useSelector(state => state.user.user)
     const catalogue = useSelector(state => state.catalogue.Catalogue)
     const buyNow = useSelector(state => state.buyNow.buynow)
+    const order = useSelector(state => state.order.order)
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [checked, setChecked] = useState(1);
-
-    const placeOrder = () => {
-        alert('Order Placed Successfully');
-        navigate('/')
-    }
 
     const [item, setItem] = useState(null)
     const [quantity, setQuantity] = useState(1)
     const [pay, setPay] = useState(999999)
     const [payment, setPayment] = useState(999999)
-
 
     const deliveryDate = new Date(Date.now() + 1000 * 60 * 60 * 24 * 3).toDateString();
 
@@ -35,8 +35,56 @@ const BuyNow = () => {
 
     useEffect(() => {
         setPay(item ? item?.price * quantity : 9999999)
-        setPayment(item ? item.price * quantity > 399 ? item.price * quantity : item.price * quantity + 39 : 999999)
+        setPayment(item ? item.price * quantity > 399 ? item.price * quantity : item.price * quantity + 49 : 999999)
     }, [item, quantity, buyNow])
+
+    useEffect(() => {
+        dispatch(updateTotalPrice(pay))
+    }, [pay])
+
+    useEffect(() => {
+        if(item) dispatch(updateMethod(checked === 1 ? 'COD' : checked === 2 ? 'DEBIT' : checked === 3 ? 'UPI' : 'CREDIT'));
+    }, [checked,item])
+
+    useEffect(() => {
+        if(item){
+            dispatch(updateOrderList([{ id: item.id, quantity: quantity }]))
+            const transactionIdd = Math.floor(Math.random() * 1000000000000000);
+            dispatch(updateTransactionId(transactionIdd));
+        }
+    }, [item, quantity, window.onload])
+
+    const placeOrder = async () => {
+
+        const { orderList, method, transactionId, deliveryCharges, totalPrice } = order;
+        if (!orderList.length || !method || !transactionId || !totalPrice) {
+            navigate(-1);
+        }
+
+        const API = import.meta.env.VITE_REACT_APP_API;
+        const SERVER_SECRET = import.meta.env.VITE_REACT_APP_SERVER_SECRET;
+        const token = localStorage.getItem('authy');
+
+        const response = await fetch(`${API}/api/user/order`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'secret': SERVER_SECRET,
+            'authToken': token
+          },
+          body: JSON.stringify({ orderList, method, transactionId, deliveryCharges, totalPrice })
+        })
+        const data = await response.json();
+        if (data.success) {
+          dispatch(setNotification({ message: data.message, type: "", logo: "heart" }));
+          dispatch(updateUser());
+          navigate('/orders');
+        }
+        else {
+          dispatch(setNotification({ message: "Order not placed, TRY AGAIN", type: "error", logo: "brokenheart" }));
+        }
+    }
 
 
     return (
@@ -71,14 +119,15 @@ const BuyNow = () => {
                                     <h2 className='text-xl text-center md:text-2xl font-bold'>{quantity}</h2>
                                     <button onClick={() => { quantity !== 1 && setQuantity(quantity - 1) }} className='text-2xl font-bold hover:translate-y-1 hover:scale-110 bg-orange  transition-all text-white px-2 pb-2 rounded-xl'>-</button>
                                 </div>
-
                             </div>
                         </div>
+
+
                         <div className=' border-b-2 border-black my-2 mb-8 z-[1]'>
                             {pay < 399 &&
                                 <div className='flex flex-col gap-0'>
                                     <h2 className='text-xl md:text-xl min-w-fit mx-auto text-black px-4 font-bold text-center'>Product Cost : <span className='text-green-600 px-2 py-1 rounded-xl text-[1.1em] '>&#8377; {pay}</span></h2>
-                                    <h2 className='text-xl md:text-xl min-w-fit mx-auto text-black px-4 font-bold text-center border-b-2'>Delivery Charges : <span className='text-green-600 px-2 py-1 rounded-xl text-[1.1em] '>&#8377; {39}</span></h2>
+                                    <h2 className='text-xl md:text-xl min-w-fit mx-auto text-black px-4 font-bold text-center border-b-2'>Delivery Charges : <span className='text-green-600 px-2 py-1 rounded-xl text-[1.1em] '>&#8377; {49}</span></h2>
                                 </div>
                             }
                             <h2 className='text-2xl md:text-3xl min-w-fit mx-auto text-black  px-4 py-2 font-bold text-center'>Total Amount : <span className='text-green-600 px-2 py-1 rounded-xl text-[1.1em] '>&#8377; {payment}</span></h2>
@@ -86,8 +135,9 @@ const BuyNow = () => {
                                 <h2 className='text-xl md:text-2xl min-w-fit mx-auto text-black px-4 py-2 font-bold text-center'>Delivery by<span className='text-green-700 px-2 py-1 rounded-xl'>{deliveryDate}</span> within 9 PM</h2>
                             </div>
                         </div>
+
                         <div className='relative'>
-                            <h2 className='text-2xl bg-orange min-w-fit w-[60%] md:w-[40%] xl:w-[30%] mb-6 mx-auto text-white px-4 py-2 rounded-2xl md:my-auto font-bold text-center'>Deliver to</h2>
+                            <h2 className='text-2xl bg-orange min-w-fit w-[60%] md:w-[40%] xl:w-[30%] mb-3 mx-auto text-white px-4 py-2 rounded-2xl md:my-auto font-bold text-center'>Deliver to</h2>
                             <div className='flex flex-col gap-2 ml-4 border-2 py-6 rounded-3xl px-4 my-2 mb-8'>
                                 <div className='md:flex md:gap-2'>
                                     <h3 className='text-xl font-bold'>{user?.name}, </h3>
@@ -105,9 +155,7 @@ const BuyNow = () => {
                             </div>
                         </div>
 
-
                         <h2 className='text-2xl bg-orange min-w-fit w-[60%] md:w-[50%] lg:w-[40%] mx-auto text-white my-2 px-4 py-2 rounded-2xl font-bold text-center'>Payment Method</h2>
-
                         <div className='flex flex-col gap-2 ml-4 border-2 py-6 rounded-3xl px-4 mt-2'>
 
                             <div className="px-2 md:px-4 py-4 rounded-2xl border my-2 flex justify-between items-center">
@@ -116,7 +164,7 @@ const BuyNow = () => {
                                     <label htmlFor="cashondelivery" className='text-xl font-bold m-2 ml-4 cursor-pointer'>Cash on Delivery
                                         <div className='text-sm font-medium '>
                                             <h3 className='font-semibold text-base md:text-lg'>Secure payment using cash or upi at the time of delivery.</h3>
-                                            <h4 className='font-medium text-sm md:text-base'>Available only for orders above &#8377; 399 else a nominal fee of &#8377; 39 will be charged.</h4>
+                                            <h4 className='font-medium text-sm md:text-base'>Available only for orders above &#8377; 399 else a nominal fee of &#8377;439 will be charged.</h4>
                                         </div>
                                     </label>
                                 </div>
@@ -166,6 +214,7 @@ const BuyNow = () => {
                             <div className='bg-orange px-6 py-2 rounded-2xl text-center w-[70%] md:w-[50%] lg:w-[40%] xl:w-[30%] mx-auto font-bold text-2xl md:text-3xl text-brown cursor-pointer hover:-translate-y-2 hover:scale-105 transition-all active:ring-2 ring-brown' onClick={placeOrder}>PLACE ORDER </div>
 
                         </div>
+
                     </div>
         }</div>
     )

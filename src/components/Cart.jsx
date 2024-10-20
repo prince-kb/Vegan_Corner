@@ -19,8 +19,6 @@ const Cart = () => {
   const totalBalance = user?.cart?.reduce((acc, item) => acc + findPrice(item), 0);
 
   const placeOrder = () => {
-    console.log(order)
-
     navigate('/checkout');
   }
 
@@ -37,11 +35,11 @@ const Cart = () => {
         <div >
           <div className="text-2xl font-bold text-center my-4">
             <h2>CART TOTAL: &#8377; {totalBalance}.00</h2>
-            <h2>SHIPPING CHARGES : &#8377;{totalBalance > 499 ? "FREE" : "49"}</h2>
+            <h2>SHIPPING CHARGES : &#8377;{totalBalance > 399 ? "FREE" : "49"}</h2>
           </div>
           <hr />
           <div className="flex flex-col justify-center gap-2 mt-8 mb-4">
-            <h3 className="text-2xl md:text-3xl  font-bold text-center my-4 font-cavo tracking-tighter">TOTAL AMOUNT TO PAY : &#8377; {totalBalance > 499 ? totalBalance : totalBalance + 49}.00</h3>
+            <h3 className="text-2xl md:text-3xl  font-bold text-center my-4 font-cavo tracking-tighter">TOTAL AMOUNT TO PAY : &#8377; {totalBalance > 399 ? totalBalance : totalBalance + 49}.00</h3>
             <button className="bg-green-600 text-gray-100 font-bold font-cav tracking-tight text-2xl min-w-1/2 rounded-2xl px-6 py-4 max-w-[400px] mx-auto active:ring-4 hover:bg-green-700 transition-colors" onClick={placeOrder}>PROCEED TO CHECKOUT {"->"} </button>
           </div>
         </div>

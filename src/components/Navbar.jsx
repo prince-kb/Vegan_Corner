@@ -26,7 +26,6 @@ const Navbar = () => {
 
     const user = useSelector(state => state.user.user);
     const [opened, setOpened] = useState(false); //To check if toolbox is opened
-
     
     const rotate = () => ref.current.classList.toggle('rotate-[-90deg]')
     const rotate1 = () => ref.current.classList.add('rotate-[-90deg]')

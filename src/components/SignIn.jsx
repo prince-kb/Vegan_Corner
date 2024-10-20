@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import loginbg from "../assets/images/LOGIN-BG.jpeg"
 import error from "../assets/svgs/error.svg"
-import { setUser } from '../redux/slices/userSlice'
-import { useDispatch,useSelector } from 'react-redux'
+import { setUser, updateUser } from '../redux/slices/userSlice'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { setNotification } from '../redux/slices/notificationSlice'
 const SignIn = () => {
 
   const userAvailable = useSelector(state => state.user.user)
 
   useEffect(() => {
-    if(userAvailable?.name) navigate('/');
+    if (userAvailable?.name) navigate('/');
   }, [window.onload])
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('fakemail@email.com')
+  const [password, setPassword] = useState('fakepassword')
   const [valid, setValid] = useState(true)
 
   const dispatch = useDispatch();
@@ -38,10 +39,10 @@ const SignIn = () => {
           'Accept': 'application/json',
           'secret': SERVER_SECRET
         },
-        body : JSON.stringify({email,password})
+        body: JSON.stringify({ email, password })
       })
       const d = await r.json();
-      if(d.success===false){
+      if (d.success === false) {
         setValid(false)
         setTimeout(() => {
           setValid(true)
@@ -50,7 +51,7 @@ const SignIn = () => {
       }
 
       const response = await fetch(`${API}/api/user/getuser`, {
-        method: 'PUT',
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -59,18 +60,21 @@ const SignIn = () => {
         }
       })
       const data = await response.json();
-      if(data.success===false){
+      if (data.success === false) {
         setValid(false)
         setTimeout(() => {
           setValid(true)
         }, 5000);
         return;
       }
+
       dispatch(setUser(data));
+      dispatch(updateUser());
       localStorage.setItem('authy', d.authToken);
       navigate('/');
+      window.location.reload();
     } catch (err) {
-      console.log(" Unable to login, please try again")
+      dispatch(setNotification({ message: " Unable to login, please try again", type: 'error', logo: "error" }))
     }
   }
 
@@ -101,7 +105,7 @@ const SignIn = () => {
 
             <div className='flex gap-2 items-center'>
               <h2 className='ml-4 text-3xl font-bold text-brown group'>🔒</h2>
-              <input onKeyDown={e=>e.key==='Enter' && submit()} type="password" id="password" value={password} onChange={e => setPassword(e.target.value)} placeholder='Password' className='border-2 border-brown focus:ring-4 ring-orange h-12 w-[60vw] md:w-[30vw] rounded-2xl px-4 py-2' />
+              <input onKeyDown={e => e.key === 'Enter' && submit()} type="password" id="password" value={password} onChange={e => setPassword(e.target.value)} placeholder='Password' className='border-2 border-brown focus:ring-4 ring-orange h-12 w-[60vw] md:w-[30vw] rounded-2xl px-4 py-2' />
             </div>
 
             <div className='ml-4 flex flex-col gap-4 items-center mt-2 md:mt-4 w-full'>
@@ -111,8 +115,8 @@ const SignIn = () => {
 
               </div>
               <div className='flex flex-col justify-end w-[85%]'>
-              <h2 className=' cursor-pointer text-end transition-all hover:text-purple-700 text-orange font-bold' onClick={() => navigate('/signup')}>New User? SIGN UP</h2>
-              <h2 className=' cursor-pointer text-end transition-all hover:text-purple-700 text-orange font-bold' onClick={() => window.open('https://veganseller.princekb.tech', '_blank', 'noopener')}>Seller SIGNIN</h2>
+                <h2 className=' cursor-pointer text-end transition-all hover:text-purple-700 text-orange font-bold' onClick={() => navigate('/signup')}>New User? SIGN UP</h2>
+                <h2 className=' cursor-pointer text-end transition-all hover:text-purple-700 text-orange font-bold' onClick={() => window.open('https://veganseller.princekb.tech', '_blank', 'noopener')}>Seller SIGNIN</h2>
               </div>
               <div onClick={submit} className='bg-brown hover:scale-105 cursor-pointer transition-all hover:bg-lightBrown mx-2 rounded-2xl px-4 py-2 text-white font-bold mt-0'>SIGN IN &#8702;</div>
             </div>

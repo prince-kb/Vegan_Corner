@@ -37,13 +37,11 @@ const CheckOut = () => {
 
     const transactionIdd = Math.floor(Math.random() * 1000000000000000);
     dispatch(updateTransactionId(transactionIdd));
-
+    
     const { orderList, method, transactionId, deliveryCharges, totalPrice } = order;
     if (!orderList.length || !method || !transactionId || !totalPrice) {
       navigate('/cart');
-      console.log(orderList.length, method, transactionId, totalPrice)
     }
-    console.log(deliveryCharges)
 
     const API = import.meta.env.VITE_REACT_APP_API;
     const SERVER_SECRET = import.meta.env.VITE_REACT_APP_SERVER_SECRET;
@@ -65,7 +63,6 @@ const CheckOut = () => {
       navigate('/orders');
     }
     else {
-      console.log(data);
       dispatch(setNotification({ message: "Order not placed, TRY AGAIN", type: "error", logo: "brokenheart" }));
     }
 

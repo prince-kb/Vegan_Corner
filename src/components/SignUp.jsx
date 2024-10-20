@@ -7,7 +7,7 @@ import closedeyes from "../assets/svgs/closedeyes.svg"
 import openedeyes from "../assets/svgs/openedeyes.svg"
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { setUser } from '../redux/slices/userSlice'
+import { updateUser } from '../redux/slices/userSlice'
 
 
 const SignUp = () => {
@@ -41,32 +41,9 @@ const SignUp = () => {
   // const [valid2, setValid2] = useState('') //To check password
   const [valid3, setValid3] = useState('') //To check address
 
-  const autoLogin = async () => {
-    const API = import.meta.env.VITE_REACT_APP_API
-    const SERVER_SECRET = import.meta.env.VITE_REACT_APP_SERVER_SECRET
-
-    const token = localStorage.getItem('authy');
-    if (token) {
-      const response = await fetch(`${API}/api/user/getuser`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'secret': SERVER_SECRET,
-          'authToken': token
-        }
-      })
-      const data = await response.json();
-      if (data.success === false) {
-        dispatch(setUser({}));
-        return;
-      }
-      dispatch(setUser(data));
-    }
-  }
 
   const submit1 = async () => {
-    if (email.length < 3 || !emailFormatChecker(email) || mobile.length !== 10 || mobile?.slice(0,1)===0 || firstName.length < 3) {
+    if (email.length < 3 || !emailFormatChecker(email) || mobile.length !== 10 || mobile?.slice(0, 1) === 0 || firstName.length < 3) {
       setValidCreds(false)
       setTimeout(() => {
         setValidCreds(true)
@@ -152,22 +129,26 @@ const SignUp = () => {
         'Accept': 'application/json',
         'secret': SERVER_SECRET
       },
-      body : JSON.stringify({name :`${firstName} ${lastName}` ,mobile,email,password : password1,address : {
-        line1,line2,city,state,pincode
-      }})
+      body: JSON.stringify({
+        name: `${firstName} ${lastName}`, mobile, email, password: password1, address: {
+          line1, line2, city, state, pincode
+        }
+      })
     })
 
     const data = await response.json();
-    if(data.success===false){
+    if (data.success === false) {
       setValid3(data.error)
       setTimeout(() => {
         setValid3('')
       }, 5000);
       return;
+    } else {
+      localStorage.setItem('authy', data.authToken);
+      dispatch(updateUser());
+      navigate('/');
+      window.location.reload();
     }
-    localStorage.setItem('authy', data.authToken);
-    autoLogin();
-    navigate('/');
   }
 
   const emailFormatChecker = (email) => {
@@ -186,7 +167,6 @@ const SignUp = () => {
     else if (e.target.value.length === 0) setPincode('')
   }
 
-
   return (
     <div className='flex justify-center items-center h-[90vh] w-screen gap-6 lg:gap-12 xl:gap-20'>
       <div className='w-fit'>
@@ -199,97 +179,97 @@ const SignUp = () => {
           <h2 className='ml-4 font-semibold font-janime tracking-widest text-brown text-[5vw] md:text-[3.2vw] text-center mb-12'>WELCOME !</h2>
           <h3 className='ml-4 font-semibold font-janime tracking-widest text-brown text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-center mb-8'>SIGN UP</h3>
 
-          {step === 1 ? 
-          <form action="submit " className='flex flex-col'>
-            <div className='flex gap-2 justify-around my-2'>
-              <img src={user} alt="user" className='hidden xl:block h-10 ml-4' />
-              <input type="text" id="name" value={firstName} onChange={e => setFirstName(e.target.value)} placeholder='First Name' className='border-2 border-brown focus:ring-4 ring-orange h-12 w-[30vw] md:w-[20vw] lg:w-[15vw] rounded-2xl px-4 py-2' />
-              <input type="text" id="name" value={lastName} onChange={e => setLastName(e.target.value)} placeholder='Last Name' className='border-2 border-brown focus:ring-4 ring-orange h-12 w-[30vw] md:w-[20vw] lg:w-[15vw] rounded-2xl px-4 py-2' />
-            </div>
-
-            <div className='flex gap-2 items-center justify-around my-2 mx-auto'>
-              <h2 className='ml-4 text-4xl font-bold text-orange font-cavo group'>@</h2>
-              <input type="text" id="email" value={email} onChange={e => setEmail(e.target.value)} placeholder='Email' className='border-2 ml-2 border-brown focus:ring-4 ring-orange h-12 w-[40vw] md:w-[30vw] rounded-2xl px-4 py-2' />
-            </div>
-            <label htmlFor="email" className='font-semibold text-center mb-4 text-red-600'>{!emailFormatChecker(email) && "Invalid email"}</label>
-
-            <div className='flex gap-2 items-center justify-around mx-auto'>
-              <img src={call} alt="Mobile" className='h-10 ml-4' />
-              <input type="text" id="mobile" value={mobile} onKeyDown={e => e.key === 'Enter' && submit1()} onChange={e => changeMobile(e)} placeholder='Mobile no.' className='border-2 border-brown focus:ring-4 ring-orange h-12 w-[40vw] md:w-[30vw] rounded-2xl px-4 py-2' />
-            </div>
-
-            <div className='ml-4 flex flex-col items-center mt-2 md:mt-4 w-full'>
-              <div className={` ${validCreds && 'hidden'} flex gap-6 items-center `}>
-                <img src={error} alt="error" className='h-4 w-4 md:h-6 md:w-6 animate-ping' />
-                <h2 className='text-red-700 font-bold'>Invalid name, email or mobile</h2>
-              </div>
-              <div className={` ${valid1 === '' && 'hidden'} mt-2 flex gap-6 items-center `}>
-                <img src={error} alt="error" className='h-4 w-4 md:h-6 md:w-6 animate-ping' />
-                <h2 className='text-red-700 text-center font-bold'>{valid1}</h2>
-              </div>
-              <h2 className=' cursor-pointer w-[100%] text-end transition-all hover:text-purple-700 mx-2 text-orange font-bold' onClick={() => navigate('/signin')}>Already a User? SIGNIN</h2>
-              <h2 className=' cursor-pointer w-[100%] text-end transition-all hover:text-purple-700 mx-2 text-orange font-bold' onClick={() => window.open('https://veganseller.princekb.tech', '_blank', 'noopener')}>SELLER SIGNUP</h2>
-              <div onClick={submit1} className='mt-4 bg-brown hover:scale-105 cursor-pointer transition-all hover:bg-lightBrown mx-2 rounded-2xl px-4 py-2 text-white font-bold '>NEXT &#8702;</div>
-            </div>
-          </form> : step === 2 ?
-
-
-            <form className=''>
-              <div className='flex gap-4 justify-center my-2'>
-                <h2 className='text-brown font-bold text-xl'>PASSWORD</h2>
-                <img src={passHidden ? closedeyes : openedeyes} alt="eyes" className='cursor-pointer bg-orange rounded-[50%] h-8 w-8' onClick={() => { setPassHidden(false); setTimeout(() => setPassHidden(true), 1500) }} />
+          {step === 1 ?
+            <form action="submit " className='flex flex-col'>
+              <div className='flex gap-2 justify-around my-2'>
+                <img src={user} alt="user" className='hidden xl:block h-10 ml-4' />
+                <input type="text" id="name" value={firstName} onChange={e => setFirstName(e.target.value)} placeholder='First Name' className='border-2 border-brown focus:ring-4 ring-orange h-12 w-[30vw] md:w-[20vw] lg:w-[15vw] rounded-2xl px-4 py-2' />
+                <input type="text" id="name" value={lastName} onChange={e => setLastName(e.target.value)} placeholder='Last Name' className='border-2 border-brown focus:ring-4 ring-orange h-12 w-[30vw] md:w-[20vw] lg:w-[15vw] rounded-2xl px-4 py-2' />
               </div>
 
-              <div className='flex gap-2 items-center justify-around mx-auto my-2'>
-                <input type={passHidden ? 'password' : 'text'} id="password1" value={password1} onChange={e => setPassword1(e.target.value)} placeholder='Create password' className='border-2 border-brown focus:ring-4 ring-orange h-12 w-[40vw] md:w-[30vw] rounded-2xl px-4 py-2' />
+              <div className='flex gap-2 items-center justify-around my-2 mx-auto'>
+                <h2 className='ml-4 text-4xl font-bold text-orange font-cavo group'>@</h2>
+                <input type="text" id="email" value={email} onChange={e => setEmail(e.target.value)} placeholder='Email' className='border-2 ml-2 border-brown focus:ring-4 ring-orange h-12 w-[40vw] md:w-[30vw] rounded-2xl px-4 py-2' />
               </div>
-
-              <div className={` ${password1.length > 0 && password1.length < 6 ? 'flex' : 'hidden'} my-4 gap-6 items-center justify-center`}>
-                <img src={error} alt="error" className='h-4 w-4 md:h-6 md:w-6 animate-ping' />
-                <h2 className='text-red-700 text-center font-bold'>"Weak password"</h2>
-              </div>
+              <label htmlFor="email" className='font-semibold text-center mb-4 text-red-600'>{!emailFormatChecker(email) && "Invalid email"}</label>
 
               <div className='flex gap-2 items-center justify-around mx-auto'>
-                <input onKeyDown={e => e.key === 'Enter' && submit2()} type={passHidden ? 'password' : 'text'} id="password2" value={password2} onChange={e => setPassword2(e.target.value)} placeholder='Confirm password' className='border-2 border-brown focus:ring-4 ring-orange h-12 w-[40vw] md:w-[30vw] rounded-2xl px-4 py-2' />
+                <img src={call} alt="Mobile" className='h-10 ml-4' />
+                <input type="text" id="mobile" value={mobile} onKeyDown={e => e.key === 'Enter' && submit1()} onChange={e => changeMobile(e)} placeholder='Mobile no.' className='border-2 border-brown focus:ring-4 ring-orange h-12 w-[40vw] md:w-[30vw] rounded-2xl px-4 py-2' />
               </div>
 
-              <div onClick={submit2} className={`${password1.length > 5 && password1 === password2 ? 'flex' : 'hidden'} justify-center mt-4 w-[20vw] md:w-[10vw] lg:w-[7vw] mx-auto bg-brown hover:scale-105 cursor-pointer transition-all hover:bg-lightBrown rounded-2xl px-4 py-2 text-white font-bold `}>NEXT &#8702;</div>
-
-            </form> :
-
-
-            <form>
-              <div className='flex gap-2 items-center justify-center mx-auto my-2'>
-                <h2 className='text-2xl'>🏠</h2>
-                <input type='text' id="line1" value={line1} onChange={e => setline1(e.target.value)} placeholder='House no./ Flat no./ Block' className='border-2 border-brown focus:ring-4 ring-orange h-12 w-[40vw] md:w-[30vw] rounded-2xl px-4 py-2' />
-              </div>
-              <div className='flex gap-2 items-center justify-center mx-auto my-2'>
-                <h2 className='text-2xl'>🛣️</h2>
-                <input type='text' id="line2" value={line2} onChange={e => setline2(e.target.value)} placeholder='Road/ Area' className='border-2 border-brown focus:ring-4 ring-orange h-12 w-[40vw] md:w-[30vw] rounded-2xl px-4 py-2' />
-              </div>
-
-              <div className='flex flex-col gap-2 md:flex-row'>
-                <div className='flex gap-2 items-center justify-around mx-auto my-2'>
-                  <input type='text' id="city" value={city} onChange={e => setCity(e.target.value)} placeholder='City / Village' className='border-2 border-brown focus:ring-4 ring-orange h-12 w-[40vw] md:w-[20vw] rounded-2xl px-4 py-2' />
+              <div className='ml-4 flex flex-col items-center mt-2 md:mt-4 w-full'>
+                <div className={` ${validCreds && 'hidden'} flex gap-6 items-center `}>
+                  <img src={error} alt="error" className='h-4 w-4 md:h-6 md:w-6 animate-ping' />
+                  <h2 className='text-red-700 font-bold'>Invalid name, email or mobile</h2>
                 </div>
-                <div className='flex gap-2 items-center justify-around mx-auto my-2'>
-                  <input type='text' id="state" value={state} onChange={e => setState(e.target.value)} placeholder='State' className='border-2 border-brown focus:ring-4 ring-orange h-12 w-[40vw] md:w-[20vw] rounded-2xl px-4 py-2' />
+                <div className={` ${valid1 === '' && 'hidden'} mt-2 flex gap-6 items-center `}>
+                  <img src={error} alt="error" className='h-4 w-4 md:h-6 md:w-6 animate-ping' />
+                  <h2 className='text-red-700 text-center font-bold'>{valid1}</h2>
                 </div>
+                <h2 className=' cursor-pointer w-[100%] text-end transition-all hover:text-purple-700 mx-2 text-orange font-bold' onClick={() => navigate('/signin')}>Already a User? SIGNIN</h2>
+                <h2 className=' cursor-pointer w-[100%] text-end transition-all hover:text-purple-700 mx-2 text-orange font-bold' onClick={() => window.open('https://veganseller.princekb.tech', '_blank', 'noopener')}>SELLER SIGNUP</h2>
+                <div onClick={submit1} className='mt-4 bg-brown hover:scale-105 cursor-pointer transition-all hover:bg-lightBrown mx-2 rounded-2xl px-4 py-2 text-white font-bold '>NEXT &#8702;</div>
               </div>
-
-              <div className='flex gap-2 items-center justify-around mx-auto my-2'>
-                <input onKeyDown={e => e.key === 'Enter' && submit3()} type='text' id="pincode" value={pincode} onChange={changePincode} placeholder='Area Pincode' className='border-2 border-brown focus:ring-4 ring-orange h-12 w-[40vw] md:w-[30vw] rounded-2xl px-4 py-2' />
-              </div>
-
-              <div className={` ${valid3==='' ? 'hidden' : 'flex'} my-4 gap-6 items-center justify-center`}>
-                <img src={error} alt="error" className='h-4 w-4 md:h-6 md:w-6 animate-ping' />
-                <h2 className='text-red-700 text-center font-bold'>{valid3}</h2>
-              </div>
-
-              <div onClick={submit3} className={`flex justify-center mt-4 w-[20vw] md:w-[10vw] lg:w-[7vw] mx-auto bg-brown hover:scale-105 cursor-pointer transition-all hover:bg-lightBrown rounded-2xl px-4 py-2 text-white font-bold `}>NEXT &#8702;</div>
+            </form> : step === 2 ?
 
 
-            </form>
+              <form className=''>
+                <div className='flex gap-4 justify-center my-2'>
+                  <h2 className='text-brown font-bold text-xl'>PASSWORD</h2>
+                  <img src={passHidden ? closedeyes : openedeyes} alt="eyes" className='cursor-pointer bg-orange rounded-[50%] h-8 w-8' onClick={() => { setPassHidden(false); setTimeout(() => setPassHidden(true), 1500) }} />
+                </div>
+
+                <div className='flex gap-2 items-center justify-around mx-auto my-2'>
+                  <input type={passHidden ? 'password' : 'text'} id="password1" value={password1} onChange={e => setPassword1(e.target.value)} placeholder='Create password' className='border-2 border-brown focus:ring-4 ring-orange h-12 w-[40vw] md:w-[30vw] rounded-2xl px-4 py-2' />
+                </div>
+
+                <div className={` ${password1.length > 0 && password1.length < 6 ? 'flex' : 'hidden'} my-4 gap-6 items-center justify-center`}>
+                  <img src={error} alt="error" className='h-4 w-4 md:h-6 md:w-6 animate-ping' />
+                  <h2 className='text-red-700 text-center font-bold'>"Weak password"</h2>
+                </div>
+
+                <div className='flex gap-2 items-center justify-around mx-auto'>
+                  <input onKeyDown={e => e.key === 'Enter' && submit2()} type={passHidden ? 'password' : 'text'} id="password2" value={password2} onChange={e => setPassword2(e.target.value)} placeholder='Confirm password' className='border-2 border-brown focus:ring-4 ring-orange h-12 w-[40vw] md:w-[30vw] rounded-2xl px-4 py-2' />
+                </div>
+
+                <div onClick={submit2} className={`${password1.length > 5 && password1 === password2 ? 'flex' : 'hidden'} justify-center mt-4 w-[20vw] md:w-[10vw] lg:w-[7vw] mx-auto bg-brown hover:scale-105 cursor-pointer transition-all hover:bg-lightBrown rounded-2xl px-4 py-2 text-white font-bold `}>NEXT &#8702;</div>
+
+              </form> :
+
+
+              <form>
+                <div className='flex gap-2 items-center justify-center mx-auto my-2'>
+                  <h2 className='text-2xl'>🏠</h2>
+                  <input type='text' id="line1" value={line1} onChange={e => setline1(e.target.value)} placeholder='House no./ Flat no./ Block' className='border-2 border-brown focus:ring-4 ring-orange h-12 w-[40vw] md:w-[30vw] rounded-2xl px-4 py-2' />
+                </div>
+                <div className='flex gap-2 items-center justify-center mx-auto my-2'>
+                  <h2 className='text-2xl'>🛣️</h2>
+                  <input type='text' id="line2" value={line2} onChange={e => setline2(e.target.value)} placeholder='Road/ Area' className='border-2 border-brown focus:ring-4 ring-orange h-12 w-[40vw] md:w-[30vw] rounded-2xl px-4 py-2' />
+                </div>
+
+                <div className='flex flex-col gap-2 md:flex-row'>
+                  <div className='flex gap-2 items-center justify-around mx-auto my-2'>
+                    <input type='text' id="city" value={city} onChange={e => setCity(e.target.value)} placeholder='City / Village' className='border-2 border-brown focus:ring-4 ring-orange h-12 w-[40vw] md:w-[20vw] rounded-2xl px-4 py-2' />
+                  </div>
+                  <div className='flex gap-2 items-center justify-around mx-auto my-2'>
+                    <input type='text' id="state" value={state} onChange={e => setState(e.target.value)} placeholder='State' className='border-2 border-brown focus:ring-4 ring-orange h-12 w-[40vw] md:w-[20vw] rounded-2xl px-4 py-2' />
+                  </div>
+                </div>
+
+                <div className='flex gap-2 items-center justify-around mx-auto my-2'>
+                  <input onKeyDown={e => e.key === 'Enter' && submit3()} type='text' id="pincode" value={pincode} onChange={changePincode} placeholder='Area Pincode' className='border-2 border-brown focus:ring-4 ring-orange h-12 w-[40vw] md:w-[30vw] rounded-2xl px-4 py-2' />
+                </div>
+
+                <div className={` ${valid3 === '' ? 'hidden' : 'flex'} my-4 gap-6 items-center justify-center`}>
+                  <img src={error} alt="error" className='h-4 w-4 md:h-6 md:w-6 animate-ping' />
+                  <h2 className='text-red-700 text-center font-bold'>{valid3}</h2>
+                </div>
+
+                <div onClick={submit3} className={`flex justify-center mt-4 w-[20vw] md:w-[10vw] lg:w-[7vw] mx-auto bg-brown hover:scale-105 cursor-pointer transition-all hover:bg-lightBrown rounded-2xl px-4 py-2 text-white font-bold `}>NEXT &#8702;</div>
+
+
+              </form>
           }
         </div>
       </div>
