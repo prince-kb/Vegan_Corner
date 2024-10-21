@@ -5,6 +5,7 @@ import debitIcon from "../assets/icons/debit.svg"
 import upiIcon from "../assets/icons/upi.svg"
 import creditIcon from "../assets/icons/credit.svg"
 import codIcon from "../assets/icons/cod.svg"
+import tick from "../assets/svgs/tick.svg"
 import { useEffect, useState } from 'react'
 import { updateMethod, updateOrderList, updateTotalPrice, updateTransactionId } from '../redux/slices/orderSlice'
 import { setNotification } from '../redux/slices/notificationSlice'
@@ -137,7 +138,7 @@ const BuyNow = () => {
                         </div>
 
                         <div className='relative'>
-                            <h2 className='text-2xl bg-orange min-w-fit w-[60%] md:w-[40%] xl:w-[30%] mb-3 mx-auto text-white px-4 py-2 rounded-2xl md:my-auto font-bold text-center'>Deliver to</h2>
+                            <h2 className='text-2xl bg-[#dcdce6] min-w-fit w-[60%] md:w-[40%] xl:w-[30%] mb-3 mx-auto text-brown px-4 py-2 rounded-2xl md:my-auto font-bold text-center'>Delivery to</h2>
                             <div className='flex flex-col gap-2 ml-4 border-2 py-6 rounded-3xl px-4 my-2 mb-8'>
                                 <div className='md:flex md:gap-2'>
                                     <h3 className='text-xl font-bold'>{user?.name}, </h3>
@@ -155,7 +156,7 @@ const BuyNow = () => {
                             </div>
                         </div>
 
-                        <h2 className='text-2xl bg-orange min-w-fit w-[60%] md:w-[50%] lg:w-[40%] mx-auto text-white my-2 px-4 py-2 rounded-2xl font-bold text-center'>Payment Method</h2>
+                        <h2 className='text-2xl bg-[#dcdce6] min-w-fit w-[60%] md:w-[50%] lg:w-[40%] mx-auto text-brown my-2 px-4 py-2 rounded-2xl font-bold text-center'>Payment Method</h2>
                         <div className='flex flex-col gap-2 ml-4 border-2 py-6 rounded-3xl px-4 mt-2'>
 
                             <div className="px-2 md:px-4 py-4 rounded-2xl border my-2 flex justify-between items-center">
@@ -211,7 +212,10 @@ const BuyNow = () => {
                                 <img src={creditIcon} alt="cod" className='size-10 md:size-14 lg:size-20' />
                             </div>
 
-                            <div className='bg-orange px-6 py-2 rounded-2xl text-center w-[70%] md:w-[50%] lg:w-[40%] xl:w-[30%] mx-auto font-bold text-2xl md:text-3xl text-brown cursor-pointer hover:-translate-y-2 hover:scale-105 transition-all active:ring-2 ring-brown' onClick={placeOrder}>PLACE ORDER </div>
+                            <div className='bg-orange px-6 py-2 rounded-2xl text-center w-[70%] group md:w-[50%] lg:w-[40%] xl:w-[30%] mx-auto font-bold text-2xl md:text-3xl text-white cursor-pointer hover:translate-x-2 flex-center gap-4 transition-all active:ring-2 ring-brown' onClick={placeOrder}>
+                                <h2>PLACE ORDER </h2>
+                                <img src={tick} alt="go" className='w-8 h-8 group-hover:translate-x-6 transition-all' />
+                                </div>
 
                         </div>
 

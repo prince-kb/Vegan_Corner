@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { setNotification } from '../redux/slices/notificationSlice';
 import { updateUser } from '../redux/slices/userSlice';
+import error from "../assets/svgs/error.svg"
+import tick1 from "../assets/svgs/tick1.svg"
 
 const MyOrder = () => {
   const navigate = useNavigate();
@@ -47,7 +49,7 @@ const MyOrder = () => {
     return new Date(new Date(date).getTime() + 60 * 60 * 24 * 1000).toString().slice(0, 16);
   }
 
-  const cancelOrder = async()=>{
+  const cancelOrder = async () => {
     console.log(orderId)
     const API = import.meta.env.VITE_REACT_APP_API;
     const SERVER_SECRET = import.meta.env.VITE_REACT_APP_SERVER_SECRET;
@@ -114,7 +116,7 @@ const MyOrder = () => {
                     </span>
                   </span>}
                 </h2>
-                <h2 className='mt-2 text-xl text-orange font-bold'>Date: <span className='text-brown font-bold'>{showDate(order.date)} at {showTime(order.date)}</span></h2>
+                <h2 className='mt-2 text-xl text-orange font-bold'>Ordered on: <span className='text-brown font-bold'>{showDate(order.date)} at {showTime(order.date)}</span></h2>
               </div>
 
               <div className='mt-4 lg:mt-6'>
@@ -125,7 +127,7 @@ const MyOrder = () => {
           </div>
 
           <div className='relative'>
-            <h2 className='text-2xl bg-orange min-w-fit w-[60%] md:w-[40%] xl:w-[30%] mb-3 mx-auto text-white px-4 py-2 rounded-2xl md:my-auto font-bold text-center'>Delivery to</h2>
+            <h2 className='text-2xl bg-[#dcdce6] min-w-fit w-[60%] md:w-[40%] xl:w-[30%] mb-3 mx-auto text-brown px-4 py-2 rounded-2xl md:my-auto font-bold text-center'>Delivery to</h2>
             <div className='flex flex-col gap-2 ml-4 border-2 py-6 rounded-3xl px-4 my-2 mb-8'>
               <div className='md:flex md:gap-2'>
                 <h3 className='text-xl font-bold'>{user?.name}, </h3>
@@ -139,14 +141,13 @@ const MyOrder = () => {
                 <h3 className='text-xl font-semibold'>{user?.address?.city}, {user?.address?.state}</h3>
                 <h3 className='text-xl font-bold'>{user?.address?.pincode}</h3>
               </div>
-              {status <7 && <div className='absolute bottom-0 right-0 -translate-x-full -translate-y-full font-bold bg-orange md:px-2 md:py-1 px-1 rounded-md hover:bg-brown hover:text-white transition-all cursor-pointer'>CHANGE</div>}
+              {status < 7 && <div className='absolute bottom-0 right-0 -translate-x-full -translate-y-full font-bold bg-orange md:px-2 md:py-1 px-1 rounded-md hover:bg-brown hover:text-white transition-all cursor-pointer'>CHANGE</div>}
             </div>
           </div>
 
           <div className='border p-4 m-4 rounded-2xl'>
-            <h2 className='text-2xl bg-orange min-w-fit w-[60%] md:w-[40%] xl:w-[30%] mb-8 mx-auto text-white px-4 py-2 rounded-2xl font-bold text-center'>Order Status</h2>
-
-            <div className={`mx-2 hidden md:block h-6 bg-green-200 rounded-xl absolute z-[0] ${status === 0 ? 'w-[7%]' : status === 1 ? 'w-[21%]' : status === 2 ? 'w-[35%]' : status === 3 ? 'w-[49%]' : status === 4 ? 'w-[63%]' : status === 5 ? 'w-[77%]' : 'w-[100%]'} `} />
+            <h2 className='text-2xl bg-[#dcdce6] min-w-fit w-[60%] md:w-[40%] xl:w-[30%] mb-8 mx-auto text-brown px-4 py-2 rounded-2xl font-bold text-center'>Order Status</h2>
+            {status !== 7 && <div className={`mx-2 hidden md:block h-6 bg-green-200 rounded-xl absolute z-[0] ${status === 0 ? 'w-[7%]' : status === 1 ? 'w-[21%]' : status === 2 ? 'w-[35%]' : status === 3 ? 'w-[49%]' : status === 4 ? 'w-[63%]' : status === 5 ? 'w-[77%]' : 'w-[100%]'} `} />}
             {status === 7 ? <div className='mx-auto'>
               <h2 className='text-xl text-center text-brown font-bold mt-4'>Order is cancelled by the user</h2>
             </div> :
@@ -182,17 +183,49 @@ const MyOrder = () => {
                 </div>
               </div>
             }
-
           </div>
 
-          <div className='flex flex-col md:flex-row my-4 justify-center items-center'>
+          {status < 7 && <div className='flex flex-col md:flex-row my-4 justify-center items-center'>
+            <div className='w-full mx-auto'>
+              {status === 0 && <div>
+                <h1 className='text-xl md:text-2xl text-center text-brown font-bold'>Your order is being packed and  processed by the seller and will be in transit within 4-6 hours.</h1>
+              </div>}
+
+              {status === 1 && <div>
+                <h1 className='text-xl md:text-2xl text-center text-brown font-bold'>Your order is processed and will be in transit soon.</h1>
+              </div>}
+
+              {status === 2 && <div>
+                <h1 className='text-xl md:text-2xl text-center text-brown font-bold'>Your order is in transit and will be dispatched soon.</h1>
+              </div>}
+
+              {status === 3 && <div>
+                <h1 className='text-xl md:text-2xl text-center text-brown font-bold'>Your order is dispatched by the seller and will soon reach the nearest delivery point.</h1>
+              </div>}
+
+              {status === 4 && <div>
+                <h1 className='text-xl md:text-2xl text-center text-brown font-bold'>Your order has been shipped to the {user?.address?.city} delivery point nearest to you. </h1>
+              </div>}
+
+              {status === 5 && <div  className='flex gap-4 justify-center items-center'>
+                <h1 className='text-xl md:text-2xl text-center text-brown font-bold'>Your order is out for delivery for {user?.address?.lane1}, {user?.address?.lane2}, {user?.address.city} </h1>
+                <img src={error} alt="out" className='h-4 w-4 animate-ping' />
+              </div>}
+              {status === 6 && <div className='flex gap-4 justify-center items-center' >
+                <h1 className='text-xl md:text-2xl text-center text-brown font-bold'>Your order has been delivered to you. ❤️ </h1>
+                <img src={tick1} alt="out" className='h-8 w-8' />
+              </div>}
+
+            </div>
+          </div>}
+
+          {status <= 6 && <div className='flex flex-col md:flex-row my-4 justify-center items-center'>
             <h1 className=' text-brown text-xl md:text-2xl  font-semibold ' >Expected delivery date: </h1>
-            <h1 className=' text-brown text-xl md:text-2xl ml-4 font-bold ' >{deliveryDate(order.date)} within 9 PM</h1>
-          </div>
+            <h1 className=' text-xl md:text-2xl ml-4 font-bold text-green-700 ' >{deliveryDate(order.date)} within 9 PM</h1>
+          </div>}
 
           {status < 6 && <div>
-            <h2 onClick={cancelOrder} className='text-xl bg-brown min-w-fit w-[40%] md:w-[30%] xl:w-[20%] cursor-pointer hover:bg-darkbrown hover:font-bold mb-3 mx-auto mt-6 text-white px-4 py-2 rounded-2xl md:my-auto font-semibold text-center'>Cancel order</h2>
-
+            <h2 onClick={cancelOrder} className='text-xl bg-brown min-w-fit w-[40%] md:w-[30%] xl:w-[20%] cursor-pointer hover:bg-darkbrown hover:font-bold mb-3 mx-auto mt-6 text-white px-4 py-2 rounded-2xl md:my-auto font-semibold text-center'>Cancel my order</h2>
           </div>}
 
         </div>
