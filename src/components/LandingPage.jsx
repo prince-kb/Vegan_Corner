@@ -22,7 +22,6 @@ const LandingPage = () => {
     tl.from('.bannerss', { translateX: "-100%", translateY: "100%", opacity: 0, duration: 1, delay: 0.5, ease: 'power2.out' })
     tl.from('.intro', { y: '70', duration: 1, delay: 0.7, opacity: 0, ease: 'power2.out' })
     gsap.from('#categories', { y: '70vh', opacity: 0, duration: 1, delay: 1 })
-    
   })
 
   useEffect(() => {
@@ -41,8 +40,9 @@ const LandingPage = () => {
         const data = await response.json();
         dispatch(updateMain(data))
       } catch (err) {
+        setTimeout(() =>mainData(), 5000)
         dispatch(updateMain([]))
-        console.log(" Unable to fetch data")
+        console.log(" Unable to fetch data, retrying...")
       }
     }
 
@@ -61,10 +61,10 @@ const LandingPage = () => {
         const data = await response.json()
         setBanners(data)
       } catch (err) {
-        console.log(" Unable to fetch banners data")
+        console.log(" Unable to fetch banners data, retrying...")
+        setTimeout(() => fetchBanners(), 5000)
       }
     }
-
 
     mainData();
     fetchBanners();
@@ -114,6 +114,8 @@ const LandingPage = () => {
           </div>
         </div>
       </div>
+
+      {/* All categories */}
       <div id="categories">
         {
           c === 'quick foods' ?

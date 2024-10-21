@@ -9,12 +9,13 @@ import cartadd from "../assets/svgs/cartadd.svg";
 import love from "../assets/svgs/love.svg";
 import tick from "../assets/svgs/tick.svg";
 import bolt from "../assets/svgs/bolt.svg";
+import bolt1 from "../assets/svgs/bolt1.svg";
 import share from "../assets/svgs/share.svg";
 import transport from "../assets/svgs/transport.svg";
 import errorimg from "../assets/svgs/error.svg";
 import loaderSpinner from "../assets/svgs/loader.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser, updateUser } from "../redux/slices/userSlice";
+import { updateUser } from "../redux/slices/userSlice";
 import { setNotification } from "../redux/slices/notificationSlice";
 import { updateBuyNow } from "../redux/slices/buyNowSlice";
 
@@ -82,7 +83,7 @@ const Product = () => {
                 setMainLoader(false)
             } catch (err) {
                 setError(true);
-                console.log(" Unable to fetch data")
+                dispatch(setNotification({ message: "Unable to fetch product at the moment", type: "error", logo: "brokenheart" }))
             }
         }
         fetchProduct();
@@ -116,8 +117,6 @@ const Product = () => {
             if (p.message === "Item added to cart") dispatch(setNotification({ message: "Product added to Cart", type: "success", logo: "cart" }))
             dispatch(updateUser());
         } catch (err) {
-            console.log(err)
-            console.log(" Unable to add product to cart")
             dispatch(setNotification({ message: "Unable to add product to Cart", type: "error", logo: "cart" }))
         }
     }
@@ -200,8 +199,7 @@ const Product = () => {
         } catch (error) {
             setLoader(false);
             setVisible(true);
-            console.error("Cannot get your location right now!");
-            console.error("Retry after sometime!");
+            dispatch(setNotification({ message: "Unable to check delivery at the moment", type: "error", logo: "brokenheart" }))
         }
     }
 
@@ -226,7 +224,7 @@ const Product = () => {
         </div>
     }
 
-    const { name, details, images, seller, ratings, reviews, rrlink } = product;
+    const { name, details, images, seller, ratings, reviews, rrlink, priority, offer } = product;
 
     return (
         mainLoader ? <div className="flex justify-center items-center h-screen">
@@ -244,7 +242,15 @@ const Product = () => {
         <div className="mt-6 mb-4 flex flex-col items-center">
 
             {/* IMAGE PART */}
-            <div className="xl:flex flex flex-col p-8 mb-4 min-w-3/4 w-fit items-center neu1 ">
+            <div className="xl:flex flex flex-col p-8 mb-4 min-w-3/4 w-fit items-center neu1 relative ">
+                {/* Priority Part */}
+                {
+                    <div className={`absolute right-2 md:right-4`}>
+                        {offer && <div className="right-2 md:right-4 flex items-center gap-1 bg-green-500 text-white z-[1] px-2 py-1 animate-bounce rounded-full text-[10px] text-sm md:text-base lg:text-lg font-bold"><img src={bolt1} alt="S" className="h-4 w-4" />SALE LIVE </div>}
+                        <h1 className={`text-center text-sm md:text-lg lg:text-xl font-bold text-white p-2 md:p-3 rounded-full ${priority >= 3 ? 'bg-violet-500' : priority === 2 ? 'bg-orange' : priority === 1 ? 'bg-blue-500' : 'bg-red-500'}`}>{priority >= 3 ? '' : priority === 2 ? 'Premium' : priority === 1 ? 'Value pack' : 'Budget Friendly'}</h1>
+                    </div>
+                }
+
                 <div className="flex flex-col w-[80vw] xl:w-[80vw] mx-auto justify-around items-center">
                     <div className="w-[80vw] md:w-[70vw]">
                         <div className="border-b-2 border-gray-300 flex flex-col items-center shadow-orange/80">
@@ -344,9 +350,9 @@ const Product = () => {
                     <h2 className="text-md xl:text-xl font-bold m-2">Enter Pincode to check delivery</h2>
                     <div className="flex flex-col xl:flex-row">
                         <div className="flex flex-col md:flex-row md:items-center">
-                            <input type="text" id="1" className="border-2 p-1 m-2 rounded-xl border-black font-bold text-center" ref={ref} value={pinc} onChange={() => { setPincode(ref.current.value); setVisible(false) }} onKeyDown={(e) => { valid() && e.key == "Enter" && submitPincode() }} />
+                            <input type="text" id="1" className="border-2 p-1 m-2 rounded-xl border-black font-bold text-center max-w-[240px]" ref={ref} value={pinc} onChange={() => { setPincode(ref.current.value); setVisible(false) }} onKeyDown={(e) => { valid() && e.key == "Enter" && submitPincode() }} />
                             <div className="flex justify-center">
-                                <button className={`ml-2 bg-blue-700 hover:bg-violet-600 hover:shadow-md hover:shadow-purple-500 transition-all active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300 text-lg lg:text-xl text-white px-4 py-1 rounded-2xl  ${valid() ? '' : 'hidden'}`} onClick={submitPincode}>SUBMIT</button>
+                                <button className={`ml-2 hover:bg-violet-600 hover:shadow-md hover:shadow-purple-500 transition-all active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300 text-lg lg:text-xl px-4 py-1 rounded-2xl font-bold ${valid() ? 'bg-blue-700 text-white' : 'pointer-events-none bg-blue-200 text-black'}`} onClick={submitPincode}>SUBMIT</button>
                                 <button className="md:text-xl bg-gray-200 hover:bg-gray-300 active:bg-gray-400 focus:outline-none focus:ring focus:ring-violet-300 text-base px-2 pb-1 lg:px-4 ml-4 rounded-2xl font-bold" onClick={() => { setPincode(''); setVisible(false) }}>❌</button>
                             </div>
                         </div>

@@ -24,8 +24,8 @@ const Orders = () => {
 
     const showTime = (da) => {
         const d = new Date(da);
-        const x =  d.toLocaleString();
-        return x.slice(x.length-11, x.length-6) + ' ' + x.slice(x.length-2);
+        const x = d.toLocaleString();
+        return x.slice(x.length - 11, x.length - 6) + ' ' + x.slice(x.length - 2);
     }
 
     const gotoProduct = (e, id) => {

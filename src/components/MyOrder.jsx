@@ -5,23 +5,28 @@ import { setNotification } from '../redux/slices/notificationSlice';
 import { updateUser } from '../redux/slices/userSlice';
 import error from "../assets/svgs/error.svg"
 import tick1 from "../assets/svgs/tick1.svg"
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 
 const MyOrder = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const orderId = useParams().id;
   const [order, setOrder] = useState(null);
-  const [product, setProduct] = useState(null);
   const [status, setStatus] = useState(0);
   const user = useSelector(state => state.user.user);
   const catalogue = useSelector(state => state.catalogue.Catalogue)
+
+  useGSAP(() => {
+    if(order && orderId && catalogue)
+    gsap.from("#line1", { duration: 3, width: 0, ease: 'power4.out', delay: 1 })
+  }, [user, orderId])
 
   useEffect(() => {
     if (user) setOrder(user.orders.find((item) => item.orderId === orderId))
   }, [user, orderId])
 
   useEffect(() => {
-    if (order && catalogue) setProduct(catalogue.find((item) => item.id === order.id))
     const st = order?.status?.toLowerCase();
     if (st) {
       if (st === 'processing') setStatus(0);
@@ -46,7 +51,7 @@ const MyOrder = () => {
   }
 
   const deliveryDate = (date) => {
-    return new Date(new Date(date).getTime() + 60 * 60 * 24 * 1000).toString().slice(0, 16);
+    return new Date(new Date(date).getTime() + 60 * 60 * 72 * 1000).toString().slice(0, 16);
   }
 
   const cancelOrder = async () => {
@@ -147,7 +152,7 @@ const MyOrder = () => {
 
           <div className='border p-4 m-4 rounded-2xl'>
             <h2 className='text-2xl bg-[#dcdce6] min-w-fit w-[60%] md:w-[40%] xl:w-[30%] mb-8 mx-auto text-brown px-4 py-2 rounded-2xl font-bold text-center'>Order Status</h2>
-            {status !== 7 && <div className={`mx-2 hidden md:block h-6 bg-green-200 rounded-xl absolute z-[0] ${status === 0 ? 'w-[7%]' : status === 1 ? 'w-[21%]' : status === 2 ? 'w-[35%]' : status === 3 ? 'w-[49%]' : status === 4 ? 'w-[63%]' : status === 5 ? 'w-[77%]' : 'w-[100%]'} `} />}
+            {status !== 7 && <div id="line1" className={`mx-2 hidden md:block h-6 bg-green-200 rounded-xl absolute z-[0] ${status === 0 ? 'w-[7%]' : status === 1 ? 'w-[21%]' : status === 2 ? 'w-[35%]' : status === 3 ? 'w-[45%]' : status === 4 ? 'w-[56%]' : status === 5 ? 'w-[68%]' : 'w-[80%]'} `} />}
             {status === 7 ? <div className='mx-auto'>
               <h2 className='text-xl text-center text-brown font-bold mt-4'>Order is cancelled by the user</h2>
             </div> :
@@ -207,7 +212,7 @@ const MyOrder = () => {
                 <h1 className='text-xl md:text-2xl text-center text-brown font-bold'>Your order has been shipped to the {user?.address?.city} delivery point nearest to you. </h1>
               </div>}
 
-              {status === 5 && <div  className='flex gap-4 justify-center items-center'>
+              {status === 5 && <div className='flex gap-4 justify-center items-center'>
                 <h1 className='text-xl md:text-2xl text-center text-brown font-bold'>Your order is out for delivery for {user?.address?.lane1}, {user?.address?.lane2}, {user?.address.city} </h1>
                 <img src={error} alt="out" className='h-4 w-4 animate-ping' />
               </div>}
