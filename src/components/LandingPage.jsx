@@ -25,26 +25,26 @@ const LandingPage = () => {
   })
 
   useEffect(() => {
-    const mainData = async () => {
-      try {
-        const API = import.meta.env.VITE_REACT_APP_API
-        const SERVER_SECRET = import.meta.env.VITE_REACT_APP_SERVER_SECRET
-        const response = await fetch(`${API}/api/getcatalogue`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'secret': SERVER_SECRET
-          }
-        })
-        const data = await response.json();
-        dispatch(updateMain(data))
-      } catch (err) {
-        setTimeout(() =>mainData(), 5000)
-        dispatch(updateMain([]))
-        console.log(" Unable to fetch data, retrying...")
-      }
-    }
+    // const mainData = async () => {
+    //   try {
+    //     const API = import.meta.env.VITE_REACT_APP_API
+    //     const SERVER_SECRET = import.meta.env.VITE_REACT_APP_SERVER_SECRET
+    //     const response = await fetch(`${API}/api/getcatalogue`, {
+    //       method: 'GET',
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //         'Accept': 'application/json',
+    //         'secret': SERVER_SECRET
+    //       }
+    //     })
+    //     const data = await response.json();
+    //     dispatch(updateMain(data))
+    //   } catch (err) {
+    //     setTimeout(() =>mainData(), 5000)
+    //     dispatch(updateMain([]))
+    //     console.log(" Unable to fetch data, retrying...")
+    //   }
+    // }
 
     const fetchBanners = async () => {
       try {
@@ -66,7 +66,7 @@ const LandingPage = () => {
       }
     }
 
-    mainData();
+    // mainData();
     fetchBanners();
   }, [window.onload])
 
