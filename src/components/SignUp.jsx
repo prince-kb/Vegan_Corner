@@ -8,6 +8,7 @@ import openedeyes from "../assets/svgs/openedeyes.svg"
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { updateUser } from '../redux/slices/userSlice'
+import { config } from '../lib/config'
 
 
 const SignUp = () => {
@@ -52,8 +53,8 @@ const SignUp = () => {
     }
 
 
-    const API = import.meta.env.VITE_REACT_APP_API
-    const SERVER_SECRET = import.meta.env.VITE_REACT_APP_SERVER_SECRET
+    const API = config.server
+    const SERVER_SECRET = config.serverSecret
     try {
       const r = await fetch(`${API}/api/user/checkemail`, {
         method: 'PUT',
@@ -119,8 +120,8 @@ const SignUp = () => {
       }, 3000);
       return;
     }
-    const API = import.meta.env.VITE_REACT_APP_API
-    const SERVER_SECRET = import.meta.env.VITE_REACT_APP_SERVER_SECRET
+    const API = config.server
+    const SERVER_SECRET = config.serverSecret
 
     const response = await fetch(`${API}/api/user/signup`, {
       method: 'POST',

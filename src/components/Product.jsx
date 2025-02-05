@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateUser } from "../redux/slices/userSlice";
 import { setNotification } from "../redux/slices/notificationSlice";
 import { updateBuyNow } from "../redux/slices/buyNowSlice";
+import { config } from "../lib/config";
 
 
 const Product = () => {
@@ -43,8 +44,8 @@ const Product = () => {
         if (user) {
             const addtorecents = async () => {
                 try {
-                    const API = import.meta.env.VITE_REACT_APP_API
-                    const SERVER_SECRET = import.meta.env.VITE_REACT_APP_SERVER_SECRET
+                    const API = config.server
+                    const SERVER_SECRET = config.serverSecret
                     await fetch(`${API}/api/user/addtorecent`, {
                         method: 'PUT',
                         headers: {
@@ -69,8 +70,8 @@ const Product = () => {
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const SERVER_SECRET = import.meta.env.VITE_REACT_APP_SERVER_SECRET
-                const response = await fetch(`${import.meta.env.VITE_REACT_APP_API}/api/getproduct/${id}`, {
+                const SERVER_SECRET = config.serverSecret
+                const response = await fetch(`${config.server}/api/getproduct/${id}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -101,8 +102,8 @@ const Product = () => {
     const addtocart = async () => {
         if (!user) return dispatch(setNotification({ message: "Please Login to add to Cart", type: "none", logo: "user" }))
         try {
-            const API = import.meta.env.VITE_REACT_APP_API
-            const SERVER_SECRET = import.meta.env.VITE_REACT_APP_SERVER_SECRET
+            const API = config.server
+            const SERVER_SECRET = config.serverSecret
             const response = await fetch(`${API}/api/user/addtocart`, {
                 method: 'PUT',
                 headers: {
@@ -136,8 +137,8 @@ const Product = () => {
     const addtowishlist = async () => {
         if (!user) return dispatch(setNotification({ message: "Please Login to add to Wishlist", type: "none", logo: "user" }))
         try {
-            const API = import.meta.env.VITE_REACT_APP_API
-            const SERVER_SECRET = import.meta.env.VITE_REACT_APP_SERVER_SECRET
+            const API = config.server
+            const SERVER_SECRET = config.serverSecret
             const response = await fetch(`${API}/api/user/wishlist`, {
                 method: 'PUT',
                 headers: {
@@ -172,7 +173,7 @@ const Product = () => {
 
     // Submitting Pincode to check delivery
     const submitPincode = async () => {
-        const url = `https://api.data.gov.in/resource/6176ee09-3d56-4a3b-8115-21841576b2f6?api-key=${import.meta.env.VITE_REACT_APP_DELIVERY_API}&format=json&limit=1&filters%5Bpincode%5D=${pincode}`
+        const url = `https://api.data.gov.in/resource/6176ee09-3d56-4a3b-8115-21841576b2f6?api-key=${config.deliveryApi}&format=json&limit=1&filters%5Bpincode%5D=${pincode}`
         try {
             setVisible(false);
             setLoader(true);

@@ -9,6 +9,7 @@ import codIcon from "../assets/icons/cod.svg"
 import { updateMethod, updateTransactionId } from '../redux/slices/orderSlice'
 import { setNotification } from '../redux/slices/notificationSlice'
 import { updateUser } from '../redux/slices/userSlice'
+import { config } from '../lib/config'
 
 const CheckOut = () => {
 
@@ -43,8 +44,8 @@ const CheckOut = () => {
       navigate('/cart');
     }
 
-    const API = import.meta.env.VITE_REACT_APP_API;
-    const SERVER_SECRET = import.meta.env.VITE_REACT_APP_SERVER_SECRET;
+    const API = config.server;
+    const SERVER_SECRET = config.serverSecret;
     const token = localStorage.getItem('authy');
     const response = await fetch(`${API}/api/user/order`, {
       method: 'PUT',

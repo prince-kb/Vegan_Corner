@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { config } from "../../lib/config";
 
-const API = import.meta.env.VITE_REACT_APP_API;
-const SERVER_SECRET = import.meta.env.VITE_REACT_APP_SERVER_SECRET;
+const API = config.server;
+const SERVER_SECRET = config.serverSecret;
 const token = localStorage.getItem("authy");
 
 

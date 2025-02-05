@@ -5,14 +5,15 @@ import { updateCatalogue } from "./redux/slices/catalogueSlice";
 import { useEffect } from "react";
 import { setUser,updateUser } from "./redux/slices/userSlice";
 import Notification from "./components/Notification";
+import { config } from "./lib/config";
 
 function App() {
 
   const dispatch = useDispatch();
 
   const autoLogin = async () => {
-    const API = import.meta.env.VITE_REACT_APP_API
-    const SERVER_SECRET = import.meta.env.VITE_REACT_APP_SERVER_SECRET
+    const API = config.server
+    const SERVER_SECRET = config.serverSecret
     const token = localStorage.getItem('authy');
 
     if (token) {
@@ -33,8 +34,8 @@ function App() {
 
     const fetchCatalogue = async () => {
       try {
-        const API = import.meta.env.VITE_REACT_APP_API
-        const SERVER_SECRET = import.meta.env.VITE_REACT_APP_SERVER_SECRET
+        const API = config.server
+        const SERVER_SECRET = config.serverSecret
         const response = await fetch(`${API}/api/getcatalogue`, {
           method: 'GET',
           headers: {

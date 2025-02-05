@@ -7,6 +7,7 @@ import error from "../assets/svgs/error.svg"
 import tick1 from "../assets/svgs/tick1.svg"
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
+import { config } from '../lib/config';
 
 const MyOrder = () => {
   const navigate = useNavigate();
@@ -56,8 +57,8 @@ const MyOrder = () => {
 
   const cancelOrder = async () => {
     console.log(orderId)
-    const API = import.meta.env.VITE_REACT_APP_API;
-    const SERVER_SECRET = import.meta.env.VITE_REACT_APP_SERVER_SECRET;
+    const API = config.server;
+    const SERVER_SECRET = config.serverSecret;
     const token = localStorage.getItem('authy');
     const response = await fetch(`${API}/api/user/cancelorder`, {
       method: 'PUT',
@@ -224,7 +225,7 @@ const MyOrder = () => {
             </div>
           </div>}
 
-          {status <= 6 && <div className='flex flex-col md:flex-row my-4 justify-center items-center'>
+          {status < 6 && <div className='flex flex-col md:flex-row my-4 justify-center items-center'>
             <h1 className=' text-brown text-xl md:text-2xl  font-semibold ' >Expected delivery date: </h1>
             <h1 className=' text-xl md:text-2xl ml-4 font-bold text-green-700 ' >{deliveryDate(order.date)} within 9 PM</h1>
           </div>}

@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { setNotification } from '../redux/slices/notificationSlice';
 import { updateUser } from '../redux/slices/userSlice';
 import { order, updateOrderList } from '../redux/slices/orderSlice';
+import { config } from '../lib/config';
 
 const Category2 = (props) => {
     const dispatch = useDispatch();
@@ -52,8 +53,8 @@ const Category2 = (props) => {
     }, [user, catalogue])
 
     const remove = async (id) => {
-        const API = import.meta.env.VITE_REACT_APP_API
-        const SERVER_SECRET = import.meta.env.VITE_REACT_APP_SERVER_SECRET
+        const API = config.server
+        const SERVER_SECRET = config.serverSecret
         const token = localStorage.getItem('authy');
 
         if (props.type === 'cart') {
@@ -99,8 +100,8 @@ const Category2 = (props) => {
     }
 
     const addCart = async (id) => {
-        const API = import.meta.env.VITE_REACT_APP_API
-        const SERVER_SECRET = import.meta.env.VITE_REACT_APP_SERVER_SECRET
+        const API = config.server
+        const SERVER_SECRET = config.serverSecret
         const token = localStorage.getItem('authy');
         const response = await fetch(`${API}/api/user/addtocart`, {
             method: 'PUT',
@@ -122,8 +123,8 @@ const Category2 = (props) => {
     }
 
     const subtractCart = async (id) => {
-        const API = import.meta.env.VITE_REACT_APP_API
-        const SERVER_SECRET = import.meta.env.VITE_REACT_APP_SERVER_SECRET
+        const API = config.server
+        const SERVER_SECRET = config.serverSecret
         const token = localStorage.getItem('authy');
         const response = await fetch(`${API}/api/user/updatecart`, {
             method: 'PUT',

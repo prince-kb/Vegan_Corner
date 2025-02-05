@@ -5,6 +5,7 @@ import { setUser, updateUser } from '../redux/slices/userSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { setNotification } from '../redux/slices/notificationSlice'
+import { config } from '../lib/config'
 const SignIn = () => {
 
   const userAvailable = useSelector(state => state.user.user)
@@ -29,8 +30,8 @@ const SignIn = () => {
       return;
     }
 
-    const API = import.meta.env.VITE_REACT_APP_API
-    const SERVER_SECRET = import.meta.env.VITE_REACT_APP_SERVER_SECRET
+    const API = config.server
+    const SERVER_SECRET = config.serverSecret
     try {
       const r = await fetch(`${API}/api/user/signin`, {
         method: 'PUT',

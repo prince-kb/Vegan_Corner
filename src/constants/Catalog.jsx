@@ -590,10 +590,7 @@ const catalogue = [
         offer:false,
         others1:"",
         others2:[],
-    }
-    
-
-
+    },
 ]
 
 /*{
