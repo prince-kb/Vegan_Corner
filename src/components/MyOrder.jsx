@@ -19,8 +19,8 @@ const MyOrder = () => {
   const catalogue = useSelector(state => state.catalogue.Catalogue)
 
   useGSAP(() => {
-    if(order && orderId && catalogue)
-    gsap.from("#line1", { duration: 3, width: 0, ease: 'power4.out', delay: 1 })
+    if (order && orderId && catalogue)
+      gsap.from("#line1", { duration: 3, width: 0, ease: 'power4.out', delay: 1 })
   }, [user, orderId])
 
   useEffect(() => {
@@ -89,73 +89,77 @@ const MyOrder = () => {
       <h2 className="font-bold font-bubble text-xl md:text-2xl lg:text-3xl text-orange mb-2 ml-6 lg:ml-8 tracking-widest text-center">Order details unavailable!</h2>
     </div> :
       <div className='flex-center flex-col mt-10 mb-4'>
-        <h1 className='text-center text-2xl my-4 font-semibold'>Order #{order.orderId}</h1>
-        <div className='w-[90vw] border py-4 rounded-xl  '>
-          <div className=' md:ml-3 mb-4 w-full flex flex-col justify-center md:justify-around items-center'>
+        <h1 className='text-center text-xl md:text-2xl my-4 font-semibold'>Order #{order.orderId}</h1>
+        <div className='w-[90vw] py-4 rounded-xl  '>
+
+          {/* Order details */}
+          <div className=' md:ml-3 mb-4 w-full flex flex-col justify-center md:justify-around items-center  border rounded-2xl py-3'>
 
             <div className='flex mx-2 gap-2 overflow-auto w-full px-2'>
               {order?.orderList.map((item) => {
                 const product = catalogue.find((product) => product.id === item.id);
                 return (
-                  <div onClick={() => navigate(`/product/${product.id}`)} key={product.id} className='mb-3 mx-auto cursor-pointer relative px-1 w-[240px] min-w-[160px] md:min-w-[200px] lg:min-w-[240px] hover:neu2 border rounded-2xl transition-all shadow-lg flex flex-col items-center justify-around'>
-                    <div className=' py-2 md:py-4 rounded-xl  '>
-                      <h2 className=' font-bold my-2 text-center mb-4 text-xl md:text-2xl text-brown'>{product?.name}</h2>
+                  <div onClick={() => navigate(`/product/${product.id}`)} key={product.id} className='mb-3 mx-auto cursor-pointer border relative px-1 w-[240px] min-w-[160px] md:min-w-[200px] lg:min-w-[240px] hover:neu2 rounded-2xl transition-all shadow-lg flex flex-col items-center justify-around'>
+                    <div className=' py-2 md:py-4 rounded-xl'>
+                      <h2 className='sub-heading mb-2'>{product?.name}</h2>
                       <div className='flex-col flex-center md:flex-row'>
                         <img src={product?.image} alt={product?.name} className='max-w-[100%] h-[120px] lg:h-[180px] mb-2 rounded-md' />
                       </div>
                     </div>
-                    <div className='text-2xl text-brown font-bold mb-2'>x {item.quantity}</div>
+                    <div className='text-xl md:text-2xl text-brown font-bold mb-2'>x {item.quantity}</div>
                   </div>
                 )
               })
               }
             </div>
 
-            <div className='  text-center md:ml-3 mb-4 w-full flex flex-col justify-center md:flex-row md:justify-around items-center'>
-              <div className="">
-                <h2 className='text-xl text-center text-orange font-bold mt-4'>
-                  Total Price: <span className='text-green-600 font-bubble'>&#8377; {order.totalPrice}</span>
-                  {order.deliveryCharges >= 0 && <span className='text-base font-medium ml-3'>
+            <div className='text-center md:ml-3 mb-4 w-full flex flex-col justify-center md:flex-row md:justify-around items-center'>
+              <div>
+                <h2 className='md:text-xl text-center text-orange font-semibold mt-4'>
+                  Total Price: <span className='text-green-600 font-bold'>&#8377; {order.totalPrice}</span>
+                  {order.deliveryCharges >= 0 && <span className='text-sm md:text-base font-medium ml-3'>
                     <span className='text-brown'>(Delivery :
-                      <span className='text-green-600 font-bubble'>&#8377; {order.deliveryCharges} </span>
+                      <span className='text-green-600 font-bold'>&#8377; {order.deliveryCharges} </span>
                       included)
                     </span>
                   </span>}
                 </h2>
-                <h2 className='mt-2 text-xl text-orange font-bold'>Ordered on: <span className='text-brown font-bold'>{showDate(order.date)} at {showTime(order.date)}</span></h2>
+                <h2 className='mt-2 md:text-xl text-orange font-semibold'>Ordered on: <span className='text-brown font-'>{showDate(order.date)} at {showTime(order.date)}</span></h2>
               </div>
 
-              <div className='mt-4 lg:mt-6'>
-                <h2 className='text-xl text-orange font-bold'>Payment mode: <span className='font-bold text-brown'>{order.method === 'COD' ? 'Cash on Delivery' : order.method === 'UPI' ? 'UPI' : order.method + ' CARD'}</span></h2>
-                <h2 className='text-xl text-orange font-bold mt-2'>Order Status : <span className='font-bold text-brown'>{order.status.toUpperCase()}</span></h2>
+              <div className='mt-2 lg:mt-4'>
+                <h2 className='md:text-xl text-orange font-semibold'>Payment mode: <span className=' text-brown'>{order.method === 'COD' ? 'Cash on Delivery' : order.method === 'UPI' ? 'UPI' : order.method + ' CARD'}</span></h2>
+                <h2 className='md:text-xl text-orange font-semibold mt-2'>Order Status : <span className=' text-brown'>{order.status.toUpperCase()}</span></h2>
               </div>
             </div>
           </div>
 
+          {/* Delivery */}
           <div className='relative'>
-            <h2 className='text-2xl bg-[#dcdce6] min-w-fit w-[60%] md:w-[40%] xl:w-[30%] mb-3 mx-auto text-brown px-4 py-2 rounded-2xl md:my-auto font-bold text-center'>Delivery to</h2>
-            <div className='flex flex-col gap-2 ml-4 border-2 py-6 rounded-3xl px-4 my-2 mb-8'>
+            <h2 className='sub-heading'>Delivery to</h2>
+            <div className='flex flex-col gap-2 mx-4 border py-6 rounded-3xl px-4 mt-0 mb-8 paratext'>
               <div className='md:flex md:gap-2'>
-                <h3 className='text-xl font-bold'>{user?.name}, </h3>
-                <h3 className='text-xl font-bold'>{user?.mobile}</h3>
+                <h3>{user?.name}, </h3>
+                <h3>{user?.mobile}</h3>
               </div>
               <div className='md:flex md:gap-4'>
-                <h3 className='text-xl font-bold'>Address:</h3>
-                <h3 className='text-xl font-semibold'>{user?.address?.line1}, {user?.address?.line2},</h3>
+                <h3>Address:</h3>
+                <h3>{user?.address?.line1}, {user?.address?.line2},</h3>
               </div>
               <div className='md:flex md:gap-2 '>
-                <h3 className='text-xl font-semibold'>{user?.address?.city}, {user?.address?.state}</h3>
-                <h3 className='text-xl font-bold'>{user?.address?.pincode}</h3>
+                <h3>{user?.address?.city}, {user?.address?.state}</h3>
+                <h3>{user?.address?.pincode}</h3>
               </div>
-              {status < 7 && <div className='absolute bottom-0 right-0 -translate-x-full -translate-y-full font-bold bg-orange md:px-2 md:py-1 px-1 rounded-md hover:bg-brown hover:text-white transition-all cursor-pointer'>CHANGE</div>}
+              {status < 7 && <div className='text-sm absolute bottom-0 right-0 -translate-x-full -translate-y-full font-bold bg-orange md:px-2 md:py-1 px-1 rounded-md hover:bg-brown hover:text-white transition-all cursor-pointer'>CHANGE</div>}
             </div>
           </div>
 
-          <div className='border p-4 m-4 rounded-2xl'>
-            <h2 className='text-2xl bg-[#dcdce6] min-w-fit w-[60%] md:w-[40%] xl:w-[30%] mb-8 mx-auto text-brown px-4 py-2 rounded-2xl font-bold text-center'>Order Status</h2>
-            {status !== 7 && <div id="line1" className={`mx-2 hidden md:block h-6 bg-green-200 rounded-xl absolute z-[0] ${status === 0 ? 'w-[7%]' : status === 1 ? 'w-[21%]' : status === 2 ? 'w-[35%]' : status === 3 ? 'w-[45%]' : status === 4 ? 'w-[56%]' : status === 5 ? 'w-[68%]' : 'w-[80%]'} `} />}
+          {/* Order Status */}
+          <h2 className='sub-heading'>Order Status</h2>
+          <div className='border p-4 m-4 mt-0 rounded-2xl'>
+            {status !== 7 && <div id="line1" className={`mx-2 hidden md:block h-6 mb-4 bg-green-200 rounded-xl absolute z-[0] ${status === 0 ? 'w-[7%]' : status === 1 ? 'w-[21%]' : status === 2 ? 'w-[35%]' : status === 3 ? 'w-[45%]' : status === 4 ? 'w-[56%]' : status === 5 ? 'w-[68%]' : 'w-[80%]'} `} />}
             {status === 7 ? <div className='mx-auto'>
-              <h2 className='text-xl text-center text-brown font-bold mt-4'>Order is cancelled by the user</h2>
+              <h2 className='text-xl text-center text-brown font-bold'>Order is cancelled by the user. ❌</h2>
             </div> :
               <div className='flex flex-col gap-3 md:gap-0 md:flex-row justify-between '>
 

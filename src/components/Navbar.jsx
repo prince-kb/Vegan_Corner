@@ -8,14 +8,14 @@ import logoutsvg from '../assets/svgs/navbar/logout.svg'
 import usersvg from '../assets/svgs/navbar/user.svg'
 import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useSelector,useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import gsap from 'gsap'
 import { setUser } from '../redux/slices/userSlice'
 import { setNotification } from '../redux/slices/notificationSlice'
 import { setHome } from '../redux/slices/homeSlice'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
-gsap.registerPlugin(ScrollTrigger) 
+gsap.registerPlugin(ScrollTrigger)
 
 
 const Navbar = () => {
@@ -26,7 +26,7 @@ const Navbar = () => {
 
     const user = useSelector(state => state.user.user);
     const [opened, setOpened] = useState(false); //To check if toolbox is opened
-    
+
     const rotate = () => ref.current.classList.toggle('rotate-[-90deg]')
     const rotate1 = () => ref.current.classList.add('rotate-[-90deg]')
 
@@ -43,12 +43,12 @@ const Navbar = () => {
             ref1.current.classList.add('sunshadow')
         },
         onComplete: () => {
+            ref1.current.classList.remove('sunshadow')
             setTimeout(() => {
                 document.getElementById('sun').style.overflow = 'hidden'
                 document.getElementById('sun').style.zIndex = '1'
                 document.querySelectorAll('.stars').forEach((star) => star.style.display = 'flex')
-                ref1.current.classList.remove('sunshadow')
-            }, 3000)
+            }, 1000)
         }
     })
 
@@ -58,44 +58,44 @@ const Navbar = () => {
         startAnim.from('#sun', { x: '-100%', y: '60vh', duration: 2, ease: 'power2.out' })
         startAnim.from('#wheel', { rotate: '-300deg', duration: 2, ease: 'cubic-bezier(0.12, 0, 0.39, 0)' }, '<')
 
-        const tl = gsap.timeline({ 
+        const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: 'body',
                 start: 'top top',
-                end: 'bottom bottom',
+                end: 'bottom top',
                 scrub: 1,
             }
         })
-        
-        tl.to('.sunImage',{
-            rotate: '360deg',
+
+        tl.to('.sunImage', {
+            rotate: '540deg',
             ease: 'linear'
         })
     })
 
-    const logout=()=>{
+    const logout = () => {
         localStorage.removeItem('authy');
         dispatch(setUser(null));
-        dispatch(setNotification({message:'Logged out successfully',type:'success',logo:'tick'}))
+        dispatch(setNotification({ message: 'Logged out successfully', type: 'success', logo: 'tick' }))
         window.location.reload(false);
     }
 
-    const recents = ()=>{
-        if(user){
+    const recents = () => {
+        if (user) {
             dispatch(setHome('recent'));
             navigate('/');
             rotate1();
         }
         else {
             navigate('/signin');
-            setNotification({message:'Please login to view recents',type:'error',logo:'cross'})
+            setNotification({ message: 'Please login to view recents', type: 'error', logo: 'cross' })
         }
     }
 
     return (
         <div className="flex  select-none" onClick={() => opened && setOpened(false)}>
 
-            <div id="tool1"  onClick={goToHomePage} className="w-fit px-4 cursor-pointer md:pr-6 lg:pr-10 h-[64px] lg:h-[92px] bg-orange rounded-br-full flex items-center relative z-[3]">
+            <div id="tool1" onClick={goToHomePage} className="w-fit px-4 cursor-pointer md:pr-6 lg:pr-10 h-[64px] lg:h-[92px] bg-orange rounded-br-full flex items-center relative z-[3]">
                 <img src={logo} alt="Vegan" className='h-8 md:h-12 lg:h-16' />
                 <h1 className="font-bold font-janime tracking-wider text-xl md:text-2xl lg:text-3xl xl:text-4xl ml-2 lg:ml-4">Vegan's Corner</h1>
             </div>
@@ -103,8 +103,10 @@ const Navbar = () => {
             <div id="tool2" className="group/xx  relative h-fit w-fit z-[3] flex justify-center">
                 <div className={`h-[64px] w-[64px] lg:h-[92px] lg:w-[92px] flex rounded-full bg-orange justify-center cursor-pointer items-center `} onMouseEnter={() => { if (!opened) setOpened(!opened) }} onClick={() => setOpened(!opened)}  >
                     <div className='h-[80%] w-[80%] bg-brown rounded-full flex-center'>
-                        {user?.name ? <h2 className='text-yellow-300 font-peach text-4xl md:text-3xl lg:text-4xl'>{user.name.slice(0, 1)}</h2> :
-                            <img src={usersvg} alt="user" className='h-[80%] fill-white bg-brown rounded-full' />}
+                        {user.status === "PENDING" ?
+                            <div className="mr-3 w-6 h-2 rounded-xl flex-center bg-white animate-spin" /> : user?.name ?
+                                <h2 className='text-yellow-300 font-peach text-4xl md:text-3xl lg:text-4xl'>{user.name.slice(0, 1)}</h2> :
+                                <img src={usersvg} alt="user" className='h-[80%] fill-white bg-brown rounded-full' />}
                     </div>
                 </div>
 
@@ -117,7 +119,7 @@ const Navbar = () => {
                                 <img src={logoutsvg} alt="user" className='cursor-pointer hover:scale-110  transition-all hover:translate-x-1 h-8 w-8 stroke-white fill-white' onClick={logout} />
                             }
                         </div>
-                        <div onClick={()=>navigate('/orders')} className='bg-brown text-white text-2xl px-4 py-2 font-bold rounded-2xl transition-all hover:bg-darkbrown cursor-pointer'>
+                        <div onClick={() => navigate('/orders')} className='bg-brown text-white text-2xl px-4 py-2 font-bold rounded-2xl transition-all hover:bg-darkbrown cursor-pointer'>
                             My Orders
                         </div>
 
@@ -136,7 +138,7 @@ const Navbar = () => {
             <div id="sun" className='pointer-events-none fixed h-[92px] md:h-[164px] lg:h-[256px] w-[100vw] flex justify-end '>
                 <div className='pointer-events-auto flex absolute transition-all translate-x-1/2 -translate-y-1/2 scale-50 md:scale-75 lg:scale-100 xl:scale-110'>
                     <div ref={ref1} className='group flex transition-all rounded-full duration-1000' onClick={rotate}>
-                        <div  className=" w-[256px] h-[256px] bg-orange relative rounded-full md:group-hover:rotate-[-90deg] transition-all duration-300 flex justify-center items-center " ref={ref}>
+                        <div className=" w-[256px] h-[256px] bg-orange relative rounded-full md:group-hover:rotate-[-90deg] transition-all duration-300 flex justify-center items-center " ref={ref}>
 
                             <img src={wheel} alt="market" className='sunImage h-64 w-64' id="wheel" />
 
@@ -145,17 +147,17 @@ const Navbar = () => {
                                 <img src={shop} alt="❤️" className='h-8 w-8 rotate-90 ' />
                             </div>
 
-                            <div onClick={()=>{dispatch(setHome('cooked')); navigate('/'); rotate1()}} className="cursor-pointer stars flex-center rounded-full absolute w-[48px] h-[48px] bg-brown left-[-30px]  top-[12px]  hover:scale-150 transition-all group/2">
+                            <div onClick={() => { dispatch(setHome('cooked')); navigate('/'); rotate1() }} className="cursor-pointer stars flex-center rounded-full absolute w-[48px] h-[48px] bg-brown left-[-30px]  top-[12px]  hover:scale-150 transition-all group/2">
                                 <h2 className='bg-brown text-white font-bold text-sm px-2 py-1 rotate-90 rounded-2xl absolute -translate-y-[250%] hidden group-hover/2:block'>Ready to eat</h2>
                                 <img src={quick} alt="❤️" className='h-8 w-8 rotate-90 ' />
                             </div>
 
-                            <div onClick={()=>{dispatch(setHome('quick foods')); navigate('/');  rotate1()}} className="cursor-pointer stars flex-center rounded-full absolute w-[48px] h-[48px] bg-brown left-[12px]   top-[-30px] hover:scale-150 transition-all group/3">
+                            <div onClick={() => { dispatch(setHome('quick foods')); navigate('/'); rotate1() }} className="cursor-pointer stars flex-center rounded-full absolute w-[48px] h-[48px] bg-brown left-[12px]   top-[-30px] hover:scale-150 transition-all group/3">
                                 <h2 className='bg-brown text-white font-bold text-sm px-2 py-1 rotate-90 rounded-2xl absolute -translate-y-[130%] hidden group-hover/3:block'>Quick food</h2>
                                 <img src={baked} alt="❤️" className='h-8 w-8 rotate-90 ' />
                             </div>
 
-                            <div onClick={()=>{navigate('/wishlist'); rotate1()}} className="cursor-pointer stars flex-center rounded-full absolute w-[48px] h-[48px] bg-brown left-[-48px]  top-[72px]  hover:scale-150 transition-all group/4">
+                            <div onClick={() => { navigate('/wishlist'); rotate1() }} className="cursor-pointer stars flex-center rounded-full absolute w-[48px] h-[48px] bg-brown left-[-48px]  top-[72px]  hover:scale-150 transition-all group/4">
                                 <h2 className='bg-brown text-white font-bold text-sm px-2 py-1 rotate-90 rounded-2xl absolute -translate-y-[250%] hidden group-hover/4:block'>Wishlist</h2>
                                 <img src={love} alt="❤️" className='h-8 w-8 rotate-90 ' />
                             </div>

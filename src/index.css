@@ -25,6 +25,13 @@
   .sunshadow{
     box-shadow: 0px 0px 300px 200px #d8a129;
   }
+  .sub-heading {
+    @apply text-xl md:text-2xl text-brown py-1 font-bold text-center
+  }
+
+  .paratext{
+    @apply md:text-xl font-semibold
+  }
 }
 @font-face {
   font-family: Cav;

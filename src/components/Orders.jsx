@@ -44,23 +44,23 @@ const Orders = () => {
                 <h1 className='text-2xl md:text-3xl lg:text-4xl text-center mt-6 mb-4 text-brown font-bubble'>My Orders</h1>
                 {orders.length && orders.map((order) => {
                     return (
-                        <div onClick={() => navigate(`/order/${order.orderId}`)} key={order.orderId} className='cursor-pointer hover:border-brown border-orange flex-center flex-col mt-10 md:mt-16 mb-4 pb-4 border-2 mx-2 md:mx-4 lg:mx-8 rounded-3xl hover:shadow-xl '>
-                            <div className='md:ml-3 mb-4 w-full flex flex-col justify-center md:flex-row md:justify-around items-center'>
+                        <div onClick={() => navigate(`/order/${order.orderId}`)} key={order.orderId} className='cursor-pointer hover:border-brown border-orange flex-center flex-col mt-10 md:mt-16 mb-4 pb-4 border-2 mx-8 md:mx-12 lg:mx-20 xl:mx-32 rounded-3xl hover:shadow-xl '>
+                            <div className='md:ml-3 mb-6 w-full flex flex-col justify-center md:flex-row md:justify-around items-center'>
                                 <div>
-                                    <h2 className='text-xl text-center text-orange font-bold mt-4'>
-                                        Total Price: <span className='text-green-600 font-bubble font-thin'>&#8377; {order.totalPrice}</span>
+                                    <h2 className='paratext text-center text-orange mt-4'>
+                                        Total Price: <span className='text-green-600 font-bold'>&#8377; {order.totalPrice}</span>
                                         {order.deliveryCharges >= 0 && <span className='text-base font-medium ml-3'>
                                             <span className='text-brown'>(Delivery :
-                                                <span className='text-green-600 font-bubble'>&#8377; {order.deliveryCharges} </span>)
+                                                <span className='text-green-600 font-bold'>&#8377; {order.deliveryCharges} </span>)
                                             </span>
                                         </span>}
                                     </h2>
                                     {/* {order.deliveryCharges >= 0 && <h2 className='text-xl font-medium'>Delivery Charges :<span className='text-green-600 font-bubble'>&#8377; {order.deliveryCharges} </span></h2>} */}
-                                    <h2 className='text-xl text-orange font-bold'>Ordered at: <span className='text-brown font-bold'>{showDate(order.date)} at {showTime(order.date)}</span></h2>
+                                    <h2 className='paratext text-orange'>Ordered at: <span className='text-brown '>{showDate(order.date)} at {showTime(order.date)}</span></h2>
                                 </div>
                                 <div className='md:mt-3'>
-                                    <h2 className='text-xl text-orange font-bold'>Payment mode: <span className='font-bold text-brown'>{order.method === 'COD' ? 'Cash on Delivery' : order.method === 'UPI' ? 'UPI' : order.method + ' CARD'}</span></h2>
-                                    <h2 className='text-xl text-orange font-bold '>Order Status : <span className='font-bold text-brown'>{order.status.toUpperCase()}</span></h2>
+                                    <h2 className='paratext text-orange'>Payment mode: <span className=' text-brown'>{order.method === 'COD' ? 'Cash on Delivery' : order.method === 'UPI' ? 'UPI' : order.method + ' CARD'}</span></h2>
+                                    <h2 className='paratext text-orange '>Order Status : <span className=' text-brown'>{order.status.toUpperCase()}</span></h2>
                                 </div>
                             </div>
 
@@ -70,12 +70,12 @@ const Orders = () => {
                                     return (
                                         <div onClick={(e) => gotoProduct(e, product.id)} key={product.id} className='mb-3 mx-auto cursor-pointer relative px-1 w-[240px] min-w-[160px] md:min-w-[200px] lg:min-w-[240px] hover:neu2 border-2 rounded-2xl transition-all shadow-lg flex flex-col items-center justify-around'>
                                             <div className=' py-2 md:py-4 rounded-xl  '>
-                                                <h2 className=' font-bold my-2 text-center mb-4 text-xl md:text-2xl text-brown'>{product?.name}</h2>
+                                                <h2 className=' font-semibold my-2 text-center mb-4 text-lg md:text-2xl text-brown'>{product?.name}</h2>
                                                 <div className='flex-col flex-center md:flex-row'>
                                                     <img src={product?.image} alt={product?.name} className='max-w-[100%] h-[120px] lg:h-[180px] mb-2 rounded-md' />
                                                 </div>
                                             </div>
-                                            <div className='text-2xl text-brown font-bold mb-2'>x {item.quantity}</div>
+                                            <div className='text-xl text-brown font-bold mb-2'>x{item.quantity}</div>
                                         </div>
                                     )
                                 })
