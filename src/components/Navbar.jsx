@@ -104,7 +104,7 @@ const Navbar = () => {
                 <div className={`h-[64px] w-[64px] lg:h-[92px] lg:w-[92px] flex rounded-full bg-orange justify-center cursor-pointer items-center `} onMouseEnter={() => { if (!opened) setOpened(!opened) }} onClick={() => setOpened(!opened)}  >
                     <div className='h-[80%] w-[80%] bg-brown rounded-full flex-center'>
                         {user.status === "PENDING" ?
-                            <div className="mr-3 w-6 h-2 rounded-xl flex-center bg-white animate-spin" /> : user?.name ?
+                            <div className=" w-6 h-2 rounded-xl flex-center bg-white animate-spin mx-auto" /> : user?.name ?
                                 <h2 className='text-yellow-300 font-peach text-4xl md:text-3xl lg:text-4xl'>{user.name.slice(0, 1)}</h2> :
                                 <img src={usersvg} alt="user" className='h-[80%] fill-white bg-brown rounded-full' />}
                     </div>
