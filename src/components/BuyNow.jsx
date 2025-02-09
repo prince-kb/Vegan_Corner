@@ -144,6 +144,7 @@ const BuyNow = () => {
       ) : !user ? (
         <div>
           <h1 className="mb-2 ml-6 font-bubble text-2xl font-bold tracking-widest text-brown md:text-3xl lg:ml-8 lg:text-4xl">
+            {" "}
             Not LOGGED IN!
           </h1>
           <h2 className="mb-2 ml-6 font-bubble text-xl font-bold tracking-wider text-orange md:text-2xl lg:ml-8 lg:text-3xl">
@@ -153,6 +154,7 @@ const BuyNow = () => {
             onClick={() => navigate("/login")}
             className="cursor-pointer text-2xl font-bold text-purple-500 hover:text-orange"
           >
+            {" "}
             LOGIN
           </button>
         </div>
@@ -182,24 +184,20 @@ const BuyNow = () => {
                 onClick={() => navigate(`/product/${item.id}`)}
                 className="flex cursor-pointer flex-col gap-4"
               >
-                <h1 className="mx-2 text-center text-2xl font-bold">
+                <h1 className="mx-2 headtext">
                   {item.name} ({item.quantity})
                 </h1>
-                <h1 className="mx-2 text-center font-bubble text-2xl font-bold text-green-600">
-                  ₹{item.price}
-                </h1>
+                <h1 className="headtext mx-2 text-green-600">₹{item.price}</h1>
               </div>
               <div>
-                <div className="mr-4 flex flex-col gap-2 md:mr-6">
+                <div className="mr-4 flex flex-col gap-2 md:mr-6 my-2">
                   <button
                     onClick={() => setQuantity(quantity + 1)}
                     className="rounded-xl bg-orange px-2 pb-1 text-2xl font-bold text-white transition-all hover:-translate-y-1 hover:scale-110"
                   >
                     +
                   </button>
-                  <h2 className="text-center text-xl font-bold md:text-2xl">
-                    {quantity}
-                  </h2>
+                  <h2 className="headtext">{quantity}</h2>
                   <button
                     onClick={() => {
                       quantity !== 1 && setQuantity(quantity - 1);
@@ -215,13 +213,13 @@ const BuyNow = () => {
             <div className="z-[1] my-2 mb-8 border-b-2 border-black">
               {pay < 399 && (
                 <div className="flex flex-col gap-0">
-                  <h2 className="mx-auto min-w-fit px-4 text-center text-xl font-bold text-black md:text-xl">
+                  <h2 className="paratext mx-auto min-w-fit px-4">
                     Product Cost :{" "}
-                    <span className="rounded-xl px-2 py-1 text-[1.1em] text-green-600">
+                    <span className="px-2 py-1 text-[1.1em] text-green-600">
                       &#8377; {pay}
                     </span>
                   </h2>
-                  <h2 className="mx-auto min-w-fit border-b-2 px-4 text-center text-xl font-bold text-black md:text-xl">
+                  <h2 className="paratext mx-auto min-w-fit border-b-2 px-4">
                     Delivery Charges :{" "}
                     <span className="rounded-xl px-2 py-1 text-[1.1em] text-green-600">
                       &#8377; {49}
@@ -229,56 +227,50 @@ const BuyNow = () => {
                   </h2>
                 </div>
               )}
-              <h2 className="mx-auto min-w-fit px-4 py-2 text-center text-2xl font-bold text-black md:text-3xl">
+              <h2 className="paratext text-center mx-auto min-w-fit px-4 py-2">
                 Total Amount :{" "}
                 <span className="rounded-xl px-2 py-1 text-[1.1em] text-green-600">
                   &#8377; {payment}
                 </span>
               </h2>
               <div>
-                <h2 className="mx-auto min-w-fit px-4 py-2 text-center text-xl font-bold text-black md:text-2xl">
+                <h2 className="sub-heading text-center mx-auto min-w-fit px-4 py-2">
                   Delivery by
                   <span className="rounded-xl px-2 py-1 text-green-700">
                     {deliveryDate}
-                  </span>{" "}
-                  within 9 PM
+                  </span>within 9 PM
                 </h2>
               </div>
             </div>
 
             <div className="relative">
-              <h2 className="mx-auto mb-3 w-[60%] min-w-fit rounded-2xl bg-[#dcdce6] px-4 py-2 text-center text-2xl font-bold text-brown md:my-auto md:w-[40%] xl:w-[30%]">
-                Delivery to
-              </h2>
-              <div className="my-2 mb-8 ml-4 flex flex-col gap-2 rounded-3xl border-2 px-4 py-6">
-                <div className="md:flex md:gap-2">
-                  <h3 className="text-xl font-bold">{user?.name}, </h3>
-                  <h3 className="text-xl font-bold">{user?.mobile}</h3>
+              <h2 className="sub-heading">Delivery to</h2>
+              <div className="my-2 mb-8 mx-2 flex flex-col gap-2 rounded-3xl border-2 px-4 py-6">
+                <div className="paratext md:flex md:gap-2">
+                  <h3>{user?.name}, </h3>
+                  <h3>{user?.mobile}</h3>
                 </div>
-                <div className="md:flex md:gap-4">
-                  <h3 className="text-xl font-bold">Address:</h3>
-                  <h3 className="text-xl font-semibold">
+                <div className="paratext md:flex md:gap-4">
+                  <h3>Address:</h3>
+                  <h3>
                     {user?.address?.line1}, {user?.address?.line2},
                   </h3>
                 </div>
-                <div className="md:flex md:gap-2">
-                  <h3 className="text-xl font-semibold">
+                <div className="paratext md:flex md:gap-2">
+                  <h3>
                     {user?.address?.city}, {user?.address?.state}
                   </h3>
-                  <h3 className="text-xl font-bold">
-                    {user?.address?.pincode}
-                  </h3>
+                  <h3>{user?.address?.pincode}</h3>
                 </div>
-                <div className="absolute bottom-0 right-0 -translate-x-full -translate-y-full cursor-pointer rounded-md bg-orange px-1 font-bold transition-all hover:bg-brown hover:text-white md:px-2 md:py-1">
+                <div className="absolute bottom-0 right-0 -translate-x-full -translate-y-full cursor-pointer rounded-md bg-orange px-1 text-sm font-bold transition-all hover:bg-brown hover:text-white md:px-2 md:py-1">
                   CHANGE
                 </div>
               </div>
             </div>
 
-            <h2 className="mx-auto my-2 w-[60%] min-w-fit rounded-2xl bg-[#dcdce6] px-4 py-2 text-center text-2xl font-bold text-brown md:w-[50%] lg:w-[40%]">
-              Payment Method
-            </h2>
-            <div className="ml-4 mt-2 flex flex-col gap-2 rounded-3xl border-2 px-4 py-6">
+            <h2 className="sub-heading">Payment Method</h2>
+            <div className="mx-2 mt-2 flex flex-col gap-2 rounded-3xl border-2 px-4 py-6">
+              {/* COD */}
               <div className="my-2 flex items-center justify-between rounded-2xl border px-2 py-4 md:px-4">
                 <div className="flex">
                   <input
@@ -291,15 +283,14 @@ const BuyNow = () => {
                   />
                   <label
                     htmlFor="cashondelivery"
-                    className="m-2 ml-4 cursor-pointer text-xl font-bold"
+                    className="paymentlabel"
                   >
                     Cash on Delivery
                     <div className="text-sm font-medium">
-                      <h3 className="text-base font-semibold md:text-lg">
-                        Secure payment using cash or upi at the time of
-                        delivery.
+                      <h3 className="paratext">
+                        Secure payment using cash or upi at the time of delivery.
                       </h3>
-                      <h4 className="text-sm font-medium md:text-base">
+                      <h4 className="smalltext">
                         Available only for orders above &#8377; 399 else a
                         nominal fee of &#8377;439 will be charged.
                       </h4>
@@ -313,6 +304,7 @@ const BuyNow = () => {
                 />
               </div>
 
+              {/* DEBIT */}
               <div className="my-2 flex items-center justify-between rounded-2xl border px-2 py-4 md:px-4">
                 <div className="flex">
                   <input
@@ -325,14 +317,14 @@ const BuyNow = () => {
                   />
                   <label
                     htmlFor="debitcard"
-                    className="m-2 ml-4 cursor-pointer text-xl font-bold"
+                    className="paymentlabel"
                   >
                     Debit Card
                     <div className="text-sm font-medium">
-                      <h3 className="text-base font-semibold md:text-lg">
+                      <h3 className="paratext">
                         Secure and reliable.
                       </h3>
-                      <h4 className="text-sm font-medium md:text-base">
+                      <h4 className="smalltext">
                         Pay using your Rupay or VISA Debit card.
                       </h4>
                     </div>
@@ -345,6 +337,7 @@ const BuyNow = () => {
                 />
               </div>
 
+              {/* UPI */}
               <div className="my-2 flex items-center justify-between rounded-2xl border px-2 py-4 md:px-4">
                 <div className="flex">
                   <input
@@ -357,14 +350,14 @@ const BuyNow = () => {
                   />
                   <label
                     htmlFor="upi"
-                    className="m-2 ml-4 cursor-pointer text-xl font-bold"
+                    className="paymentlabel"
                   >
                     UPI
                     <div className="text-sm font-medium">
-                      <h3 className="text-base font-semibold md:text-lg">
+                      <h3 className="paratext">
                         Faster and reliable paymet method.{" "}
                       </h3>
-                      <h4 className="text-sm font-medium md:text-base">
+                      <h4 className="smalltext">
                         Pay using your PayTM, PhonePe, GooglePay, BhimUPI or any
                         other UPI app.
                       </h4>
@@ -378,6 +371,7 @@ const BuyNow = () => {
                 />
               </div>
 
+              {/* CREDIT */}
               <div className="my-2 flex items-center justify-between rounded-2xl border px-2 py-4 md:px-4">
                 <div className="flex">
                   <input
@@ -390,18 +384,18 @@ const BuyNow = () => {
                   />
                   <label
                     htmlFor="credit"
-                    className="m-2 ml-4 cursor-pointer text-xl font-bold"
+                    className="paymentlabel"
                   >
                     Credit Card
                     <div className="text-sm font-medium">
-                      <h3 className="text-base font-semibold md:text-lg">
+                      <h3 className="paratext">
                         Faster, reliable and best offer payment method.{" "}
                       </h3>
-                      <h3 className="text-sm font-semibold text-green-700 md:text-base">
+                      <h3 className="paratext text-green-700">
                         7% instant discount on SBI, HDFC and IndusInd Bank
                         credit cards.
                       </h3>
-                      <h4 className="text-sm font-medium md:text-base">
+                      <h4 className="smalltext">
                         Pay using your Mastercard, from any country.
                       </h4>
                     </div>

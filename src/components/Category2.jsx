@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Category from "./Category";
 import { useNavigate } from "react-router-dom";
 import { setNotification } from "../redux/slices/notificationSlice";
 import { updateUser } from "../redux/slices/userSlice";
-import { order, updateOrderList } from "../redux/slices/orderSlice";
+import { updateOrderList } from "../redux/slices/orderSlice";
 import { config } from "../lib/config";
+import Category from "./Category";
+import loaderSpinner from "../assets/svgs/loader.svg";
 
 const Category2 = (props) => {
   const dispatch = useDispatch();
@@ -14,19 +15,21 @@ const Category2 = (props) => {
   const user = useSelector((state) => state.user.user);
   const [all, setAll] = useState([]);
   const [orderList, setOrderList] = useState([]);
+  const [pending, setPending] = useState(true);
 
   useEffect(() => {
     if (user && user.cart && catalogue) {
       let updatedCart = user.cart;
       setOrderList([]);
 
-      updatedCart.map((cartItem) => {
-        const item = catalogue.find((item) => item.id === cartItem.id);
-        if (item) {
-          const p = { ...cartItem, price: item.price };
-          setOrderList((prev) => [...prev, p]);
-        }
-      });
+      updatedCart.length > 0 &&
+        updatedCart.map((cartItem) => {
+          const item = catalogue.find((item) => item.id === cartItem.id);
+          if (item) {
+            const p = { ...cartItem, price: item.price };
+            setOrderList((prev) => [...prev, p]);
+          }
+        });
     }
   }, [user]);
 
@@ -35,7 +38,11 @@ const Category2 = (props) => {
   }, [orderList]);
 
   useEffect(() => {
-    if (props.type === "cart" && user && catalogue.length > 1) {
+    if (props.type === "cart" && user && catalogue?.length > 0) {
+      if (!user || !catalogue || !user.cart) {
+        setAll([]);
+        return;
+      }
       const alll = catalogue.filter((item) => {
         return (
           user.cart.filter(function (cartItem) {
@@ -45,16 +52,21 @@ const Category2 = (props) => {
       });
       setAll(alll);
     } else if (props.type === "wishlist" && user && catalogue.length > 1) {
+      if (!user || !catalogue || !user.cart) {
+        setAll([]);
+        return;
+      }
       setAll(
-        catalogue.filter((item) => {
+        catalogue?.filter((item) => {
           return (
-            user.wishlist.filter(function (wishlistItem) {
+            user?.wishlist?.filter(function (wishlistItem) {
               return wishlistItem === item.id;
             }).length !== 0
           );
         }),
       );
-    }
+    } else setAll([]);
+    setPending(false);
   }, [user, catalogue]);
 
   const remove = async (id) => {
@@ -238,10 +250,14 @@ const Category2 = (props) => {
     }
   };
 
-  return (
+  return pending ? (
+    <div className="flex-center">
+      <img src={loaderSpinner} alt="loader" className="h-20 w-20" />
+    </div>
+  ) : (
     <div className="z-[3] mt-8">
-      {all.length > 0 ? (
-        all.map((item) => {
+      {all?.length > 0 ? (
+        all?.map((item) => {
           return (
             <div
               key={item.id}
@@ -252,16 +268,16 @@ const Category2 = (props) => {
                   onClick={() => navigate(`/product/${item.id}`)}
                   src={item.image}
                   alt={item.name}
-                  className="w-1/4 cursor-pointer rounded-3xl p-2"
+                  className="w-1/4 cursor-pointer rounded-2xl p-2"
                 />
                 <div
                   onClick={() => navigate(`/product/${item.id}`)}
                   className="flex cursor-pointer flex-col gap-4"
                 >
-                  <h1 className="mx-2 text-center text-2xl font-bold">
+                  <h1 className="headtext mx-2">
                     {item.name} ({item.quantity})
                   </h1>
-                  <h1 className="mx-2 text-center font-bubble text-2xl font-bold text-green-600">
+                  <h1 className="headtext mx-2 text-green-600">
                     ₹{item.price}
                   </h1>
                 </div>
@@ -272,18 +288,20 @@ const Category2 = (props) => {
                         onClick={() => addCart(item.id)}
                         className="rounded-xl bg-orange px-2 pb-1 text-2xl font-bold text-white transition-all hover:-translate-y-1 hover:scale-110"
                       >
+                        {" "}
                         +
                       </button>
                       <h2 className="text-center text-xl font-bold md:text-2xl">
                         {
-                          user.cart.filter((item1) => item1.id === item.id)[0]
-                            .quantity
+                          user?.cart?.filter((item1) => item1.id === item.id)[0]
+                            ?.quantity
                         }
                       </h2>
                       <button
                         onClick={() => subtractCart(item.id)}
                         className="rounded-xl bg-orange px-2 pb-2 text-2xl font-bold text-white transition-all hover:translate-y-1 hover:scale-110"
                       >
+                        {" "}
                         -
                       </button>
                     </div>
