@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
+import loaderSpinner from "../assets/svgs/loader.svg";
+
 
 
 const Orders = () => {
@@ -10,7 +12,7 @@ const Orders = () => {
     const [orders, setOrders] = useState([]);
 
     useEffect(() => {
-        if (user && user.orders.length) {
+        if (user && user?.orders?.length) {
             let reversedOrders = [];
             reversedOrders.push(...user.orders);
             reversedOrders.reverse();
@@ -19,12 +21,14 @@ const Orders = () => {
     }, [user])
 
     const showDate = (da) => {
+        if (!da) return "Not available"
         return new Date(new Date(da).getTime()).toString().slice(0, 16);
     }
 
     const showTime = (da) => {
         const d = new Date(da);
         const x = d.toLocaleString();
+        if (!x) return "Not available"
         return x.slice(x.length - 11, x.length - 6) + ' ' + x.slice(x.length - 2);
     }
 
@@ -42,7 +46,7 @@ const Orders = () => {
         </div> :
             <div>
                 <h1 className='text-2xl md:text-3xl lg:text-4xl text-center mt-6 mb-4 text-brown font-bubble'>My Orders</h1>
-                {orders.length && orders.map((order) => {
+                {orders?.length ? orders.map((order) => {
                     return (
                         <div onClick={() => navigate(`/order/${order.orderId}`)} key={order.orderId} className='cursor-pointer hover:border-brown border-orange flex-center flex-col mt-10 md:mt-16 mb-4 pb-4 border-2 mx-8 md:mx-12 lg:mx-20 xl:mx-32 rounded-3xl hover:shadow-xl '>
                             <div className='md:ml-3 mb-6 w-full flex flex-col justify-center md:flex-row md:justify-around items-center'>
@@ -82,7 +86,9 @@ const Orders = () => {
                                 }
                             </div>
                         </div>)
-                })
+                }) : <div className='flex-center'>
+                    <img src={loaderSpinner} alt="" className='h-20 w-20' />
+                </div>
                 }
             </div>
     )

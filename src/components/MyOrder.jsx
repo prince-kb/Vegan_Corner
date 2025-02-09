@@ -24,7 +24,7 @@ const MyOrder = () => {
   }, [user, orderId])
 
   useEffect(() => {
-    if (user) setOrder(user.orders.find((item) => item.orderId === orderId))
+    if (user) setOrder(user?.orders?.find((item) => item.orderId === orderId))
   }, [user, orderId])
 
   useEffect(() => {
@@ -96,7 +96,7 @@ const MyOrder = () => {
           <div className=' md:ml-3 mb-4 w-full flex flex-col justify-center md:justify-around items-center  border rounded-2xl py-3'>
 
             <div className='flex mx-2 gap-2 overflow-auto w-full px-2'>
-              {order?.orderList.map((item) => {
+              {catalogue.length && order?.orderList?.map((item) => {
                 const product = catalogue.find((product) => product.id === item.id);
                 return (
                   <div onClick={() => navigate(`/product/${product.id}`)} key={product.id} className='mb-3 mx-auto cursor-pointer border relative px-1 w-[240px] min-w-[160px] md:min-w-[200px] lg:min-w-[240px] hover:neu2 rounded-2xl transition-all shadow-lg flex flex-col items-center justify-around'>

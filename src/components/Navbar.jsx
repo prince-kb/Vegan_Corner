@@ -62,7 +62,7 @@ const Navbar = () => {
             scrollTrigger: {
                 trigger: 'body',
                 start: 'top top',
-                end: 'bottom top',
+                end: 'bottom bottom',
                 scrub: 1,
             }
         })

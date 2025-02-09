@@ -19,6 +19,7 @@ import { updateUser } from "../redux/slices/userSlice";
 import { setNotification } from "../redux/slices/notificationSlice";
 import { updateBuyNow } from "../redux/slices/buyNowSlice";
 import { config } from "../lib/config";
+import Category from "./Category"
 
 
 const Product = () => {
@@ -228,22 +229,22 @@ const Product = () => {
     const { name, details, images, seller, ratings, reviews, rrlink, priority, offer } = product;
 
     return (
-        mainLoader ? <div className="flex justify-center items-center h-screen">
-            {error ? <div className="text-center">
-                <div className="flex items-cente">
-                    <img src={errorimg} alt="error" className="h-4 w-4 md:h-8 md:w-8 mr-4 md:mr-8 animate-ping" />
-                    <h1 className="md:text-3xl text-red-600 font-bold text-2xl">Unable to fetch data at the Moment</h1>
+        mainLoader ? <div className="flex justify-center items-center min-h-screen">
+            {error ? <div className="text-center ">
+                <div className="flex-center gap-2">
+                    <img src={errorimg} alt="error" className=" md:mr-4 h-4 w-4 md:h-8 md:w-8 animate-ping" />
+                    <h1 className="md:text-2xl text-red-600 font-bold text-xl">Unable to fetch data at the moment !</h1>
                 </div>
-                <button className="my-4 rounded-2xl px-4 py-2 bg-blue-500 text-white font-bold text-xl" onClick={() => window.location.reload()}>Go Back to Home</button>
+                <button className="my-4 rounded-2xl px-4 py-2 bg-blue-500 text-white para-text" onClick={() => window.location.reload()}>Go back</button>
             </div> :
                 <img src={loaderSpinner} alt="Loading..." className="h-24 w-24" />
             }
         </div> : !error &&
 
-        <div className="mt-6 mb-4 flex flex-col items-center">
+        <div className="mt-6 mb-4 flex flex-col min-h-screen">
 
             {/* IMAGE PART */}
-            <div className="xl:flex flex flex-col p-8 mb-4 min-w-3/4 w-fit items-center neu1 relative ">
+            <div className="xl:flex flex flex-col p-8 mb-4 min-w-3/4 w-fit items-center neu1 relative mx-auto ">
                 {/* Priority Part */}
                 {
                     <div className={`absolute right-2 md:right-4`}>
@@ -285,11 +286,11 @@ const Product = () => {
 
             {/* BUY NOW PART */}
             <div className="flex justify-around rounded-3xl py-2 lg:py-4 m-2 mb-4 px-2 md:px-6 gap-4 w-[95vw] md:w-[80vw] font-semibold">
-                <Link to="/buynow" onClick={buynow} className="min-w-[20vw] flex-center px-2 md:px-4 lg:px-6 py-1 md:py-2 lg:py-4 group/1 bg-green-500 shadow-sm shadow-green-300 hover:scale-105 transition-all text-gray-50 rounded-2xl">
+                <Link to="/buynow" onClick={buynow} className="min-w-[20vw] flex-center px-4 lg:px-6 py-2 lg:py-4 group/1 bg-green-500 shadow-sm shadow-green-300 hover:scale-105 transition-all text-gray-50 rounded-2xl">
                     <h1 className="text-xl md:text-2xl lg:text-3xl mr-2">Buy Now! </h1>
                     <img src={tick} alt="BUY" className="h-6 w-6 md:h-8 md:w-8 md:ml-2 lg:h-12 lg:w-12 group-hover/1:scale-[118%] group-hover/1:translate-x-2 transition-all" />
                 </Link>
-                <div onClick={addtocart} className="cursor-pointer min-w-[20vw] flex-center px-4 lg:px-6 py-4 lg:py-4 bg-yellow-500 shadow-sm shadow-yellow-300 rounded-2xl hover:scale-105 transition-all group/2">
+                <div onClick={addtocart} className="cursor-pointer min-w-[20vw] flex-center px-4 lg:px-6 py-2 lg:py-4 bg-yellow-500 shadow-sm shadow-yellow-300 rounded-2xl hover:scale-105 transition-all group/2">
                     <h1 className="text-xl md:text-2xl lg:text-3xl mr-2">Add to Cart </h1>
                     <img src={cartadd} alt="BUY" className="h-6 w-6 md:h-8 md:w-8 md:ml-2 lg:h-12 lg:w-12 group-hover/2:scale-[118%] transition-all" />
                 </div>
@@ -390,6 +391,11 @@ const Product = () => {
                 </div>
 
             </div>
+
+            {/* Similar products */}
+            {product && <div className="rounded-2xl ml-2">
+                <Category type="type" product={product} />
+            </div>}
 
         </div>
     )
