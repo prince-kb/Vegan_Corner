@@ -102,10 +102,10 @@ const SignIn = () => {
 
       <div className="h-[80vh] w-[40vw] md:h-[70vh] lg:h-[60vh]">
         <div className="flex h-full flex-col items-center justify-center">
-          <h2 className="mb-12 ml-4 text-center font-janime text-[4.5vw] font-semibold tracking-widest text-brown md:text-[3.2vw]">
+          <h2 className="mb-12 ml-4 font-janime sub-heading">
             WELCOME BACK !
           </h2>
-          <h3 className="mb-8 ml-4 text-center font-janime text-3xl font-semibold tracking-widest text-brown md:text-4xl lg:text-5xl xl:text-6xl">
+          <h3 className="mb-8 ml-4 text-center font-janime text-2xl font-semibold tracking-widest text-brown md:text-3xl">
             SIGN IN
           </h3>
 
