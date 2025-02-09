@@ -46,18 +46,17 @@ const Category = (props) => {
                                 : <div className={`${item.priority >= 3 ? 'bg-violet-500' : item.priority === 2 ? 'bg-orange' : item.priority === 1 ? 'bg-blue-500' : 'bg-red-500'} text-white p-1 md:p-2 rounded-full`}></div>
                             }
                         </div>
-
                         <h2 className="lg:px-2 text-center font-semibold text-md md:text-xl lg:text-2xl mt-4 lg:mt-6 mb-2">{item.name}</h2>
                         <img src={item.image} alt={item.name} className="max-w-[100%] h-[120px] lg:h-[180px] mb-2 rounded-md" />
                         <hr />
                         <div className="flex mt-2 justify-around w-full">
                             <div className="text-start">
-                                <h3 className="text-green-500 font-bubble text-md md:text-xl">&#8377; {item.price} </h3>
-                                <p className="text-md md:text-lg text-center font-brown font-walto line-through">{item.price2}</p>
+                                <h3 className="text-green-700 font-bold text-md md:text-xl">&#8377;{item.price} </h3>
+                                <p className="text-md md:text-lg text-center font-brown font-walto line-through text-gray-600">{item.price2}</p>
                             </div>
-                            <div className="text-end flex-col justify-center">
+                            <div className="text-end flex-col justify-center  text-gray-700">
                                 <h2 className="font-medium mr-1">{item.quantity}</h2>
-                                <h2 className="text-base md:text-xl font-normal text-center mb-2">{item.rating}<span className="text-sm md:text-base">⭐<span /></span></h2>
+                                <h2 className="text-base md:text-xl font-medium text-center mb-2">{item.rating}<span className="text-sm md:text-base">⭐<span /></span></h2>
                             </div>
 
                         </div>

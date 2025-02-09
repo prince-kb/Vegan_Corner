@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { updateCatalogue } from "./redux/slices/catalogueSlice";
 import { useEffect } from "react";
-import { updateUser } from "./redux/slices/userSlice";
+import { noUser, updateUser } from "./redux/slices/userSlice";
 import Notification from "./components/Notification";
 import { config } from "./lib/config";
 
@@ -26,7 +26,7 @@ function App() {
         },
       });
       dispatch(updateUser());
-    }
+    } else dispatch(updateUser(noUser()));
   };
 
   useEffect(() => {

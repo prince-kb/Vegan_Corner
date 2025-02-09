@@ -36,7 +36,7 @@ const Cart = () => {
       <hr />
       {user?.cart?.length > 0 && (
         <div>
-          <div className="headtext my-4 text-gray-800">
+          <div className="paratext text-center my-4 text-gray-800">
             <h2>CART TOTAL: &#8377; {totalBalance}.00</h2>
             <h2>
               SHIPPING CHARGES : &#8377;{totalBalance > 399 ? "FREE" : "49"}
@@ -44,12 +44,12 @@ const Cart = () => {
           </div>
           <hr />
           <div className="my-4 flex flex-col justify-center gap-2">
-            <h3 className="headtext my-4 text-center">
+            <h3 className="text-lg font-semibold my-4 text-center">
               TOTAL AMOUNT TO PAY : &#8377;{" "}
               {totalBalance > 399 ? totalBalance : totalBalance + 49}.00
             </h3>
             <button
-              className="mx-auto w-[70%] cursor-pointer gap-4 rounded-2xl bg-orange px-6 py-2 text-center text-xl font-bold tracking-tight text-white ring-brown transition-all hover:translate-x-2 active:ring-2 md:w-[50%] md:text-3xl lg:w-[40%] xl:w-[30%]"
+              className="mx-auto w-[70%] cursor-pointer gap-4 rounded-2xl bg-orange px-6 py-2 text-center text-xl font-bold tracking-tight text-brown ring-brown transition-all hover:translate-x-2 active:ring-2 md:w-[50%] md:text-3xl lg:w-[40%] xl:w-[30%]"
               onClick={placeOrder}
             >
               PROCEED TO CHECKOUT {"->"}{" "}

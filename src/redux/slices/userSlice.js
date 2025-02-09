@@ -13,7 +13,7 @@ export const updateUser = createAsyncThunk("updateUser", async () => {
       Accept: "application/json",
       secret: SERVER_SECRET,
       authToken: token,
-    },
+    }
   });
   const data = await response.json();
   if (data) return data;
@@ -25,12 +25,15 @@ const userSlice = createSlice({
   initialState: {
     user: {
       status: "PENDING",
-    },
+    }
   },
   reducers: {
     setUser: (state, action) => {
       state.user = action.payload;
     },
+    noUser : (state)=>{
+      state.user=null;
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(updateUser.pending),
@@ -45,5 +48,5 @@ const userSlice = createSlice({
     });
   },
 });
-export const { setUser } = userSlice.actions;
+export const { setUser,noUser } = userSlice.actions;
 export const user = userSlice.reducer;

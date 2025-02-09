@@ -1,4 +1,4 @@
-import React, { useEffect, useId, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -10,6 +10,7 @@ import { updateMethod, updateTransactionId } from "../redux/slices/orderSlice";
 import { setNotification } from "../redux/slices/notificationSlice";
 import { updateUser } from "../redux/slices/userSlice";
 import { config } from "../lib/config";
+import Delivery from "./smallComponents/Delivery";
 
 const CheckOut = () => {
   const user = useSelector((state) => state.user.user);
@@ -17,6 +18,7 @@ const CheckOut = () => {
   const order = useSelector((state) => state.order.order);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const [checked, setChecked] = useState(1);
 
   useEffect(() => {
@@ -50,15 +52,22 @@ const CheckOut = () => {
     const transactionIdd = Math.floor(Math.random() * 1000000000000000);
     dispatch(updateTransactionId(transactionIdd));
 
-    const { orderList, method, transactionId, deliveryCharges, totalPrice } =
-      order;
-    if (!orderList.length || !method || !transactionId || !totalPrice) {
+    const { orderList, method, deliveryCharges, totalPrice } = order;
+    if (!orderList.length || !method || !transactionIdd || !totalPrice) {
       navigate("/cart");
     }
 
     const API = config.server;
     const SERVER_SECRET = config.serverSecret;
     const token = localStorage.getItem("authy");
+    const d1 = JSON.stringify({
+      orderList,
+      method,
+      transactionId : transactionIdd,
+      deliveryCharges,
+      totalPrice,
+    })
+    console.log(d1)
     const response = await fetch(`${API}/api/user/order`, {
       method: "PUT",
       headers: {
@@ -67,19 +76,12 @@ const CheckOut = () => {
         secret: SERVER_SECRET,
         authToken: token,
       },
-      body: JSON.stringify({
-        orderList,
-        method,
-        transactionId,
-        deliveryCharges,
-        totalPrice,
-      }),
+      body: d1,
     });
     const data = await response.json();
+    console.log(data)
     if (data.success) {
-      dispatch(
-        setNotification({ message: data.message, type: "", logo: "heart" }),
-      );
+      dispatch(setNotification({ message: data.message, type: "", logo: "heart" }));
       dispatch(updateUser());
       navigate("/orders");
     } else {
@@ -120,7 +122,7 @@ const CheckOut = () => {
               </span>
             </h2>
             <div>
-              <h2 className="mx-auto min-w-fit px-4 py-2 text-center text-xl font-bold text-black md:text-2xl">
+              <h2 className=" px-4 py-2 headtext">
                 Delivery by
                 <span className="rounded-xl px-2 py-1 text-green-700">
                   {deliveryDate}
@@ -130,33 +132,13 @@ const CheckOut = () => {
             </div>
           </div>
           <div className="relative">
-            <h2 className="mx-auto mb-6 w-[60%] min-w-fit rounded-2xl bg-orange px-4 py-2 text-center text-2xl font-bold text-white md:my-auto md:w-[40%] xl:w-[30%]">
+            <h2 className="sub-heading">
               Deliver to
             </h2>
-            <div className="my-2 mb-8 ml-4 flex flex-col gap-2 rounded-3xl border-2 px-4 py-6">
-              <div className="md:flex md:gap-2">
-                <h3 className="text-xl font-bold">{user?.name}, </h3>
-                <h3 className="text-xl font-bold">{user?.mobile}</h3>
-              </div>
-              <div className="md:flex md:gap-4">
-                <h3 className="text-xl font-bold">Address:</h3>
-                <h3 className="text-xl font-semibold">
-                  {user?.address?.line1}, {user?.address?.line2},
-                </h3>
-              </div>
-              <div className="md:flex md:gap-2">
-                <h3 className="text-xl font-semibold">
-                  {user?.address?.city}, {user?.address?.state}
-                </h3>
-                <h3 className="text-xl font-bold">{user?.address?.pincode}</h3>
-              </div>
-              <div className="absolute bottom-0 right-0 -translate-x-full -translate-y-full cursor-pointer rounded-md bg-orange px-1 font-bold transition-all hover:bg-brown hover:text-white md:px-2 md:py-1">
-                CHANGE
-              </div>
-            </div>
+            <Delivery user={user} />
           </div>
 
-          <h2 className="mx-auto my-2 w-[60%] min-w-fit rounded-2xl bg-orange px-4 py-2 text-center text-2xl font-bold text-white md:w-[50%] lg:w-[40%]">
+          <h2 className="sub-heading">
             Payment Method
           </h2>
 

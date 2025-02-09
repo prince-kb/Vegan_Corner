@@ -50,6 +50,10 @@
   .smalltext{
     @apply text-xs md:text-sm text-gray-600;
   }
+
+  .smallbutton {
+    @apply absolute bottom-3 right-4 cursor-pointer rounded-md bg-orange px-1 text-sm font-bold transition-all hover:bg-brown hover:text-white md:px-2 md:py-1;
+  }
 }
 @font-face {
   font-family: Cav;

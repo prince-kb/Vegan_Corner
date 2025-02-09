@@ -8,6 +8,7 @@ import tick1 from "../assets/svgs/tick1.svg";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { config } from "../lib/config";
+import Delivery from "./smallComponents/Delivery";
 
 const MyOrder = () => {
   const navigate = useNavigate();
@@ -116,8 +117,10 @@ const MyOrder = () => {
         Order #{order.orderId}
       </h1>
       <div className="w-[90vw] rounded-xl py-4">
+
         {/* Order details */}
-        <div className="mb-4 flex w-full flex-col items-center justify-center rounded-2xl border py-3 md:ml-3 md:justify-around">
+        <div className="relative mb-4 flex w-full flex-col items-center justify-center rounded-2xl border py-3 md:ml-3 md:justify-around">
+          <div className="smallbutton">INVOICE</div>
           <div className="mx-2 flex w-full gap-2 overflow-auto px-2">
             {catalogue.length &&
               order?.orderList?.map((item) => {
@@ -196,30 +199,8 @@ const MyOrder = () => {
 
         {/* Delivery */}
         <div className="relative">
-          <h2 className="sub-heading">Delivery to</h2>
-          <div className="paratext mx-4 mb-8 mt-0 flex flex-col gap-2 rounded-3xl border px-4 py-6">
-            <div className="md:flex md:gap-2">
-              <h3>{user?.name}, </h3>
-              <h3>{user?.mobile}</h3>
-            </div>
-            <div className="md:flex md:gap-4">
-              <h3>Address:</h3>
-              <h3>
-                {user?.address?.line1}, {user?.address?.line2},
-              </h3>
-            </div>
-            <div className="md:flex md:gap-2">
-              <h3>
-                {user?.address?.city}, {user?.address?.state}
-              </h3>
-              <h3>{user?.address?.pincode}</h3>
-            </div>
-            {status < 7 && (
-              <div className="absolute bottom-0 right-0 -translate-x-full -translate-y-full cursor-pointer rounded-md bg-orange px-1 text-sm font-bold transition-all hover:bg-brown hover:text-white md:px-2 md:py-1">
-                CHANGE
-              </div>
-            )}
-          </div>
+          <h2 className="sub-heading">{status<7 ? "Delivery to" : "Delivered to"}</h2>
+                  <Delivery user={user} />
         </div>
 
         {/* Order Status */}
