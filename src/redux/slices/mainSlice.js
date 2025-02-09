@@ -19,4 +19,3 @@ export const main = mainSlice.reducer;
 //   (state) => state.main.Catalogue,
 //   (catalogue) => catalogue
 // );
-

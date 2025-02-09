@@ -1,4 +1,5 @@
-[{
+[
+  {
     "id": "00000021",
     "type": "grocery",
     "name": "Vegan's Sausages",
@@ -6,19 +7,19 @@
     "stars": 4.6,
     "tag": ["grocery", "sausages", "vegan"],
     "details": {
-        "stock": 30,
-        "price": 459,
-        "price2": 549,
-        "weight": "250g",
-        "packaging": "Plastic Tray",
-        "ingredients": "Soy Protein, Pea Protein, Coconut Oil, Spices, Salt, Garlic, Natural Smoke Flavor",
-        "description": "Vegan's Sausages are the perfect plant-based alternative to traditional sausages. Ideal for grilling, sandwiches, or breakfast meals.",
-        "instructions": "Store in a refrigerator. Once opened, consume within 3 days. Do not freeze. Cook on medium heat for 5 minutes until browned.",
-        "life": "14 days"
+      "stock": 30,
+      "price": 459,
+      "price2": 549,
+      "weight": "250g",
+      "packaging": "Plastic Tray",
+      "ingredients": "Soy Protein, Pea Protein, Coconut Oil, Spices, Salt, Garlic, Natural Smoke Flavor",
+      "description": "Vegan's Sausages are the perfect plant-based alternative to traditional sausages. Ideal for grilling, sandwiches, or breakfast meals.",
+      "instructions": "Store in a refrigerator. Once opened, consume within 3 days. Do not freeze. Cook on medium heat for 5 minutes until browned.",
+      "life": "14 days"
     },
     "images": [
-        "https://example.com/vegansausage1.jpg",
-        "https://example.com/vegansausage2.jpg"
+      "https://example.com/vegansausage1.jpg",
+      "https://example.com/vegansausage2.jpg"
     ],
     "ratings": 8200,
     "reviews": 45,
@@ -28,8 +29,8 @@
     "offer": true,
     "others1": "",
     "others2": []
-},
-{
+  },
+  {
     "id": "00000022",
     "type": "grocery",
     "name": "Vegan's Minced Meat",
@@ -37,19 +38,19 @@
     "stars": 4.9,
     "tag": ["grocery", "mince", "vegan"],
     "details": {
-        "stock": 18,
-        "price": 599,
-        "price2": 679,
-        "weight": "400g",
-        "packaging": "Resealable Plastic Pouch",
-        "ingredients": "Textured Soy Protein, Pea Protein, Onion Powder, Black Pepper, Salt, Beetroot Extract",
-        "description": "Vegan's Minced Meat is a fantastic meat alternative, perfect for making burgers, tacos, and pasta dishes. Rich in protein and full of flavor!",
-        "instructions": "Keep refrigerated. Once opened, consume within 2 days. Do not freeze. Pan-fry for 5-8 minutes or use in your favorite recipes.",
-        "life": "10 days"
+      "stock": 18,
+      "price": 599,
+      "price2": 679,
+      "weight": "400g",
+      "packaging": "Resealable Plastic Pouch",
+      "ingredients": "Textured Soy Protein, Pea Protein, Onion Powder, Black Pepper, Salt, Beetroot Extract",
+      "description": "Vegan's Minced Meat is a fantastic meat alternative, perfect for making burgers, tacos, and pasta dishes. Rich in protein and full of flavor!",
+      "instructions": "Keep refrigerated. Once opened, consume within 2 days. Do not freeze. Pan-fry for 5-8 minutes or use in your favorite recipes.",
+      "life": "10 days"
     },
     "images": [
-        "https://example.com/veganmince1.jpg",
-        "https://example.com/veganmince2.jpg"
+      "https://example.com/veganmince1.jpg",
+      "https://example.com/veganmince2.jpg"
     ],
     "ratings": 9000,
     "reviews": 50,
@@ -59,4 +60,5 @@
     "offer": false,
     "others1": "",
     "others2": []
-}]
+  }
+]

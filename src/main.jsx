@@ -1,21 +1,21 @@
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
-import { RouterProvider, createHashRouter } from 'react-router-dom'
-import Dynamic from './components/Dynamic'
-import LandingPage from './components/LandingPage'
-import Product from './components/Product'
-import CheckOut from './components/CheckOut'
-import Cart from './components/Cart'
-import SignIn from './components/SignIn'
-import SignUp from './components/SignUp'
-import BuyNow from './components/BuyNow.jsx'
-import Wishlist from './components/Wishlist.jsx'
+import ReactDOM from "react-dom/client";
+import App from "./App.jsx";
+import "./index.css";
+import { RouterProvider, createHashRouter } from "react-router-dom";
+import Dynamic from "./components/Dynamic";
+import LandingPage from "./components/LandingPage";
+import Product from "./components/Product";
+import CheckOut from "./components/CheckOut";
+import Cart from "./components/Cart";
+import SignIn from "./components/SignIn";
+import SignUp from "./components/SignUp";
+import BuyNow from "./components/BuyNow.jsx";
+import Wishlist from "./components/Wishlist.jsx";
 
-import { store } from './redux/store/store.js'
-import { Provider } from 'react-redux'
-import Orders from './components/Orders.jsx'
-import MyOrder from './components/MyOrder.jsx'
+import { store } from "./redux/store/store.js";
+import { Provider } from "react-redux";
+import Orders from "./components/Orders.jsx";
+import MyOrder from "./components/MyOrder.jsx";
 
 const router = createHashRouter([
   {
@@ -24,58 +24,58 @@ const router = createHashRouter([
     children: [
       {
         path: "",
-        element: <LandingPage />
+        element: <LandingPage />,
       },
       {
         path: ":id",
-        element: <Dynamic />
+        element: <Dynamic />,
       },
       {
         path: "product/:id",
-        element: <Product />
+        element: <Product />,
       },
       {
         path: "checkout",
-        element: <CheckOut />
+        element: <CheckOut />,
       },
       {
         path: "cart",
-        element: <Cart />
+        element: <Cart />,
       },
       {
         path: "signin",
-        element: <SignIn />
+        element: <SignIn />,
       },
       {
         path: "signup",
-        element: <SignUp />
+        element: <SignUp />,
       },
       {
         path: "cart",
-        element: <Cart />
+        element: <Cart />,
       },
       {
         path: "wishlist",
-        element: <Wishlist />
+        element: <Wishlist />,
       },
       {
         path: "buynow",
-        element: <BuyNow />
+        element: <BuyNow />,
       },
       {
-        path : "orders",
-        element : <Orders/>
+        path: "orders",
+        element: <Orders />,
       },
       {
-        path : "order/:id",
-        element : <MyOrder/>
+        path: "order/:id",
+        element: <MyOrder />,
       },
-    ]
-  }
-])
+    ],
+  },
+]);
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
-      <RouterProvider router={router} />
-  </Provider>
-)
+    <RouterProvider router={router} />
+  </Provider>,
+);

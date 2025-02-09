@@ -1,97 +1,91 @@
 {
-    "created": "1496127267",
-    "updated": 1670847350,
-    "title": "All India Pincode Directory",
-    "desc": "All India Pincode Directory",
-    "source": "data.gov.in",
-    "org_type": "Central",
-    "org": [
-        "Ministry of Communications",
-        "Department of Posts"
-    ],
-    "sector": [
-        "Post",
-        "Information and Communications"
-    ],
-    "visualizable": "0",
-    "index_name": "6176ee09-3d56-4a3b-8115-21841576b2f6",
-    "catalog_uuid": "aed086e9-9ae6-42b8-a4c3-c481f8e9c436",
-    "status": "ok",
-    "field": [
-        {
-            "id": "officename",
-            "name": "officename",
-            "type": "keyword"
-        },
-        {
-            "id": "pincode",
-            "name": "pincode",
-            "type": "double"
-        },
-        {
-            "id": "officetype",
-            "name": "officetype",
-            "type": "keyword"
-        },
-        {
-            "id": "deliverystatus",
-            "name": "Deliverystatus",
-            "type": "keyword"
-        },
-        {
-            "id": "divisionname",
-            "name": "divisionname",
-            "type": "keyword"
-        },
-        {
-            "id": "regionname",
-            "name": "regionname",
-            "type": "keyword"
-        },
-        {
-            "id": "circlename",
-            "name": "circlename",
-            "type": "keyword"
-        },
-        {
-            "id": "taluk",
-            "name": "taluk",
-            "type": "keyword"
-        },
-        {
-            "id": "districtname",
-            "name": "districtname",
-            "type": "keyword"
-        },
-        {
-            "id": "statename",
-            "name": "statename",
-            "type": "keyword"
-        }
-    ],
-    "created_date": "2017-05-30T06:54:27Z",
-    "updated_date": "2022-12-12T17:45:50Z",
-    "active": "1",
-    "external_ws_url": "",
-    "external_ws": "0",
-    "message": "Resource lists",
-    "version": "2.2.0",
-    "total": 19,
-    "count": 1,
-    "limit": "1",
-    "offset": "0",
-    "records": [
-        {
-            "officename": "Baijla B.O",
-            "pincode": "811308",
-            "officetype": "B.O",
-            "deliverystatus": "Delivery",
-            "divisionname": "Monghyr",
-            "regionname": "BhagalPur",
-            "circlename": "Bihar",
-            "taluk": "Jhajha",
-            "districtname": "Jamui",
-            "statename": "BIHAR"
-        }
-    ]
+  "created": "1496127267",
+  "updated": 1670847350,
+  "title": "All India Pincode Directory",
+  "desc": "All India Pincode Directory",
+  "source": "data.gov.in",
+  "org_type": "Central",
+  "org": ["Ministry of Communications", "Department of Posts"],
+  "sector": ["Post", "Information and Communications"],
+  "visualizable": "0",
+  "index_name": "6176ee09-3d56-4a3b-8115-21841576b2f6",
+  "catalog_uuid": "aed086e9-9ae6-42b8-a4c3-c481f8e9c436",
+  "status": "ok",
+  "field": [
+    {
+      "id": "officename",
+      "name": "officename",
+      "type": "keyword"
+    },
+    {
+      "id": "pincode",
+      "name": "pincode",
+      "type": "double"
+    },
+    {
+      "id": "officetype",
+      "name": "officetype",
+      "type": "keyword"
+    },
+    {
+      "id": "deliverystatus",
+      "name": "Deliverystatus",
+      "type": "keyword"
+    },
+    {
+      "id": "divisionname",
+      "name": "divisionname",
+      "type": "keyword"
+    },
+    {
+      "id": "regionname",
+      "name": "regionname",
+      "type": "keyword"
+    },
+    {
+      "id": "circlename",
+      "name": "circlename",
+      "type": "keyword"
+    },
+    {
+      "id": "taluk",
+      "name": "taluk",
+      "type": "keyword"
+    },
+    {
+      "id": "districtname",
+      "name": "districtname",
+      "type": "keyword"
+    },
+    {
+      "id": "statename",
+      "name": "statename",
+      "type": "keyword"
+    }
+  ],
+  "created_date": "2017-05-30T06:54:27Z",
+  "updated_date": "2022-12-12T17:45:50Z",
+  "active": "1",
+  "external_ws_url": "",
+  "external_ws": "0",
+  "message": "Resource lists",
+  "version": "2.2.0",
+  "total": 19,
+  "count": 1,
+  "limit": "1",
+  "offset": "0",
+  "records": [
+    {
+      "officename": "Baijla B.O",
+      "pincode": "811308",
+      "officetype": "B.O",
+      "deliverystatus": "Delivery",
+      "divisionname": "Monghyr",
+      "regionname": "BhagalPur",
+      "circlename": "Bihar",
+      "taluk": "Jhajha",
+      "districtname": "Jamui",
+      "statename": "BIHAR"
+    }
+  ]
 }

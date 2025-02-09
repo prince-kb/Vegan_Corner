@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @layer utilities {
   .flex-center {
     @apply flex items-center justify-center;
@@ -10,27 +9,33 @@
   .neu1 {
     border-radius: 32px;
     background: #ffffff;
-    box-shadow: -30px 30px 83px #b5b5b5, 30px -30px 83px #ffffff;
+    box-shadow:
+      -30px 30px 83px #b5b5b5,
+      30px -30px 83px #ffffff;
   }
   .neu2 {
     border-radius: 32px;
     background: #ffffff;
-    box-shadow: -9px 9px 22px #c7c7c7, 9px -9px 22px #ffffff;
+    box-shadow:
+      -9px 9px 22px #c7c7c7,
+      9px -9px 22px #ffffff;
   }
   .neu3 {
     border-radius: 32px;
     background: #ffffff;
-    box-shadow: 17px 17px 35px #d9d9d9, -17px -17px 35px #ffffff;
+    box-shadow:
+      17px 17px 35px #d9d9d9,
+      -17px -17px 35px #ffffff;
   }
-  .sunshadow{
+  .sunshadow {
     box-shadow: 0px 0px 300px 200px #d8a129;
   }
   .sub-heading {
-    @apply text-xl md:text-2xl text-brown py-1 font-bold text-center
+    @apply py-1 text-center text-xl font-bold text-brown md:text-2xl;
   }
 
-  .paratext{
-    @apply md:text-xl font-semibold
+  .paratext {
+    @apply font-semibold md:text-xl;
   }
 }
 @font-face {

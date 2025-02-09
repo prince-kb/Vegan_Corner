@@ -8,13 +8,13 @@ import { buyNow } from "../slices/buyNowSlice";
 import { order } from "../slices/orderSlice";
 
 export const store = configureStore({
-    reducer: {
-        main : main,
-        catalogue : catalogue,
-        user : user,
-        notification : notification,
-        home : home,
-        buyNow : buyNow,
-        order : order
-    }
+  reducer: {
+    main: main,
+    catalogue: catalogue,
+    user: user,
+    notification: notification,
+    home: home,
+    buyNow: buyNow,
+    order: order,
+  },
 });

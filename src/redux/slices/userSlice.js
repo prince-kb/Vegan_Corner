@@ -5,7 +5,6 @@ const API = config.server;
 const SERVER_SECRET = config.serverSecret;
 const token = localStorage.getItem("authy");
 
-
 export const updateUser = createAsyncThunk("updateUser", async () => {
   if (!token) return null;
   const response = await fetch(`${API}/api/user/getuser`, {
@@ -17,7 +16,7 @@ export const updateUser = createAsyncThunk("updateUser", async () => {
     },
   });
   const data = await response.json();
-  if(data) return data;
+  if (data) return data;
   return null;
 });
 
@@ -25,7 +24,7 @@ const userSlice = createSlice({
   name: "user",
   initialState: {
     user: {
-      status : "PENDING"
+      status: "PENDING",
     },
   },
   reducers: {
@@ -34,15 +33,16 @@ const userSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(updateUser.pending),(state)=>{
-      state.user.status = "PENDING"
-    }
+    builder.addCase(updateUser.pending),
+      (state) => {
+        state.user.status = "PENDING";
+      };
     builder.addCase(updateUser.fulfilled, (state, action) => {
       state.user = action.payload;
     });
-    builder.addCase(updateUser.rejected,(state)=>{
-      state.user = null
-    })
+    builder.addCase(updateUser.rejected, (state) => {
+      state.user = null;
+    });
   },
 });
 export const { setUser } = userSlice.actions;
