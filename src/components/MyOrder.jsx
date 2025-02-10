@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Outlet } from "react-router-dom";
 import { setNotification } from "../redux/slices/notificationSlice";
 import { updateUser } from "../redux/slices/userSlice";
 import error from "../assets/svgs/error.svg";
@@ -120,7 +120,7 @@ const MyOrder = () => {
 
         {/* Order details */}
         <div className="relative mb-4 flex w-full flex-col items-center justify-center rounded-2xl border py-3 md:ml-3 md:justify-around">
-          <div className="smallbutton">INVOICE</div>
+          <div className="smallbutton" onClick={()=>navigate(`/order/${order.orderId}/invoice`)}>INVOICE</div>
           <div className="mx-2 flex w-full gap-2 overflow-auto px-2">
             {catalogue.length &&
               order?.orderList?.map((item) => {

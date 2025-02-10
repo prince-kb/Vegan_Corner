@@ -2,6 +2,8 @@ import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
 import { RouterProvider, createHashRouter } from "react-router-dom";
+import { store } from "./redux/store/store.js";
+import { Provider } from "react-redux";
 import Dynamic from "./components/Dynamic";
 import LandingPage from "./components/LandingPage";
 import Product from "./components/Product";
@@ -11,11 +13,9 @@ import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import BuyNow from "./components/BuyNow.jsx";
 import Wishlist from "./components/Wishlist.jsx";
-
-import { store } from "./redux/store/store.js";
-import { Provider } from "react-redux";
 import Orders from "./components/Orders.jsx";
 import MyOrder from "./components/MyOrder.jsx";
+import Invoice from "./components/Invoice.jsx";
 
 const router = createHashRouter([
   {
@@ -65,6 +65,10 @@ const router = createHashRouter([
       {
         path: "orders",
         element: <Orders />,
+      },
+      {
+        path: "order/:id/invoice",
+        element: <Invoice />,
       },
       {
         path: "order/:id",

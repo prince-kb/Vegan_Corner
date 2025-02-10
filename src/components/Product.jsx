@@ -5,6 +5,7 @@ import { updateUser } from "../redux/slices/userSlice";
 import { setNotification } from "../redux/slices/notificationSlice";
 import { updateBuyNow } from "../redux/slices/buyNowSlice";
 import { config } from "../lib/config";
+
 import Category from "./Category";
 
 import nostar from "../assets/svgs/nostar.svg";
@@ -36,13 +37,7 @@ const Product = () => {
   const [pinc, setPinc] = useState(pincode); // extra variable to handle onchange event of pincode input
   const [visible, setVisible] = useState(pincode !== "" ? 1 : 0); // Visibility of the delivery status
   const [loader, setLoader] = useState(false); // Loader for fetching data
-  const [address, setAddress] = useState({
-    pincode: "",
-    office: "",
-    city: "",
-    district: "",
-    state: "",
-  }); // Address of the pincode
+  const [address, setAddress] = useState({pincode: "",office: "",city: "",district: "",state: ""}); // Address of the pincode
   const [deliverable, setDeliverable] = useState(false); // Delivery status of the pincode to show if it is deliverable or not at the pincode
   const [n, setN] = useState(0); // Image index for the product images
   const [error, setError] = useState(false); // Error in fetching data
@@ -344,17 +339,7 @@ const Product = () => {
     );
   };
 
-  const {
-    name,
-    details,
-    images,
-    seller,
-    ratings,
-    reviews,
-    rrlink,
-    priority,
-    offer,
-  } = product;
+  const {name,details,images,seller,ratings,reviews,rrlink,priority,offer} = product;
 
   return mainLoader ? (
     <div className="flex min-h-screen items-center justify-center">
@@ -606,26 +591,21 @@ const Product = () => {
             </div>
 
             <div className="mt-2 md:mt-4">
-              <h2 className="text-xl font-bold md:text-2xl lg:text-3xl mb-4">
+              <h2 className="mb-4 text-xl font-bold md:text-2xl lg:text-3xl">
                 Product Features
               </h2>
-              <div className="flex-center gap-6">
-                
+              <div className="flex-center gap-2 md:gap-4">
                 <div className="flex-col rounded-2xl">
-                  <img
-                    src={iso}
-                    alt="tick"
-                    className="featureimg mx-auto"
-                  />
-                  <h2 className="md:paratext font-medium tracking-tight text-sm text-center">This seller and product is ISO certified.</h2>
+                  <img src={iso} alt="tick" className="featureimg mx-auto" />
+                  <h2 className="md:paratext text-center text-sm font-medium tracking-tight">
+                    ISO certifiid product.
+                  </h2>
                 </div>
                 <div className="flex-col rounded-2xl">
-                  <img
-                    src={vegan}
-                    alt="tick"
-                    className="featureimg mx-auto"
-                  />
-                  <h2 className="md:paratext font-medium tracking-tight text-sm text-center">This product is vegan certified.</h2>
+                  <img src={vegan} alt="tick" className="featureimg mx-auto" />
+                  <h2 className="md:paratext text-center text-sm font-medium tracking-tight">
+                    Vegan certified.
+                  </h2>
                 </div>
                 <div className="flex-col rounded-2xl">
                   <img
@@ -633,9 +613,10 @@ const Product = () => {
                     alt="tick"
                     className="featureimg mx-auto"
                   />
-                  <h2 className="md:paratext font-medium tracking-tight text-sm text-center">5 days return available on no damage.</h2>
+                  <h2 className="md:paratext text-center text-sm font-medium tracking-tight">
+                    5 days return available.
+                  </h2>
                 </div>
-
               </div>
             </div>
           </div>
