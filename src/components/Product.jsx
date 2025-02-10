@@ -20,6 +20,9 @@ import share from "../assets/svgs/share.svg";
 import transport from "../assets/svgs/transport.svg";
 import errorimg from "../assets/svgs/error.svg";
 import loaderSpinner from "../assets/svgs/loader.svg";
+import iso from "../assets/svgs/sellerfeature/iso.svg";
+import vegan from "../assets/svgs/sellerfeature/vegan.svg";
+import morereturn from "../assets/svgs/sellerfeature/morereturn.svg";
 
 const Product = () => {
   const dispatch = useDispatch();
@@ -591,6 +594,50 @@ const Product = () => {
                 </h4>
               </div>
             )}
+
+            <div className="mt-2 md:mt-4">
+              <h2 className="text-xl font-bold md:text-2xl lg:text-3xl">
+                Seller Details
+              </h2>
+              <h2 className="text-sm text-gray-800 md:text-lg">
+                This product is sold by{" "}
+                <span className="font-bold">{seller}</span>.
+              </h2>
+            </div>
+
+            <div className="mt-2 md:mt-4">
+              <h2 className="text-xl font-bold md:text-2xl lg:text-3xl mb-4">
+                Product Features
+              </h2>
+              <div className="flex-center gap-6">
+                
+                <div className="flex-col rounded-2xl">
+                  <img
+                    src={iso}
+                    alt="tick"
+                    className="featureimg mx-auto"
+                  />
+                  <h2 className="md:paratext font-medium tracking-tight text-sm text-center">This seller and product is ISO certified.</h2>
+                </div>
+                <div className="flex-col rounded-2xl">
+                  <img
+                    src={vegan}
+                    alt="tick"
+                    className="featureimg mx-auto"
+                  />
+                  <h2 className="md:paratext font-medium tracking-tight text-sm text-center">This product is vegan certified.</h2>
+                </div>
+                <div className="flex-col rounded-2xl">
+                  <img
+                    src={morereturn}
+                    alt="tick"
+                    className="featureimg mx-auto"
+                  />
+                  <h2 className="md:paratext font-medium tracking-tight text-sm text-center">5 days return available on no damage.</h2>
+                </div>
+
+              </div>
+            </div>
           </div>
         </div>
 

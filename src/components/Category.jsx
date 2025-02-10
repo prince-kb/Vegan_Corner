@@ -58,7 +58,6 @@ const Category = (props) => {
                                 <h2 className="font-medium mr-1">{item.quantity}</h2>
                                 <h2 className="text-base md:text-xl font-medium text-center mb-2">{item.rating}<span className="text-sm md:text-base">⭐<span /></span></h2>
                             </div>
-
                         </div>
                     </div>
                 ))}
