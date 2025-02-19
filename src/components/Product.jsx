@@ -594,7 +594,7 @@ const Product = () => {
               <h2 className="mb-4 text-xl font-bold md:text-2xl lg:text-3xl">
                 Product Features
               </h2>
-              <div className="flex-center gap-2 md:gap-4">
+              <div className="flex gap-2 md:gap-4 ">
                 <div className="flex-col rounded-2xl">
                   <img src={iso} alt="tick" className="featureimg mx-auto" />
                   <h2 className="md:paratext text-center text-sm font-medium tracking-tight">
@@ -623,7 +623,7 @@ const Product = () => {
         </div>
 
         {/* DELIVERY PART */}
-        <div className="m-8 w-[90vw] rounded-2xl border-2 p-4 md:w-[80vw]">
+        <div className="mx-auto m-8 w-[90vw] rounded-2xl border-2 p-4 md:w-[80vw]">
           <div className="mx-auto flex items-center">
             <h1 className="ml-6 text-xl font-bold md:text-2xl lg:text-3xl">
               Delivery
@@ -744,8 +744,9 @@ const Product = () => {
 
         {/* Similar products */}
         {product && (
-          <div className="ml-2 rounded-2xl">
+          <div className="ml-2 ">
             <Category type="type" product={product} />
+            <Category type="recent" product={product} />
           </div>
         )}
       </div>
