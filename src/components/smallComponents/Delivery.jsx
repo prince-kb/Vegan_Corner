@@ -2,7 +2,7 @@ import React from "react";
 
 const Delivery = ({ user }) => {
   return (
-    <div className="paratext mx-2 mb-8 mt-0 flex flex-col gap-2 rounded-3xl border px-4 py-6">
+    <div className="paratext mx-2 mb-8 mt-0 flex flex-col gap-2 rounded-3xl border px-4 pt-3 pb-8">
       <div className="md:flex md:gap-2">
         <h3>{user?.name}, </h3>
         <h3>{user?.mobile}</h3>

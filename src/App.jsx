@@ -1,14 +1,16 @@
 import Navbar from "./components/Navbar";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { updateCatalogue } from "./redux/slices/catalogueSlice";
 import { useEffect } from "react";
 import { noUser, updateUser } from "./redux/slices/userSlice";
 import Notification from "./components/Notification";
 import { config } from "./lib/config";
+import Footer from "./components/Footer";
 
 function App() {
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const autoLogin = async () => {
     const API = config.server;
@@ -63,11 +65,16 @@ function App() {
     return () => window.removeEventListener("storage", autoLogin);
   }, []);
 
+  useEffect(()=>{
+    window.scrollTo(0,0);
+  },[location.pathname])
+
   return (
     <div className="relative">
       <Navbar />
       <Notification />
       <Outlet />
+      <Footer/>
     </div>
   );
 }

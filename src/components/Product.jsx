@@ -468,7 +468,7 @@ const Product = () => {
         </div>
 
         {/* BUY NOW PART */}
-        <div className="m-2 mb-4 flex w-[95vw] justify-around gap-4 rounded-3xl px-2 py-2 font-semibold md:w-[80vw] md:px-6 lg:py-4">
+        <div className="m-2 mt-6 mb-4 mx-auto flex w-[95vw] justify-around gap-4 rounded-3xl px-2 py-2 font-semibold md:w-[80vw] md:px-6 lg:py-4">
           <Link
             to="/buynow"
             onClick={buynow}
@@ -746,7 +746,7 @@ const Product = () => {
         {product && (
           <div className="ml-2 ">
             <Category type="type" product={product} />
-            <Category type="recent" product={product} />
+            <Category type="recentProducts" product={product} />
           </div>
         )}
       </div>

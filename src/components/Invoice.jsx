@@ -18,7 +18,14 @@ const Invoice = () => {
       <img src={loaderSpinner} alt="Loading..." className="h-24 w-24" />
     </div>
   ) : (
-    <div></div>
+    <div className="my-10 flex-center flex-col">
+      <h1 className="headtext my-6">INVOICE</h1>
+        <div className="h-[141vw] w-[90vw] shadow-[4px_4px_20px_4px_#1a202c] flex-center">
+          <div className="h-[133vw] w-[82vw] border-2">
+            
+          </div>
+      </div>
+    </div>
   );
 };
 

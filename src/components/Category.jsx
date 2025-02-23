@@ -23,6 +23,20 @@ const Category = (props) => {
                 setAll(p.reverse());
             }
         }
+        else if (props.type === 'recentProducts') {
+            if (user && catalogue?.length > 0) {
+                let p = [];
+                if(!user || !user.frequentItems) return;
+                user?.frequentItems?.map((item) => {
+                    catalogue.reduce((x, y) => {
+                        if (x.id === item.id) p.push(x)
+                        return y
+                    })
+                })
+                p=p.reverse().slice(1,9);
+                setAll(p);
+            }
+        }
         else if (props.type === "type" && props.product) {
             let prods = new Set();
             for (let t in props.product.tag)
@@ -31,7 +45,7 @@ const Category = (props) => {
             setAll(Array.from(prods).slice(0, 9))
         }
         else setAll(catalogue?.length > 0 && catalogue.filter(item => item.type === props.type))
-    }, [props])
+    },[catalogue, user, props.type, props.product])
 
     return (
         all && all.length > 0 &&
@@ -42,11 +56,11 @@ const Category = (props) => {
                     <div onClick={() => {props.type === "type" && scrollTo(0, 0); navigate(`/product/${item.id}`)}} key={i} className="cursor-pointer relative mb-4 min-w-[160px] md:min-w-[200px] lg:min-w-[240px] hover:neu2 border rounded-2xl transition-all shadow-lg flex flex-col items-center justify-around">
                         {/* Priority Part */}
                         <div className="w-full flex justify-end absolute right-2 top-2">
-                            {item.offer ? <div className="flex items-center gap-1 bg-green-500 text-white z-[-1] px-2 py-1 animate-bounce rounded-full text-[10px] lg:text-sm"><img src={bolt1} alt="S" className="h-4 w-4" />SALE </div>
+                            {item.offer ? <div className="flex items-center gap-1 bg-green-500 text-white z-[-1] px-2 py-1 animate-bounce rounded-full text-[10px] font-semibold lg:text-sm"><img src={bolt1} alt="S" className="h-3 w-3 md:h-4 md:w-4" />SALE </div>
                                 : <div className={`${item.priority >= 3 ? 'bg-violet-500' : item.priority === 2 ? 'bg-orange' : item.priority === 1 ? 'bg-blue-500' : 'bg-red-500'} text-white p-1 md:p-2 rounded-full`}></div>
                             }
                         </div>
-                        <h2 className="lg:px-2 text-center font-semibold text-md md:text-xl lg:text-2xl mt-4 lg:mt-6 mb-2">{item.name}</h2>
+                        <h2 className="px-2 text-center font-semibold text-md md:text-xl lg:text-2xl mt-4 lg:mt-6 mb-2">{item.name}</h2>
                         <img src={item.image} alt={item.name} className="max-w-[100%] h-[120px] lg:h-[180px] mb-2 rounded-md" />
                         <hr />
                         <div className="flex mt-2 justify-around w-full">

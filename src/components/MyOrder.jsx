@@ -119,7 +119,7 @@ const MyOrder = () => {
       <div className="w-[90vw] rounded-xl py-4">
 
         {/* Order details */}
-        <div className="relative mb-4 flex w-full flex-col items-center justify-center rounded-2xl border py-3 md:ml-3 md:justify-around">
+        <div className="relative mb-4 flex w-full  flex-col items-center justify-center rounded-2xl border pt-3 pb-8 md:ml-3 md:justify-around">
           <div className="smallbutton" onClick={()=>navigate(`/order/${order.orderId}/invoice`)}>INVOICE</div>
           <div className="mx-2 flex w-full gap-2 overflow-auto px-2">
             {catalogue.length &&
@@ -198,7 +198,7 @@ const MyOrder = () => {
         </div>
 
         {/* Delivery */}
-        <div className="relative">
+        <div className="relative pt-2">
           <h2 className="sub-heading">{status<7 ? "Delivery to" : "Delivered to"}</h2>
                   <Delivery user={user} />
         </div>
