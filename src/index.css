@@ -58,6 +58,9 @@
   .featureimg {
     @apply w-12 h-12 md:w-16 md:h-16;
   }
+  .pageheight {
+    @apply min-h-[90vh];
+  }
 }
 @font-face {
   font-family: Cav;

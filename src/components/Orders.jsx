@@ -36,7 +36,7 @@ const Orders = () => {
   };
 
   return !user ? (
-    <div className="flex-center flex-col gap-4">
+    <div className="flex-center flex-col gap-4 pageheight">
       <h1 className="mb-2 ml-6 font-bubble text-2xl font-bold tracking-widest text-brown md:text-3xl lg:ml-8 lg:text-4xl">
         Not LOGGED IN!
       </h1>
@@ -51,7 +51,7 @@ const Orders = () => {
       </button>
     </div>
   ) : (
-    <div>
+    <div className="pageheight">
       <h1 className="mb-4 mt-6 text-center font-bubble text-2xl text-brown md:text-3xl lg:text-4xl">
         My Orders
       </h1>

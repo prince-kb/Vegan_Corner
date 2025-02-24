@@ -32,7 +32,7 @@ const LandingPage = () => {
       ease: "power2.out",
     });
     gsap.from("#categories", { y: "70vh", opacity: 0, duration: 1, delay: 1 });
-  });
+  },[]);
 
   useEffect(() => {
     // const mainData = async () => {
@@ -111,7 +111,7 @@ const LandingPage = () => {
   });
 
   return (
-    <div className="hover:love" ref={ref}>
+    <div className="pageheight mb-16" ref={ref}>
       <h2 className="intro mx-2 mt-4 text-center font-cav text-base font-bold tracking-tighter md:text-xl md:tracking-normal xl:text-2xl">
         Only Plant based Products.
       </h2>

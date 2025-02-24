@@ -9,6 +9,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { config } from "../lib/config";
 import Delivery from "./smallComponents/Delivery";
+import { showDate, showTime } from "../lib/datetime";
 
 const MyOrder = () => {
   const navigate = useNavigate();
@@ -46,16 +47,6 @@ const MyOrder = () => {
       else setStatus(7);
     }
   }, [order]);
-
-  const showDate = (da) => {
-    return new Date(new Date(da).getTime()).toString().slice(0, 16);
-  };
-
-  const showTime = (da) => {
-    const d = new Date(da);
-    const x = d.toLocaleString();
-    return x.slice(x.length - 11, x.length - 6) + " " + x.slice(x.length - 2);
-  };
 
   const deliveryDate = (date) => {
     return new Date(new Date(date).getTime() + 60 * 60 * 72 * 1000)
@@ -103,7 +94,7 @@ const MyOrder = () => {
   };
 
   return !order ? (
-    <div className="mt-10">
+    <div className="mt-10 pageheight">
       <h1 className="my-4 mb-8 ml-6 text-center font-bubble text-2xl font-bold tracking-widest text-brown md:text-3xl lg:ml-8 lg:text-4xl">
         Order not found!
       </h1>
@@ -112,7 +103,7 @@ const MyOrder = () => {
       </h2>
     </div>
   ) : (
-    <div className="flex-center mb-4 mt-10 flex-col">
+    <div className="flex-center mb-4 mt-10 flex-col pageheight">
       <h1 className="my-4 text-center text-xl font-semibold md:text-2xl">
         Order #{order.orderId}
       </h1>

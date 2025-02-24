@@ -24,11 +24,11 @@ const Cart = () => {
   }, [totalBalance]);
 
   return !catalogue || !user ? (
-    <div className="flex-center min-h-screen">
+    <div className="flex-center pagehieght">
       <img src={loaderSpinner} alt="Loading..." className="h-24 w-24" />
     </div>
   ) : (
-    <div>
+    <div className="min-h-screen">
       <h1 className="my-4 mt-8 text-center font-janime text-3xl font-extrabold tracking-widest md:text-4xl lg:text-5xl">
         MY CART
       </h1>
