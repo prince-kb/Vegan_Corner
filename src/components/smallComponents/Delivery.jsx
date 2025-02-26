@@ -19,7 +19,7 @@ const Delivery = ({ user,invoice }) => {
         </h3>
         <h3>{user?.address?.pincode}</h3>
       </div>
-      <div className="smallbutton">CHANGE</div>
+      <div className={`smallbutton ${invoice && 'hidden'}`}>CHANGE</div>
     </div>
   );
 };

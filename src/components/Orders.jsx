@@ -36,7 +36,7 @@ const Orders = () => {
   };
 
   return !user ? (
-    <div className="flex-center flex-col gap-4 pageheight">
+    <div className="flex-center pageheight flex-col gap-4">
       <h1 className="mb-2 ml-6 font-bubble text-2xl font-bold tracking-widest text-brown md:text-3xl lg:ml-8 lg:text-4xl">
         Not LOGGED IN!
       </h1>
@@ -61,7 +61,7 @@ const Orders = () => {
             <div
               onClick={() => navigate(`/order/${order.orderId}`)}
               key={order.orderId}
-              className="flex-center mx-8 mb-4 mt-10 cursor-pointer flex-col rounded-3xl border-2 border-orange pb-4 hover:border-brown hover:shadow-xl md:mx-12 md:mt-16 lg:mx-20 xl:mx-32"
+              className="relative flex-center mx-8 mb-4 mt-10 cursor-pointer flex-col rounded-3xl border-2 border-orange pb-4 hover:border-brown hover:shadow-xl md:mx-12 md:mt-16 lg:mx-20 xl:mx-32"
             >
               <div className="mb-6 flex w-full flex-col items-center justify-center md:ml-3 md:flex-row md:justify-around">
                 <div>
@@ -110,7 +110,7 @@ const Orders = () => {
                 </div>
               </div>
 
-              <div className="mx-2 flex w-full gap-2 overflow-auto px-6">
+              <div className="mx-2 flex w-full gap-2 overflow-auto px-6 ">
                 {order?.orderList.map((item) => {
                   const product = catalogue.find(
                     (product) => product.id === item.id,
@@ -139,6 +139,14 @@ const Orders = () => {
                     </div>
                   );
                 })}
+              </div>
+              <div className="s">
+                <button
+                  // onClick={() => navigate(`/${order}/${order.orderId}/invoice`)}
+                  className="mx-auto my-4 smallbutton"
+                >
+                  View Invoice
+                </button>
               </div>
             </div>
           );

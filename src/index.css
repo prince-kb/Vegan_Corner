@@ -61,6 +61,9 @@
   .pageheight {
     @apply min-h-[90vh];
   }
+  .downbutton {
+    @apply rounded-xl md:rounded-2xl bg-green-500 px-2 py-1 md:px-4 md:py-1 text-sm md:text-base font-semibold text-white hover:bg-green-600;
+  }
 }
 @font-face {
   font-family: Cav;
