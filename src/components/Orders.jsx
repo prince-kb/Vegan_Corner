@@ -83,7 +83,7 @@ const Orders = () => {
                     )}
                   </h2>
                   {/* {order.deliveryCharges >= 0 && <h2 className='text-xl font-medium'>Delivery Charges :<span className='text-green-600 font-bubble'>&#8377; {order.deliveryCharges} </span></h2>} */}
-                  <h2 className="paratext text-orange">
+                  <h2 className="paratext text-orange mt-2">
                     Ordered at:{" "}
                     <span className="text-brown">
                       {showDate(order.date)} at {showTime(order.date)}
@@ -101,7 +101,7 @@ const Orders = () => {
                           : order.method + " CARD"}
                     </span>
                   </h2>
-                  <h2 className="paratext text-orange">
+                  <h2 className="paratext text-orange mt-2">
                     Order Status :{" "}
                     <span className="text-brown">
                       {order.status.toUpperCase()}
@@ -122,7 +122,7 @@ const Orders = () => {
                       className="hover:neu2 relative mx-auto mb-3 flex w-[240px] min-w-[160px] cursor-pointer flex-col items-center justify-around rounded-2xl border-2 px-1 shadow-lg transition-all md:min-w-[200px] lg:min-w-[240px]"
                     >
                       <div className="rounded-xl py-2 md:py-4">
-                        <h2 className="my-2 mb-4 text-center text-lg font-semibold text-brown md:text-2xl">
+                        <h2 className="my-2 mb-4 text-center text-lg font-semibold text-brown mx-1">
                           {product?.name}
                         </h2>
                         <div className="flex-center flex-col md:flex-row">
@@ -140,14 +140,14 @@ const Orders = () => {
                   );
                 })}
               </div>
-              <div className="s">
+              {order.status==='delivered' && <div className="">
                 <button
                   // onClick={() => navigate(`/${order}/${order.orderId}/invoice`)}
                   className="mx-auto my-4 smallbutton"
                 >
                   View Invoice
                 </button>
-              </div>
+              </div>}
             </div>
           );
         })

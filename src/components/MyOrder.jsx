@@ -111,7 +111,7 @@ const MyOrder = () => {
 
         {/* Order details */}
         <div className="relative mb-4 flex w-full  flex-col items-center justify-center rounded-2xl border pt-3 pb-8 md:ml-3 md:justify-around">
-          <div className="smallbutton" onClick={()=>navigate(`/order/${order.orderId}/invoice`)}>INVOICE</div>
+          {status === 6 && <div className="smallbutton" onClick={()=>navigate(`/order/${order.orderId}/invoice`)}>INVOICE</div>}
           <div className="mx-2 flex w-full gap-2 overflow-auto px-2">
             {catalogue.length &&
               order?.orderList?.map((item) => {

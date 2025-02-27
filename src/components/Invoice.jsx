@@ -22,7 +22,7 @@ const Invoice = () => {
     <div className="flex-center min-h-screen w-full">
       <img src={loaderSpinner} alt="Loading..." className="h-24 w-24" />
     </div>
-  ) : (
+  ) :  (
     <div className="flex-center my-10 flex-col">
       <h1 className="headtext mt-6">INVOICE</h1>
       <h1 className="smalltext mb-6">Use desktop for downloading Invoice,if it is not properly visible in mobile devices</h1>
@@ -55,9 +55,8 @@ const Invoice = () => {
 
               {order?.orderList.map((item) => {
                 const product = catalogue.find((product) => product.id === item.id);
-                console.log(product);
                 return (
-                <tr className="border">
+                <tr className="border" key={product.id}>
                   <td className="px-2 py-1 border text-center">#{product.id}</td>
                   <td className="px-2 py-1 border text-center">{product.name}</td>
                   <td className="px-2 py-1 border text-center">{item.quantity}</td>
