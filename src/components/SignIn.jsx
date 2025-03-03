@@ -71,8 +71,15 @@ const SignIn = () => {
       dispatch(setUser(data));
       dispatch(updateUser());
       localStorage.setItem("authy", d.authToken);
+      dispatch(
+        setNotification({
+          message: `Welcome back ${data.name}`,
+          type: "success",
+          logo: "tick",
+        }),
+      );
       navigate("/");
-      window.location.reload();
+      // window.location.reload();
     } catch (err) {
       dispatch(
         setNotification({

@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { updateUser } from "../redux/slices/userSlice";
 import { config } from "../lib/config";
+import { setNotification } from "../redux/slices/notificationSlice";
 
 const SignUp = () => {
   const dispatch = useDispatch();
@@ -153,6 +154,13 @@ const SignUp = () => {
       localStorage.setItem("authy", data.authToken);
       dispatch(updateUser());
       navigate("/");
+      dispatch(
+        setNotification({
+          message: `Welcome to VeganCorner, ${firstName}`,
+          type: "success",
+          logo: "heart",
+        }),
+      );
       window.location.reload();
     }
   };
@@ -185,7 +193,7 @@ const SignUp = () => {
         />
       </div>
 
-      <div className="h-[80vh] w-[90vw] md:w-[40vw] md:h-[70vh] lg:h-[60vh]">
+      <div className="h-[80vh] w-[90vw] md:h-[70vh] md:w-[40vw] lg:h-[60vh]">
         <div className="flex h-full flex-col items-center justify-center">
           <h2 className="sub-heading mb-12 ml-4 text-center font-janime">
             WELCOME TO VEGAN CORNER!

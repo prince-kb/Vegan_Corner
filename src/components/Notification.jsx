@@ -40,23 +40,10 @@ const Notification = () => {
           return (
             <div
               key={index}
-              className={`noti${index} flex-center my-2 h-[50px] -translate-x-1/2 rounded-2xl px-2 py-1 shadow-md backdrop-blur-lg md:my-4 md:px-4 md:py-2 ${type === "error" ? "shadow-red-500" : type === "warning" ? "shadow-yellow-500" : type === "none" ? "shadow-blue-500" : "shadow-green-500"}`}
+              className={`noti${index} flex-center my-2 h-[50px] -translate-x-1/2 rounded-2xl px-2 py-1 shadow-[7px_7px_14px_0px] backdrop-blur-lg md:my-4 md:px-4 md:py-2 ${type === "error" ? "shadow-red-500" : type === "warning" ? "shadow-yellow-500" : type === "none" ? "shadow-blue-500" : "shadow-green-500"}`}
             >
               <div className={`flex-center h-12 rounded-full`}>
-                <img
-                  src={
-                    logo === "heart"
-                      ? heart
-                      : logo === "brokenheart"
-                        ? brokenheart
-                        : logo === "tick"
-                          ? tick
-                          : logo === "error"
-                            ? error
-                            : logo === "cart"
-                              ? cart
-                              : user
-                  }
+                <img src={ logo === "heart" ? heart : logo === "brokenheart" ? brokenheart : logo === "tick" ? tick : logo === "error" ? error : logo === "cart" ? cart : user }
                   alt="logo"
                   className="h-8 md:h-10 lg:h-12"
                 />
