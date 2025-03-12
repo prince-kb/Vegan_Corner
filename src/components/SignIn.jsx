@@ -13,8 +13,8 @@ const SignIn = () => {
     if (userAvailable?.name) navigate("/");
   }, [window.onload]);
 
-  const [email, setEmail] = useState("fakemail@email.com");
-  const [password, setPassword] = useState("fakepassword");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [valid, setValid] = useState(true);
 
   const dispatch = useDispatch();
@@ -67,7 +67,7 @@ const SignIn = () => {
         }, 5000);
         return;
       }
-
+      console.log("1")
       dispatch(setUser(data));
       dispatch(updateUser());
       localStorage.setItem("authy", d.authToken);
@@ -79,7 +79,7 @@ const SignIn = () => {
         }),
       );
       navigate("/");
-      // window.location.reload();
+      window.location.reload();
     } catch (err) {
       dispatch(
         setNotification({
@@ -90,6 +90,11 @@ const SignIn = () => {
       );
     }
   };
+
+  const fill = () => {
+    setPassword("fakepassword");
+    setEmail("fakemail@email.com");
+  }
 
   const emailFormatChecker = (email) => {
     if (email.length === 0) return true;
@@ -107,9 +112,9 @@ const SignIn = () => {
         />
       </div>
 
-      <div className="h-[80vh] w-[90vw] md:w-[40vw] md:h-[70vh] lg:h-[60vh]">
+      <div className="h-[80vh] w-[90vw] md:h-[70vh] md:w-[40vw] lg:h-[60vh]">
         <div className="flex h-full flex-col items-center justify-center">
-          <h2 className="mb-12 ml-4 sub-heading tracking-tight">
+          <h2 className="sub-heading mb-12 ml-4 tracking-tight">
             WELCOME BACK TO VEGAN CORNER!
           </h2>
           <h3 className="mb-8 ml-4 text-center font-janime text-2xl font-semibold tracking-widest text-brown md:text-3xl">
@@ -178,9 +183,18 @@ const SignIn = () => {
               </div>
               <div
                 onClick={submit}
-                className="hover:bg-lightBrown mx-2 mt-0 cursor-pointer rounded-2xl bg-brown px-4 py-2 font-bold text-white transition-all hover:scale-105"
+                className="mx-2 mt-0 cursor-pointer rounded-2xl bg-darkbrown px-4 py-2 font-bold text-white transition-all hover:scale-105 hover:bg-brown"
               >
                 SIGN IN &#8702;
+              </div>
+              <div
+                onClick={()=>{fill();}}
+                className="mx-2 mt-0 cursor-pointer rounded-2xl bg-darkbrown px-4 py-2 font-bold text-white transition-all hover:scale-105 hover:bg-brown"
+              >
+                QUICK SIGN IN &#8702;
+                <p className="mt-1 text-center text-xs font-thin tracking-tight">
+                  No password required
+                </p>
               </div>
             </div>
           </form>
