@@ -369,6 +369,7 @@ const Product = () => {
   ) : (
     !error && (
       <div className="mb-4 mt-6 flex min-h-screen flex-col">
+        {console.log(product)}
         {/* IMAGE PART */}
         <div className="min-w-3/4 neu1 relative mx-auto mb-4 flex w-fit flex-col items-center p-8 xl:flex">
           {/* Priority Part */}
@@ -545,25 +546,25 @@ const Product = () => {
             <h1 className="mt-2 text-xl font-bold md:mt-4 md:text-2xl lg:text-3xl">
               Product Details
             </h1>
-            <div className="md:flex">
-              <div className="mt-1 flex-col text-sm md:text-lg">
-                <h2 className="font-bold">
+            <div className="md:flex mt-1">
+              <div className="mt-1 flex-col text-gray-800 text-sm md:text-lg min-w-[35%]">
+                <h2 className="font-medium ">
                   Quantity :{" "}
-                  <span className="text-brown">{details.weight}</span>
+                  <span className="">{details.quantity}</span>
                 </h2>
-                <h2 className="font-bold">
+                <h2 className="font-medium">
+                  Life: <span className="">{details.life}</span>
+                </h2>
+                <h2 className="font-medium">
                   Packaging:{" "}
-                  <span className="text-brown">{details.packaging}</span>
-                </h2>
-                <h2 className="font-bold">
-                  Life: <span className="text-brown">{details.life}</span>
+                  <span className="">{details.packaging}</span>
                 </h2>
               </div>
               <div className="mx-0 md:ml-8 lg:ml-12">
                 <h2 className="mt-2 text-xl font-bold md:mt-0">
                   Ingredients:{" "}
                 </h2>
-                <p className="mr-4 text-sm text-gray-600 md:text-lg">
+                <p className="mr-4 text-sm text-gray-900 md:text-lg">
                   {details.ingredients}
                 </p>
               </div>
@@ -590,6 +591,7 @@ const Product = () => {
               </h2>
             </div>
 
+            {/* Product features */}
             <div className="mt-2 md:mt-4">
               <h2 className="mb-4 text-xl font-bold md:text-2xl lg:text-3xl">
                 Product Features
@@ -611,7 +613,7 @@ const Product = () => {
                   <img
                     src={morereturn}
                     alt="tick"
-                    className="featureimg mx-auto"
+                    className="featureimg mx-auto transform "
                   />
                   <h2 className="md:paratext text-center text-sm font-medium tracking-tight">
                     5 days return available.
@@ -749,6 +751,8 @@ const Product = () => {
             <Category type="recentProducts" product={product} />
           </div>
         )}
+
+        
       </div>
     )
   );

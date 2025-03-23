@@ -135,7 +135,7 @@ const Navbar = () => {
       <div
         id="tool1"
         onClick={goToHomePage}
-        className="relative z-[3] flex h-[64px] w-fit cursor-pointer items-center rounded-br-full bg-orange px-4 md:pr-6 lg:h-[92px] lg:pr-10"
+        className="relative z-[3] flex h-[50px] md:h-[64px] w-fit cursor-pointer items-center rounded-br-full bg-orange px-4 md:pr-6 lg:h-[80px] lg:pr-10"
       >
         <img src={logo} alt="Vegan" className="h-8 md:h-12 lg:h-16" />
         <h1 className="ml-2 font-janime text-xl font-bold tracking-wider md:text-2xl lg:ml-4 lg:text-3xl xl:text-4xl">
@@ -148,7 +148,7 @@ const Navbar = () => {
         className="group/xx relative z-[3] flex h-fit w-fit justify-center"
       >
         <div
-          className={`flex h-[64px] w-[64px] cursor-pointer items-center justify-center rounded-full bg-orange lg:h-[92px] lg:w-[92px]`}
+          className={`flex h-[50px] w-[50px] md:h-[64px] md:w-[64px] cursor-pointer items-center justify-center rounded-full bg-orange lg:h-[80px] lg:w-[80px]`}
           onMouseEnter={() => {
             if (!opened) setOpened(!opened);
           }}

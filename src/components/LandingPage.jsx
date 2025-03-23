@@ -169,6 +169,7 @@ const LandingPage = () => {
         ) : (
           <div>
             <Category type="milk" />
+            <Category type="dairy" />
             <Category type="snacks" />
             <Category type="quick foods" />
             <Category type="grocery" />
