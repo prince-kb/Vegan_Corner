@@ -80,8 +80,8 @@ const twoWaySort2 = (arr) => {
 
 export const sortLocal = (arr)=>{
   const i = new Date().getHours()%4;
-	if(i==0) return ascSort(arr);
-	else if(i==1) return descSort(arr);
-	else if(i==2) return twoWaySort1(arr);
+	if(i===0) return ascSort(arr);
+	else if(i===1) return descSort(arr);
+	else if(i===2) return twoWaySort1(arr);
 	else return twoWaySort2(arr);
 }
