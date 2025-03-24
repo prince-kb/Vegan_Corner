@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import bolt1 from '../assets/svgs/bolt1.svg';
-import { sortList } from "../utils/sortRandom";
+import { sortLocal } from "../utils/sortRandom";
 
 const Category = (props) => {
     const navigate = useNavigate();
@@ -43,9 +43,9 @@ const Category = (props) => {
             for (let t in props.product.tag)
                 for (let p in catalogue)
                     for (let z in catalogue[p].tag) if (catalogue[p].tag[z] === props.product.tag[t] && catalogue[p].id !== props.product.id) prods.add(catalogue[p])
-            setAll(sortList(Array.from(prods).slice(0, 9)))
+            setAll(sortLocal(Array.from(prods).slice(0, 9)))
         }
-        else setAll(catalogue?.length > 0 && sortList(catalogue.filter(item => item.type === props.type)))
+        else setAll(catalogue?.length > 0 && sortLocal(catalogue.filter(item => item.type === props.type)))
     },[catalogue, user, props.type, props.product])
 
     return (

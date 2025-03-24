@@ -1,5 +1,5 @@
 import React from 'react'
-import { showDate, showTime } from '../../lib/datetime'
+import { showDate, showTime } from '../../utils/datetime'
 
 const OrderDetails = ({order}) => {
     // console.log(order)

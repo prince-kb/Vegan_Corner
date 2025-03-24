@@ -9,7 +9,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { config } from "../lib/config";
 import Delivery from "./smallComponents/Delivery";
-import { showDate, showTime } from "../lib/datetime";
+import { showDate, showTime } from "../utils/datetime";
 
 const MyOrder = () => {
   const navigate = useNavigate();
