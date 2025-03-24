@@ -7,10 +7,13 @@
     "price2": 259,
     "seller": "Alt Co",
     "quantity": "1L",
-    "tag": ["milk", "premium"],
+    "tag": [
+      "milk",
+      "premium"
+    ],
     "stock": 20,
     "image": "https://vegandukan.com/cdn/shop/products/minitetrafrontwithoutstrawpng_e1815c24-ea58-41b7-9f00-3c4f70aa6711.png?v=1712060206&width=493",
-    "rating": 4.5,
+    "rating": 4.26,
     "priority": 1,
     "offer": true
   },
@@ -22,7 +25,10 @@
     "price2": 309,
     "seller": "Almond Breeze",
     "quantity": "1L",
-    "tag": ["milk", "premium"],
+    "tag": [
+      "milk",
+      "premium"
+    ],
     "stock": 20,
     "image": "https://vegandukan.com/cdn/shop/files/vdc_august_2023_amy-069.png?v=1712519550&width=493",
     "rating": 3.89,
@@ -37,10 +43,13 @@
     "price2": 259,
     "seller": "Almond Breeze",
     "quantity": "500mL",
-    "tag": ["milk", "premium"],
+    "tag": [
+      "milk",
+      "premium"
+    ],
     "stock": 20,
     "image": "https://vegandukan.com/cdn/shop/files/33.png?v=1714388165&width=493",
-    "rating": 4.5,
+    "rating": 4.13,
     "priority": 1,
     "offer": false
   },
@@ -52,10 +61,13 @@
     "price2": 249,
     "seller": "Super Vegan Sales",
     "quantity": "1L",
-    "tag": ["milk", "premium"],
+    "tag": [
+      "milk",
+      "premium"
+    ],
     "stock": 20,
     "image": "https://vegandukan.com/cdn/shop/products/71fixisxhis._sx679.jpg?v=1712060444&width=493",
-    "rating": 4.3,
+    "rating": 4.13,
     "priority": 2,
     "offer": false
   },
@@ -67,10 +79,12 @@
     "price2": 179,
     "seller": "Bhuja Corner",
     "quantity": "200g",
-    "tag": ["snack"],
+    "tag": [
+      "snack"
+    ],
     "stock": 20,
     "image": "https://i.postimg.cc/fRHKhvN2/Designer.jpg",
-    "rating": 4.3,
+    "rating": 4.13,
     "priority": 1,
     "offer": false
   },
@@ -82,10 +96,12 @@
     "price2": 199,
     "seller": "Diet Corner",
     "quantity": "200g",
-    "tag": ["snack"],
+    "tag": [
+      "snack"
+    ],
     "stock": 20,
     "image": "https://i.postimg.cc/mDYdLs2b/namkeen1-1.jpg",
-    "rating": 4.3,
+    "rating": 4.13,
     "priority": 2,
     "offer": false
   },
@@ -95,9 +111,11 @@
     "name": "Spicy Mix",
     "price": 109,
     "price2": 139,
-    "seller": "Vegan's Corner",
+    "seller": "Diet Corner",
     "quantity": "200g",
-    "tag": ["snack"],
+    "tag": [
+      "snack"
+    ],
     "stock": 20,
     "image": "https://i.postimg.cc/sX4cF4wx/namkeen2-1.jpg",
     "rating": 4.19,
@@ -110,12 +128,14 @@
     "name": "Premium Delight Mix",
     "price": 119,
     "price2": 149,
-    "seller": "Vegan's Corner",
+    "seller": "Diet Corner",
     "quantity": "200g",
-    "tag": ["snack"],
+    "tag": [
+      "snack"
+    ],
     "stock": 20,
     "image": "https://i.postimg.cc/NjKpyTfC/snackbox-1.png",
-    "rating": 4.3,
+    "rating": 4.13,
     "priority": 1,
     "offer": false
   },
@@ -125,9 +145,11 @@
     "name": "Namkeen Mix",
     "price": 119,
     "price2": 129,
-    "seller": "Vegan's Corner",
+    "seller": "Diet Corner",
     "quantity": "200g",
-    "tag": ["snack"],
+    "tag": [
+      "snack"
+    ],
     "stock": 10,
     "image": "https://i.postimg.cc/vZCX5B4Y/snackbox1-1.jpg",
     "rating": 4.11,
@@ -142,10 +164,13 @@
     "price2": 129,
     "seller": "Vegan's Corner",
     "quantity": "200g",
-    "tag": ["instantfoods", "burger"],
+    "tag": [
+      "instantfoods",
+      "burger"
+    ],
     "stock": 20,
     "image": "https://i.postimg.cc/zGDY4x7b/burger-1.jpg",
-    "rating": 4.3,
+    "rating": 4.13,
     "priority": 1,
     "offer": false
   },
@@ -157,10 +182,13 @@
     "price2": 129,
     "seller": "Vegan's Corner",
     "quantity": "200g",
-    "tag": ["instantfoods", "noodles"],
+    "tag": [
+      "instantfoods",
+      "noodles"
+    ],
     "stock": 20,
     "image": "https://i.postimg.cc/T33Btp2n/noodles-12.jpg",
-    "rating": 4.3,
+    "rating": 4.13,
     "priority": 0,
     "offer": false
   },
@@ -172,10 +200,13 @@
     "price2": 189,
     "seller": "Vegan's Corner",
     "quantity": "200g",
-    "tag": ["instantfoods", "noodles"],
+    "tag": [
+      "instantfoods",
+      "noodles"
+    ],
     "stock": 20,
     "image": "https://i.postimg.cc/DfqVZ9Y4/noodles-1.jpg",
-    "rating": 4.3,
+    "rating": 4.13,
     "priority": 1,
     "offer": false
   },
@@ -187,85 +218,107 @@
     "price2": 289,
     "seller": "Vegan's Corner",
     "quantity": "200g",
-    "tag": ["instantfoods", "noodles"],
+    "tag": [
+      "instantfoods",
+      "noodles"
+    ],
     "stock": 20,
     "image": "https://i.postimg.cc/3J7sDtPS/noodles-2.jpg",
-    "rating": 4.3,
+    "rating": 4.13,
     "priority": 2,
     "offer": false
   },
   {
     "id": "00000014",
-    "type": "milk",
+    "type": "dairy",
     "name": "Mayonnaise Pack",
     "price": 299,
     "price2": 389,
     "seller": "Vegan's Corner",
     "quantity": "200g",
-    "tag": ["milk", "premium", "mayonnaise", "mayo"],
+    "tag": [
+      "dairy",
+      "premium",
+      "mayonnaise",
+      "mayo"
+    ],
     "stock": 20,
     "image": "https://i.postimg.cc/Bvx5DCWp/mayo-1.jpg",
-    "rating": 4.3,
+    "rating": 4.13,
     "priority": 2,
     "offer": false
   },
   {
     "id": "00000015",
-    "type": "milk",
+    "type": "dairy",
     "name": "Mayonnaise Premium",
     "price": 299,
     "price2": 389,
     "seller": "Vegan's Corner",
     "quantity": "200g",
-    "tag": ["milk", "premium", "mayonnaise", "mayo"],
+    "tag": [
+      "dairy",
+      "premium",
+      "mayonnaise",
+      "mayo"
+    ],
     "stock": 20,
     "image": "https://i.postimg.cc/KjYt6S1p/mayo-2.jpg",
-    "rating": 4.3,
+    "rating": 4.13,
     "priority": 2,
     "offer": false
   },
   {
     "id": "00000016",
-    "type": "milk",
+    "type": "dairy",
     "name": "Butter Multipack",
     "price": 199,
     "price2": 229,
     "seller": "Vegan's Corner",
     "quantity": "100g",
-    "tag": ["milk", "butter"],
+    "tag": [
+      "dairy",
+      "butter"
+    ],
     "stock": 20,
     "image": "https://i.postimg.cc/x8KSV7BH/butter-10.jpg",
-    "rating": 4.3,
+    "rating": 4.13,
     "priority": 1,
-    "offer": false
+    "offer": true
   },
   {
     "id": "00000017",
-    "type": "milk",
+    "type": "dairy",
     "name": "Butter from Plants",
     "price": 99,
     "price2": 129,
     "seller": "Vegan's Corner",
     "quantity": "50g",
-    "tag": ["milk", "butter"],
+    "tag": [
+      "dairy",
+      "butter"
+    ],
     "stock": 20,
     "image": "https://i.postimg.cc/MptqGCHm/butter-5.jpg",
-    "rating": 4.3,
+    "rating": 4.13,
     "priority": 1,
     "offer": false
   },
   {
     "id": "00000018",
-    "type": "milk",
+    "type": "dairy",
     "name": "Butter Premium",
     "price": 229,
     "price2": 329,
     "seller": "Vegan's Corner",
     "quantity": "50g",
-    "tag": ["milk", "butter"],
+    "tag": [
+      "dairy",
+      "butter"
+    ],
     "stock": 20,
     "image": "https://i.postimg.cc/Hx8gBj26/butter-8.jpg",
-    "rating": 4.3,
+    "rating": 4.13,
     "priority": 2,
     "offer": false
   },
@@ -277,7 +330,10 @@
     "price2": 589,
     "seller": "Vegan's Corner",
     "quantity": "250g",
-    "tag": ["grocery", "meat"],
+    "tag": [
+      "grocery",
+      "meat"
+    ],
     "stock": 20,
     "image": "https://i.postimg.cc/rm78k5s6/vegmeat-3.jpg",
     "rating": 3.19,
@@ -292,10 +348,13 @@
     "price2": 40,
     "seller": "Lay's India",
     "quantity": "20g",
-    "tag": ["snacks", "chips"],
+    "tag": [
+      "snacks",
+      "chips"
+    ],
     "stock": 20,
     "image": "https://www.urbangroc.com/wp-content/uploads/2021/05/salted-chips-01.jpg",
-    "rating": 4.3,
+    "rating": 4.13,
     "priority": 1,
     "offer": false
   },
@@ -307,7 +366,10 @@
     "price2": 40,
     "seller": "Lay's India",
     "quantity": "20g",
-    "tag": ["snacks", "chips"],
+    "tag": [
+      "snacks",
+      "chips"
+    ],
     "stock": 20,
     "image": "https://m.media-amazon.com/images/I/71YgoSM0ioL._AC_UF1000,1000_QL80_.jpg",
     "rating": 4.08,
@@ -322,7 +384,10 @@
     "price2": 40,
     "seller": "Lay's India",
     "quantity": "20g",
-    "tag": ["snacks", "chips"],
+    "tag": [
+      "snacks",
+      "chips"
+    ],
     "stock": 25,
     "image": "https://m.media-amazon.com/images/I/710dKk4a0cL.jpg",
     "rating": 4.07,
@@ -337,11 +402,341 @@
     "price2": 549,
     "seller": "Vegan's Corner",
     "quantity": "250g",
-    "tag": ["grocery", "meat"],
+    "tag": [
+      "grocery",
+      "meat"
+    ],
     "stock": 25,
     "image": "https://i.postimg.cc/3xwS74mz/vegmeat-5.jpg",
     "rating": 4.07,
     "priority": 2,
     "offer": true
+  },
+  {
+    "id": "00000024",
+    "type": "grocery",
+    "name": "Vegan's Meat Deluxe",
+    "price": 499,
+    "price2": 599,
+    "seller": "Vegan's Corner",
+    "quantity": "300g",
+    "tag": [
+      "grocery",
+      "meat"
+    ],
+    "stock": 30,
+    "image": "https://i.postimg.cc/8PpwvxTR/vegmeat-12.jpg",
+    "rating": 4.19,
+    "priority": 2,
+    "offer": false
+  },
+  {
+    "id": "00000025",
+    "type": "grocery",
+    "name": "Vegan's Sausage Supreme",
+    "price": 399,
+    "price2": 499,
+    "seller": "Vegan's Corner",
+    "quantity": "200g",
+    "tag": [
+      "grocery",
+      "sausage",
+      "vegan"
+    ],
+    "stock": 40,
+    "image": "https://i.postimg.cc/8zsHKWJs/vegmeat-14.jpg",
+    "rating": 4.04,
+    "priority": 1,
+    "offer": false
+  },
+  {
+    "id": "00000026",
+    "type": "grocery",
+    "name": "Vegan's Tikka Chunks",
+    "price": 429,
+    "price2": 529,
+    "seller": "Vegan's Corner",
+    "quantity": "275g",
+    "tag": [
+      "grocery",
+      "vegan",
+      "chunks"
+    ],
+    "stock": 35,
+    "image": "https://i.postimg.cc/BQmpBNvd/vegmeat-13.jpg",
+    "rating": 4.26,
+    "priority": 2,
+    "offer": false
+  },
+  {
+    "id": "00000027",
+    "type": "quick foods",
+    "name": "Quick Tofu",
+    "price": 179,
+    "price2": 259,
+    "seller": "Vegan's Corner",
+    "quantity": "300g",
+    "tag": [
+      "grocery",
+      "vegan",
+      "tofu"
+    ],
+    "stock": 50,
+    "image": "https://i.postimg.cc/NF434Typ/quicktofu-10.jpg",
+    "rating": 4.14,
+    "priority": 0,
+    "offer": false
+  },
+  {
+    "id": "00000028",
+    "type": "quick foods",
+    "name": "Vegan's High-Protein Tofu",
+    "price": 199,
+    "price2": 279,
+    "seller": "Vegan's Corner",
+    "quantity": "350g",
+    "tag": [
+      "grocery",
+      "quick foods",
+      "tofu"
+    ],
+    "stock": 42,
+    "image": "https://i.postimg.cc/d3wMrn0h/quicktofu-9.jpg",
+    "rating": 4.29,
+    "priority": 2,
+    "offer": false
+  },
+  {
+    "id": "00000029",
+    "type": "quick foods",
+    "name": "Vegan's Silk Tofu",
+    "price": 259,
+    "price2": 339,
+    "seller": "Vegan's Corner",
+    "quantity": "280g",
+    "tag": [
+      "grocery",
+      "quick foods",
+      "tofu"
+    ],
+    "stock": 45,
+    "image": "https://i.postimg.cc/XJwSrtnM/quicktofu-8.jpg",
+    "rating": 4.29,
+    "priority": 1,
+    "offer": false
+  },
+  {
+    "id": "00000030",
+    "type": "milk",
+    "name": "Premium Almond Milk",
+    "price": 499,
+    "price2": 569,
+    "seller": "Vegan's Corner",
+    "quantity": "1L",
+    "tag": [
+      "milk"
+    ],
+    "stock": 60,
+    "image": "https://i.postimg.cc/y6Pt2mdT/almondmilk-1.jpg",
+    "rating": 4.34,
+    "priority": 2,
+    "offer": true
+  },
+  {
+    "id": "00000031",
+    "type": "milk",
+    "name": "Everyday Almond Milk",
+    "price": 199,
+    "price2": 249,
+    "seller": "Vegan's Corner",
+    "quantity": "1L",
+    "tag": [
+      "milk"
+    ],
+    "stock": 80,
+    "image": "https://i.postimg.cc/63VgWRht/almondmilk-2.jpg",
+    "rating": 4.01,
+    "priority": 0,
+    "offer": true
+  },
+  {
+    "id": "00000032",
+    "type": "milk",
+    "name": "Vegan's Family Almond Milk",
+    "price": 549,
+    "price2": 699,
+    "seller": "Vegan's Corner",
+    "quantity": "3L(3x1L Packs)",
+    "tag": [
+      "milk",
+      "value"
+    ],
+    "stock": 100,
+    "image": "https://i.postimg.cc/MHdLRS4L/almondmilk-3.jpg",
+    "rating": 4.25,
+    "priority": 1,
+    "offer": false
+  },
+  {
+    "id": "00000033",
+    "type": "dairy",
+    "name": "Vegan's Plant-Based Cheese",
+    "price": 299,
+    "price2": 479,
+    "seller": "Vegan's Corner",
+    "quantity": "200g",
+    "tag": [
+      "cheese",
+      "dairy"
+    ],
+    "stock": 50,
+    "image": "https://i.postimg.cc/cHdTczQG/vegancheese-1.jpg",
+    "rating": 4.33,
+    "priority": 2,
+    "offer": true
+  },
+  {
+    "id": "00000034",
+    "type": "dairy",
+    "name": "Vegan's Everyday Cheese",
+    "price": 249,
+    "price2": 299,
+    "seller": "Vegan's Corner",
+    "quantity": "180g",
+    "tag": [
+      "cheese",
+      "dairy"
+    ],
+    "stock": 75,
+    "image": "https://i.postimg.cc/5tdsXyy0/vegancheese-2.jpg",
+    "rating": 3.91,
+    "priority": 0,
+    "offer": true
+  },
+  {
+    "id": "00000035",
+    "type": "dairy",
+    "name": "Vegan's Classic Cheese",
+    "price": 269,
+    "price2": 319,
+    "seller": "Vegan's Corner",
+    "quantity": "200g",
+    "tag": [
+      "cheese",
+      "dairy"
+    ],
+    "stock": 80,
+    "image": "https://i.postimg.cc/SsVd1Gr2/vegancheese-3.jpg",
+    "rating": 3.99,
+    "priority": 1,
+    "offer": true
+  },
+  {
+    "id": "00000036",
+    "type": "dairy",
+    "name": "Vegan's Plant-Based Curd",
+    "price": 299,
+    "price2": 349,
+    "seller": "Vegan's Corner",
+    "quantity": "400g",
+    "tag": [
+      "curd",
+      "dairy"
+    ],
+    "stock": 100,
+    "image": "https://i.postimg.cc/ydr9SpjP/vegancurd-1.jpg",
+    "rating": 4.18,
+    "priority": 2,
+    "offer": false
+  },
+  {
+    "id": "00000037",
+    "type": "dairy",
+    "name": "Vegan's Everyday Curd",
+    "price": 149,
+    "price2": 199,
+    "seller": "Vegan's Corner",
+    "quantity": "350g",
+    "tag": [
+      "curd",
+      "dairy"
+    ],
+    "stock": 120,
+    "image": "https://i.postimg.cc/s2m53gZb/vegancurd-10.jpg",
+    "rating": 3.9,
+    "priority": 0,
+    "offer": false
+  },
+  {
+    "id": "00000038",
+    "type": "dairy",
+    "name": "Vegan's Premium Almond Curd",
+    "price": 299,
+    "price2": 349,
+    "seller": "Vegan's Corner",
+    "quantity": "450g",
+    "tag": [
+      "curd",
+      "dairy"
+    ],
+    "stock": 80,
+    "image": "https://i.postimg.cc/zf8nmg3n/vegancurd-9.jpg",
+    "rating": 4.44,
+    "priority": 2,
+    "offer": false
+  },
+  {
+    "id": "00000039",
+    "type": "grocery",
+    "name": "Plant-Based Egg Mix",
+    "price": 349,
+    "price2": 399,
+    "seller": "Vegan's Corner",
+    "quantity": "250g",
+    "tag": [
+      "grocery",
+      "egg"
+    ],
+    "stock": 90,
+    "image": "https://i.postimg.cc/MHmMqWHv/veganegg-1.jpg",
+    "rating": 4.27,
+    "priority": 0,
+    "offer": false
+  },
+  {
+    "id": "00000040",
+    "type": "grocery",
+    "name": "Vegan's Evo Egg Powder",
+    "price": 209,
+    "price2": 349,
+    "seller": "Vegan's Corner",
+    "quantity": "200g",
+    "tag": [
+      "grocery",
+      "egg"
+    ],
+    "stock": 150,
+    "image": "https://i.postimg.cc/dQrG5FsM/veganegg-7.jpg",
+    "rating": 3.9,
+    "priority": 1,
+    "offer": true
+  },
+  {
+    "id": "00000041",
+    "type": "grocery",
+    "name": "Vegan's Liquid Egg Substitute",
+    "price": 399,
+    "price2": 449,
+    "seller": "Vegan's Corner",
+    "quantity": "500ml",
+    "tag": [
+      "grocery",
+      "egg"
+    ],
+    "stock": 80,
+    "image": "https://i.postimg.cc/zXNKMQvy/veganegg-6.jpg",
+    "rating": 4.44,
+    "priority": 1,
+    "offer": false
   }
 ]

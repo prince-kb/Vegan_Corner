@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import Products from "../store/Products.json";
+import Catalogue from "../store/Catalogue.json";
 const mainSlice = createSlice({
   name: "main",
   initialState: {
-    Products,
+    Catalogue,
   },
   reducers: {
     updateMain: (state, action) => {
