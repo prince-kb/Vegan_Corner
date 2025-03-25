@@ -5,6 +5,8 @@ const sortList = (arr) => {
   return arr;
 };
 
+
+
 const ascSort = (arr) => {
   arr.sort(function (a, b) {
     return a.id - b.id;
@@ -25,7 +27,6 @@ const twoWaySort1 = (arr) => {
   let even = [];
 
   for (let i = 0; i < arr.length; i++) {
-    
     if (arr[i].id % 2 === 0) even.push(arr[i]);
     else odd.push(arr[i]);
   }
@@ -35,8 +36,8 @@ const twoWaySort1 = (arr) => {
   
   odd.sort((a, b) => b - a);
   odd.reverse();
+
   let index = 0;
-  
   for (let j = 0; j < odd.length; j++) {
     arr[index] = odd[j];
     index++;
@@ -57,11 +58,9 @@ const twoWaySort2 = (arr) => {
   for (let i = 0; i < arr.length; i++) { 
     if (arr[i].id % 2 === 0) even.push(arr[i]);
     else odd.push(arr[i]);
-    
   }
   
   even.sort((a, b) => b - a);
-  
   odd.sort((a, b) => a - b);
 
   let index = 0;
