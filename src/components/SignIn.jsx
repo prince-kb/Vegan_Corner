@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import loginbg from "../assets/images/LOGIN-BG.jpeg";
 import error from "../assets/svgs/error.svg";
+import loadersvg from "../assets/svgs/loader.svg";
 import { setUser, updateUser } from "../redux/slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -16,6 +17,8 @@ const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [valid, setValid] = useState(true);
+  const [hideQuickFill,setHideQuickFill] = useState(false);
+  const [loader, setLoader] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -29,9 +32,12 @@ const SignIn = () => {
       return;
     }
 
+    setLoader(true);
+
     const API = config.server;
     const SERVER_SECRET = config.serverSecret;
     try {
+
       const r = await fetch(`${API}/api/user/signin`, {
         method: "PUT",
         headers: {
@@ -39,7 +45,7 @@ const SignIn = () => {
           Accept: "application/json",
           secret: SERVER_SECRET,
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email : email, password : password }),
       });
       const d = await r.json();
       if (d.success === false) {
@@ -59,6 +65,7 @@ const SignIn = () => {
           authToken: d.authToken,
         },
       });
+
       const data = await response.json();
       if (data.success === false) {
         setValid(false);
@@ -67,7 +74,7 @@ const SignIn = () => {
         }, 5000);
         return;
       }
-      console.log("1")
+
       dispatch(setUser(data));
       dispatch(updateUser());
       localStorage.setItem("authy", d.authToken);
@@ -88,12 +95,15 @@ const SignIn = () => {
           logo: "error",
         }),
       );
+    } finally {
+      setLoader(false);
     }
   };
 
   const fill = () => {
     setPassword("fakepassword");
     setEmail("fakemail@email.com");
+    setHideQuickFill(true);
   }
 
   const emailFormatChecker = (email) => {
@@ -178,22 +188,22 @@ const SignIn = () => {
                     )
                   }
                 >
-                  Seller SIGNIN
+                  Seller? SIGNIN HERE
                 </h2>
               </div>
               <div
                 onClick={submit}
                 className="mx-2 mt-0 cursor-pointer rounded-2xl bg-darkbrown px-4 py-2 font-bold text-white transition-all hover:scale-105 hover:bg-brown"
               >
-                SIGN IN &#8702;
+                SIGN IN {!loader ? <p className="inline">&#8702;</p> : <img src={loadersvg} className="inline invert"/>}
               </div>
               <div
                 onClick={()=>{fill();}}
-                className="mx-2 mt-0 cursor-pointer rounded-2xl bg-darkbrown px-4 py-2 font-bold text-white transition-all hover:scale-105 hover:bg-brown"
+                className={`mx-2 mt-0 cursor-pointer rounded-2xl bg-darkbrown px-4 py-2 font-bold text-white transition-all hover:scale-105 hover:bg-brown ${hideQuickFill && 'hidden'}`}
               >
-                QUICK SIGN IN &#8702;
-                <p className="mt-1 text-center text-xs font-thin tracking-tight">
-                  No password required
+                QUICK FILL &#8702;
+                <p className="mt-0 text-center text-xs font-thin tracking-tight">
+                  Ready to use info
                 </p>
               </div>
             </div>

@@ -302,7 +302,7 @@ const SignUp = () => {
                     )
                   }
                 >
-                  SELLER SIGNUP
+                  SELLER? SIGNUP HERE
                 </h2>
                 <div
                   onClick={submit1}
