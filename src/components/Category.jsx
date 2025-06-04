@@ -52,9 +52,9 @@ const Category = (props) => {
         all && all.length > 0 &&
         <div className={`m-4 lg:m-8 mt-12`} >
             <h1 className="font-bold font-bubble text-xl md:text-2xl lg:text-3xl text-brown mb-2 ml-6 lg:ml-8">{props.type === 'recent' ? 'RECENTLY VIEWED' : props.type === "type" ? "SIMILAR PRODUCTS" : props.type.toUpperCase()}</h1>
-            <div className={`flex gap-4 overflow-auto pl-2 lg:pl-6`}>
+            <div className={`flex gap-4 md:gap-6 lg:gap-8 overflow-auto pl-2 lg:pl-6`}>
                 {all.map((item, i) => (
-                    <div onClick={() => {props.type === "type" && scrollTo(0, 0); navigate(`/product/${item.id}`)}} key={i} className="cursor-pointer relative mb-4 min-w-[160px] md:min-w-[200px] lg:min-w-[220px] hover:neu2 border rounded-2xl transition-all shadow-lg flex flex-col items-center justify-around">
+                    <div onClick={() => {props.type === "type" && scrollTo(0, 0); navigate(`/product/${item.id}`)}} key={i} className="cursor-pointer relative mb-4 min-w-[160px] md:min-w-[210px] lg:min-w-[230px] hover:neu2 border rounded-2xl transition-all shadow-lg flex flex-col items-center justify-around ">
                         {/* Priority Part */}
                         <div className="w-full flex justify-end absolute right-2 top-2">
                             {item.offer ? <div className="flex items-center gap-1 bg-green-500 text-white z-[-1] px-2 py-1 animate-bounce rounded-full text-[10px] font-semibold lg:text-sm"><img src={bolt1} alt="S" className="h-3 w-3 md:h-4 md:w-4" />SALE </div>
