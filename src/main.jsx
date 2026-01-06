@@ -16,6 +16,7 @@ import Wishlist from "./components/Wishlist.jsx";
 import Orders from "./components/Orders.jsx";
 import MyOrder from "./components/MyOrder.jsx";
 import Invoice from "./components/Invoice.jsx";
+import VideoBackground from "./components/VideoBackground.tsx";
 
 const router = createHashRouter([
   {
@@ -73,6 +74,10 @@ const router = createHashRouter([
       {
         path: "order/:id",
         element: <MyOrder />,
+      },
+      {
+        path: "video",
+        element: <VideoBackground />,
       },
     ],
   },

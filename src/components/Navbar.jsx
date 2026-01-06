@@ -6,6 +6,10 @@ import baked from "../assets/svgs/navbar/baked.svg";
 import love from "../assets/svgs/navbar/love.svg";
 import logoutsvg from "../assets/svgs/navbar/logout.svg";
 import usersvg from "../assets/svgs/navbar/user.svg";
+import cartsvg from "../assets/svgs/cart.svg";
+import ordersvg from "../assets/svgs/order.svg"; 
+import videosvg from "../assets/svgs/video.svg"; 
+import wishsvg from "../assets/svgs/wish.svg"; 
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -179,7 +183,7 @@ const Navbar = () => {
           <div className="flex min-h-[50vh] min-w-[60vw] flex-col items-center justify-between md:min-h-[30vh] md:min-w-[40vw] lg:min-w-[25vw]">
             <div className="ml-2 mt-4 flex w-full items-center justify-around gap-2 border-b-2 pb-2 md:gap-4">
               {user?.name && <div className="h-2 w-2 bg-transparent" />}
-              <div className="font font-bubble text-xl tracking-wider text-white md:text-2xl">
+              <div className="font font-peach text-3xl text-darkbrown tracking-wide md:text-4xl">
                 {user?.name ? user.name.split(" ")[0] : "WELCOME"}
               </div>
               {user?.name && (
@@ -192,24 +196,35 @@ const Navbar = () => {
               )}
             </div>
             <div
-              onClick={() => navigate("/orders")}
-              className="cursor-pointer rounded-2xl bg-brown px-4 py-2 text-2xl font-bold text-white transition-all hover:bg-darkbrown"
+              onClick={() => navigate("/video")}
+              className=" group cursor-pointer rounded-2xl flex gap-1 lg:gap-2 items-center bg-white px-4 py-2 text-2xl font-bold text-brown transition-all hover:bg-darkbrown hover:text-white"
             >
+              <img src={videosvg} alt="video" className="h-6 lg:h-8 group-hover:scale-110 group-hover:stroke-#ffffff" />
+              Surprise
+            </div>
+            <div
+              onClick={() => navigate("/orders")}
+              className="cursor-pointer rounded-2xl flex gap-1 lg:gap-2 items-center bg-brown px-4 py-2 text-2xl font-bold text-white transition-all hover:bg-darkbrown"
+            >
+              <img src={ordersvg} alt="order" className="h-6 lg:h-8" />
               My Orders
             </div>
 
             {user?.name ? (
-              <div className="mx-auto mb-4 flex w-fit items-center">
+              <div className="mx-auto mb-4 flex w-fit items-center ">
                 <div
-                  className="mx-1 cursor-pointer rounded-xl bg-darkbrown px-2 py-1 text-sm font-bold text-white transition-all hover:scale-105 hover:bg-brown md:px-4 md:py-2 md:text-base"
+                  className="mx-1 flex gap-1 lg:gap-2 items-center cursor-pointer rounded-xl bg-darkbrown px-2 py-1 text-sm font-bold text-white transition-all hover:scale-105 hover:bg-brown md:px-4 md:py-2 md:text-base"
                   onClick={() => navigate("cart")}
                 >
+              <img src={cartsvg} alt="cart" className="h-6 lg:h-8" />
                   CART ({user?.cart?.length ? user.cart.length : 0})
                 </div>
                 <div
-                  className="mx-1 cursor-pointer rounded-xl bg-darkbrown px-2 py-1 text-sm font-bold text-white transition-all hover:scale-105 hover:bg-brown md:px-4 md:py-2 md:text-base"
+                  className="mx-1 flex items-center gap-1 lg:gap-2 cursor-pointer rounded-xl bg-darkbrown px-2 py-1 text-sm font-bold text-white transition-all hover:scale-105 hover:bg-brown md:px-4 md:py-2 md:text-base"
                   onClick={() => navigate("wishlist")}
                 >
+              <img src={wishsvg} alt="wishlist" className="h-6 lg:h-8" />
+
                   WISHLIST ({user?.wishlist?.length ? user.wishlist.length : 0}){" "}
                 </div>
               </div>

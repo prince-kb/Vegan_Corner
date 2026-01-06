@@ -72,10 +72,9 @@ const LandingPage = () => {
         setBanners(data);
       } catch (err) {
         console.log(" Unable to fetch banners data, retrying...");
-        setTimeout(() => fetchBanners(), 5000);
+        setTimeout(() => fetchBanners(), 4000);
       }
     };
-
     // mainData();
     fetchBanners();
   }, [window.onload]);
@@ -125,7 +124,7 @@ const LandingPage = () => {
         onTouchStart={(e) => {
           setX1(e.changedTouches[0].clientX);
         }}
-        className={`bannerss relative z-[2] mx-auto mt-4 flex h-[42vw] w-[84vw] md:h-[30vw] md:w-[60vw] lg:w-[44vw] lg:h-[22vw] xl:h-[18vw] xl:w-[36vw] items-end justify-center rounded-3xl bg-green-200 lg:mt-8 lg:rounded-3xl`}
+        className={`bannerss relative z-[2] mx-auto mt-4 flex h-[42vw] w-[84vw] md:h-[30vw] md:w-[60vw] lg:w-[44vw] lg:h-[22vw] xl:h-[18vw] xl:w-[36vw] mb-32 items-end justify-center rounded-3xl bg-green-200 lg:mt-8 lg:rounded-3xl`}
       >
         {banners &&
           banners.length > 0 &&

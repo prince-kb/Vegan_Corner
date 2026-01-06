@@ -1,4 +1,3 @@
-import React from "react";
 import Category2 from "./Category2";
 
 const Wishlist = () => {

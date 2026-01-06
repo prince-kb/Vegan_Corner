@@ -13,6 +13,7 @@ import fullstar from "../assets/svgs/fullstar.svg";
 import halfstar from "../assets/svgs/halfstar.svg";
 import forward from "../assets/svgs/forward.svg";
 import cartadd from "../assets/svgs/cartadd.svg";
+import brokenheart from "../assets/svgs/brokenheart.svg";
 import love from "../assets/svgs/love.svg";
 import tick from "../assets/svgs/tick.svg";
 import bolt from "../assets/svgs/bolt.svg";
@@ -369,12 +370,10 @@ const Product = () => {
   ) : (
     !error && (
       <div className="mb-4 mt-6 flex min-h-screen flex-col">
-        {console.log(product)}
         {/* IMAGE PART */}
         <div className="min-w-3/4 neu1 relative mx-auto mb-4 flex w-fit flex-col items-center p-8 xl:flex">
           {/* Priority Part */}
-          {
-            <div className={`absolute right-2 md:right-4`}>
+          <div className={`absolute right-2 md:right-4`}>
               {offer && (
                 <div className="right-2 z-[1] flex animate-bounce items-center gap-1 rounded-full bg-green-500 px-2 py-1 text-[10px] text-sm font-bold text-white md:right-4 md:text-base lg:text-lg">
                   <img src={bolt1} alt="S" className="h-4 w-4" />
@@ -393,7 +392,7 @@ const Product = () => {
                       : "Budget Friendly"}
               </h1>
             </div>
-          }
+          
 
           <div className="mx-auto flex w-[80vw] flex-col items-center justify-around xl:w-[80vw]">
             <div className="w-[80vw] md:w-[70vw]">
@@ -432,7 +431,7 @@ const Product = () => {
                     onClick={addtowishlist}
                     className="lg:h-18 hover:scale-115 m-2 mb-4 ml-4 h-10 w-fit translate-y-2 cursor-pointer rounded-full transition-all hover:-translate-y-1 md:h-14"
                   >
-                    <img src={love} alt="" className="h-8 md:h-10 lg:h-12" />
+                    <img src={user?.wishlist?.find((item) => item === id) ? brokenheart : love} alt="" className="h-8 md:h-10 lg:h-12" />
                   </div>
                   <div
                     onClick={shareLink}
@@ -661,7 +660,7 @@ const Product = () => {
                     valid() && e.key == "Enter" && submitPincode();
                   }}
                 />
-                <div className="flex justify-center">
+                <div className="flex ml-12 lg:ml-0 lg:justify-center ">
                   <button
                     className={`ml-2 rounded-2xl px-4 py-1 text-lg font-bold transition-all hover:bg-violet-600 hover:shadow-md hover:shadow-purple-500 focus:outline-none focus:ring focus:ring-violet-300 active:bg-violet-700 lg:text-xl ${valid() ? "bg-blue-700 text-white" : "pointer-events-none bg-blue-200 text-black"}`}
                     onClick={submitPincode}
