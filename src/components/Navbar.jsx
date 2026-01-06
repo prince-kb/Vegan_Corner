@@ -197,16 +197,16 @@ const Navbar = () => {
             </div>
             <div
               onClick={() => navigate("/video")}
-              className=" group cursor-pointer rounded-2xl flex gap-1 lg:gap-2 items-center bg-white px-4 py-2 text-2xl font-bold text-brown transition-all hover:bg-darkbrown hover:text-white"
+              className=" cursor-pointer rounded-2xl flex gap-1 lg:gap-2 items-center bg-white px-4 py-2 text-2xl font-bold text-brown transition-all hover:bg-darkbrown hover:text-white"
             >
-              <img src={videosvg} alt="video" className="h-6 lg:h-8 group-hover:scale-110 group-hover:stroke-#ffffff" />
+              <img src={videosvg} alt="video" className="h-6 lg:h-8" />
               Surprise
             </div>
             <div
               onClick={() => navigate("/orders")}
-              className="cursor-pointer rounded-2xl flex gap-1 lg:gap-2 items-center bg-brown px-4 py-2 text-2xl font-bold text-white transition-all hover:bg-darkbrown"
+              className="group cursor-pointer rounded-2xl flex gap-1 lg:gap-2 items-center bg-brown px-4 py-2 text-2xl font-bold text-white transition-all hover:bg-darkbrown"
             >
-              <img src={ordersvg} alt="order" className="h-6 lg:h-8" />
+              <img src={ordersvg} alt="order" className="group-hover:scale-110 duration-100 h-8 lg:h-10" />
               My Orders
             </div>
 

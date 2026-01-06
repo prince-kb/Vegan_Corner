@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteNotification } from "../redux/slices/notificationSlice";
 import gsap from "gsap";

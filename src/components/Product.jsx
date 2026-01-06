@@ -5,6 +5,7 @@ import { updateUser } from "../redux/slices/userSlice";
 import { setNotification } from "../redux/slices/notificationSlice";
 import { updateBuyNow } from "../redux/slices/buyNowSlice";
 import { config } from "../lib/config";
+import confetti from "../utils/confetti";
 
 import Category from "./Category";
 
@@ -27,6 +28,7 @@ import vegan from "../assets/svgs/sellerfeature/vegan.svg";
 import morereturn from "../assets/svgs/sellerfeature/morereturn.svg";
 
 const Product = () => {
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const ref = useRef(null); // Ref for pincode input to set pincode after every input change
@@ -47,6 +49,7 @@ const Product = () => {
 
   useEffect(() => {
     if (user) {
+      console.log(user);
       const addtorecents = async () => {
         try {
           const API = config.server;
@@ -109,7 +112,7 @@ const Product = () => {
     if (pincode.length === 6) submitPincode();
   }, []);
 
-  const addtocart = async () => {
+  const addtocart = async (e) => {
     if (!user)
       return dispatch(
         setNotification({
@@ -132,7 +135,7 @@ const Product = () => {
         body: JSON.stringify({ id: id }),
       });
       const p = await response.json();
-      if (p.message === "Item added to cart")
+      if (p.message === "Item added to cart"){
         dispatch(
           setNotification({
             message: "Product added to Cart",
@@ -140,7 +143,9 @@ const Product = () => {
             logo: "cart",
           }),
         );
+        confetti(e,true);
       dispatch(updateUser());
+      }
     } catch (err) {
       dispatch(
         setNotification({
@@ -169,7 +174,7 @@ const Product = () => {
     }
   };
 
-  const addtowishlist = async () => {
+  const addtowishlist = async (e) => {
     if (!user)
       return dispatch(
         setNotification({
@@ -193,7 +198,8 @@ const Product = () => {
       });
       dispatch(updateUser());
       const p = await response.json();
-      if (p.message === "Item added to wishlist")
+      if (p.message === "Item added to wishlist"){
+        confetti(e, true);
         dispatch(
           setNotification({
             message: "Product added to Wishlist",
@@ -201,6 +207,7 @@ const Product = () => {
             logo: "heart",
           }),
         );
+      }
       else
         dispatch(
           setNotification({
@@ -221,8 +228,9 @@ const Product = () => {
     }
   };
 
-  const shareLink = () => {
+  const shareLink = (e) => {
     navigator.clipboard.writeText(window.location.href);
+    confetti(e);
     dispatch(
       setNotification({
         message: "Link Copied to Clipboard",
@@ -482,12 +490,15 @@ const Product = () => {
             />
           </Link>
           <div
-            onClick={addtocart}
-            className="flex-center group/2 min-w-[20vw] cursor-pointer rounded-2xl bg-yellow-500 px-4 py-2 shadow-sm shadow-yellow-300 transition-all hover:scale-105 lg:px-6 lg:py-4"
+            onClick={user?.cart?.find((item) => item.id === id) ? () => navigate("/cart") : addtocart}
+            className="flex-center gap-1 group/2 min-w-[20vw] cursor-pointer rounded-2xl bg-yellow-500 px-4 py-2 shadow-sm shadow-yellow-300 transition-all hover:scale-105 lg:px-6 lg:py-4"
           >
-            <h1 className="mr-2 text-xl md:text-2xl lg:text-3xl">
-              Add to Cart{" "}
-            </h1>
+            <div className="mr-2 flex flex-col items-center justify-center text-center">
+              {user?.cart?.find((item) => item.id === id) ? (<div className="mr-2 text-xl md:text-2xl lg:text-3xl">
+                <h1 className="text-xl md:text-2xl lg:text-3xl">Already in cart</h1>
+                <p className="text-sm md:text-base">Go to Cart</p>
+                </div>) : "Add to Cart"}
+            </div>
             <img
               src={cartadd}
               alt="BUY"

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import confetti from "../utils/confetti";
 
 import debitIcon from "../assets/icons/debit.svg";
 import upiIcon from "../assets/icons/upi.svg";
@@ -48,7 +49,7 @@ const CheckOut = () => {
     Date.now() + 1000 * 60 * 60 * 24 * 3,
   ).toDateString();
 
-  const placeOrder = async () => {
+  const placeOrder = async (e) => {
     const transactionIdd = Math.floor(Math.random() * 1000000000000000);
     dispatch(updateTransactionId(transactionIdd));
 
@@ -67,7 +68,6 @@ const CheckOut = () => {
       deliveryCharges,
       totalPrice,
     })
-    console.log(d1)
     const response = await fetch(`${API}/api/user/order`, {
       method: "PUT",
       headers: {
@@ -79,8 +79,8 @@ const CheckOut = () => {
       body: d1,
     });
     const data = await response.json();
-    console.log(data)
     if (data.success) {
+      confetti(e);
       dispatch(setNotification({ message: data.message, type: "", logo: "heart" }));
       dispatch(updateUser());
       navigate("/orders");
