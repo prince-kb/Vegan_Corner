@@ -40,7 +40,7 @@ const Product = () => {
   const [pinc, setPinc] = useState(pincode); // extra variable to handle onchange event of pincode input
   const [visible, setVisible] = useState(pincode !== "" ? 1 : 0); // Visibility of the delivery status
   const [loader, setLoader] = useState(false); // Loader for fetching data
-  const [address, setAddress] = useState({pincode: "",office: "",city: "",district: "",state: ""}); // Address of the pincode
+  const [address, setAddress] = useState({pincode: "",office: "",road:"",city: "",district: "",state: ""}); // Address of the pincode
   const [deliverable, setDeliverable] = useState(false); // Delivery status of the pincode to show if it is deliverable or not at the pincode
   const [n, setN] = useState(0); // Image index for the product images
   const [error, setError] = useState(false); // Error in fetching data
@@ -49,7 +49,6 @@ const Product = () => {
 
   useEffect(() => {
     if (user) {
-      console.log(user);
       const addtorecents = async () => {
         try {
           const API = config.server;
@@ -248,14 +247,16 @@ const Product = () => {
 
   // Submitting Pincode to check delivery
   const submitPincode = async () => {
-    const url = `https://api.data.gov.in/resource/6176ee09-3d56-4a3b-8115-21841576b2f6?api-key=${config.deliveryApi}&format=json&limit=1&filters%5Bpincode%5D=${pincode}`;
+    const url = `https://api.postalpincode.in/pincode/${pincode}`;
     try {
       setVisible(false);
       setLoader(true);
       const response = await fetch(url);
-      const result = await response.json();
+      const data = await response.json();
+      const result = data[0];
+      console.log(result)
 
-      if (result.total === 0) {
+      if (result.Status !== "Success" || !result.PostOffice || result.PostOffice.length === 0) {
         setTimeout(() => {
           setAddress({
             pincode: pincode,
@@ -269,13 +270,18 @@ const Product = () => {
           setVisible(true);
         }, 500);
       } else {
+        let index = result.PostOffice.findIndex((office) => office.BranchType === "Head Post Office") || -1;
+        if (index === -1) index = result.PostOffice.findIndex((office) => office.BranchType === "Sub Post Office") || -1;
+        else if (index === -1) index = result.PostOffice.findIndex((office) => office.BranchType === "Branch Post Office") || 0;
+
+        const po = index !== -1 ? result.PostOffice[index] : result.PostOffice[0];
         setAddress({
           ...address,
           pincode: pincode,
-          office: result.records[0].officename,
-          city: result.records[0].taluk,
-          district: result.records[0].districtname,
-          state: result.records[0].statename,
+          road : po.Name,
+          city: po.Block || po.Taluk,
+          district: po.District,
+          state: po.State,
         });
 
         setTimeout(() => {
@@ -731,7 +737,7 @@ const Product = () => {
                   </h2>
                 </div>
                 <h2 className="mt-2 text-center">
-                  Deliver to {address.city}, {address.district}, {address.state}{" "}
+                  Deliver to {address.road}, {address.district}, {address.state}{" "}
                   ✔️
                 </h2>
               </div>
