@@ -254,7 +254,6 @@ const Product = () => {
       const response = await fetch(url);
       const data = await response.json();
       const result = data[0];
-      console.log(result)
 
       if (result.Status !== "Success" || !result.PostOffice || result.PostOffice.length === 0) {
         setTimeout(() => {
@@ -488,7 +487,7 @@ const Product = () => {
             onClick={buynow}
             className="flex-center group/1 min-w-[20vw] rounded-2xl bg-green-500 px-4 py-2 text-gray-50 shadow-sm shadow-green-300 transition-all hover:scale-105 lg:px-6 lg:py-4"
           >
-            <h1 className="mr-2 text-xl md:text-2xl lg:text-3xl">Buy Now! </h1>
+            <h1 className="mr-2 text-lg md:text-xl lg:text-2xl">Buy Now! </h1>
             <img
               src={tick}
               alt="BUY"
@@ -718,10 +717,10 @@ const Product = () => {
           </div>
 
           <div
-            className={`${visible ? "" : "hidden"} ml-6 items-center shadow-md ${deliverable ? "shadow-blue-600" : "shadow-red-600"} rounded-2xl p-4`}
+            className={`${visible ? "" : "hidden"} lg:ml-6 items-center shadow-md ${deliverable ? "shadow-blue-600" : "shadow-red-600"} rounded-2xl p-4`}
           >
-            <div className={`${!deliverable && "hidden"}`}>
-              <div className="flex-col items-center pt-2">
+            <div className={`${!deliverable && "hidden"} mx-auto`}>
+              <div className="flex-col items-center pt-2 ">
                 <div className="flex-center ml-1 gap-2">
                   <img
                     src={bolt}

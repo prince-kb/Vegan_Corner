@@ -48,14 +48,16 @@ const Navbar = () => {
       ref1.current.classList.add("sunshadow");
     },
     onComplete: () => {
-      ref1.current.classList.remove("sunshadow");
+      setTimeout(() => {
+        ref1.current.classList.remove("sunshadow");
+      }, 1000);
       setTimeout(() => {
         document.getElementById("sun").style.overflow = "hidden";
         document.getElementById("sun").style.zIndex = "1";
         document
           .querySelectorAll(".stars")
           .forEach((star) => (star.style.display = "flex"));
-      }, 1000);
+      }, 1500);
     },
   });
 
@@ -248,6 +250,7 @@ const Navbar = () => {
         </div>
       </div>
 
+    {/* SUN */}
       <div
         id="sun"
         className="pointer-events-none fixed flex h-[92px] w-[100vw] justify-end md:h-[164px] lg:h-[256px]"
